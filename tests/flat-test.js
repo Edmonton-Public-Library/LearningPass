@@ -21,7 +21,7 @@ const flatFile = require('../lib/flat');
 
 // We do not need to import the test functions since
 // they are made global variables by test.js
-test('should return a JSON object', () => {
-    assert.deepStrictEqual(
-        helpers.parseJsonToObject('{"name" : "andrew"}'), {"name":"andrew"});
-});
+// test('should produce flat file content', () => {
+//     assert.strictEqual(
+//         flatFile.toFlat(customerJSON, customerFLAT));
+// });

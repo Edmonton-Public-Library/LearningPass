@@ -15,3 +15,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+  /**
+   * [{   
+   *  "firstName": "Andrew",
+   *  "lastName": "Nisbet", 
+   *  "dob": "19740822", 
+   *  "gender": "", 
+   *  "email": "example@gmail.com", 
+   *  "phone": "780-555-1212", 
+   *  "street": "11535 74 Ave.", 
+   *  "city": "Edmonton", 
+   *  "province": "AB", 
+   *  "country": "", 
+   *  "postalCode": "T6G0G9",
+   *  "barcode": "21221012345678",    	
+   *  "pin": "IlikeBread",    	
+   *  "type": "MAC-DSSTUD",    	
+   *  "expiry": "20210822",    	
+   *  "branch": "",    	
+   *  "status": "OK",    	
+   *  “notes": "" 
+   *}] 
+   */
+  
