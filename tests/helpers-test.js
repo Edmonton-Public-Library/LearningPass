@@ -69,29 +69,3 @@ test('78O 242-5555 should return ""', () => {
     let phone = '';
     assert.strictEqual(helpers.getPhone(str), phone);
 });
-
-// {"customer": {   
-//     "first_name": "Andrew",   
-//     "last_name": "Nisbet", 
-// "dob": "19740822", 
-//     "gender": "", 
-//     "contact": { 
-//     "email": "example@gmail.com", 
-//     "phone": "780-555-1212", 
-//     "street": "11535 74 Ave.", 
-//     "city": "Edmonton", 
-//     "province": "AB", 
-//     "country": "", 
-//     "postal_code": "T6G0G9" 
-// }, 
-// "meta": {    	
-// "barcode": "21221012345678",    	
-// "pin": "IlikeBread",    	
-// "type": "MAC-DSSTUD",    	
-// "expiry": "20210822",    	
-// "branch": "",    	
-// "status": "OK",    	
-// “notes": "" 
-// } 
-// }}
-
