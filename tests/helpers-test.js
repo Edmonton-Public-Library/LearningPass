@@ -145,11 +145,24 @@ test('capitalize(1) should return "1"', () => {
     assert.strictEqual(helpers.capitalize(str), result);
 });
 
-test('capitalize(USER-ID) should return "User-id"', () => {
+test('capitalize(USER-ID) should return "User-Id"', () => {
     let str = 'USER-ID';
-    let result = 'User-id';
+    let result = 'User-Id';
     assert.strictEqual(helpers.capitalize(str), result);
 });
+
+test('capitalize(capt. mike stink-belly) should return "Capt. Mike Stink-Belly"', () => {
+    let str = 'capt. mike stink-belly';
+    let result = 'Capt. Mike Stink-Belly';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+test('capitalize(capt.-mike-stink-belly) should return "Capt.-Mike-Stink-Belly"', () => {
+    let str = 'capt.-mike-stink-belly';
+    let result = 'Capt.-Mike-Stink-Belly';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
 
 
 // Test for street.
@@ -273,13 +286,59 @@ test('getBarcodeRelaxed(m5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6) should r
 
 
 // Test first name last name functions.
-// test('getFirstName(Hakeem Sancto) should return "Hakeem Sancto"', () => {
-//     let str = 'Hakeem Sancto';
-//     let result = 'Hakeem Sancto';
-//     assert.strictEqual(helpers.getName(str), result);
-// });
-// Coleen-Launce Coe
-// Grouer, Joline
+test('getFirstName(Hakeem Sancto) should return "Hakeem"', () => {
+    let str = 'Hakeem Sancto';
+    let result = 'Hakeem';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName(Hakeem) should return "Hakeem"', () => {
+    let str = 'Hakeem';
+    let result = 'Hakeem';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName() should return ""', () => {
+    let str = '';
+    let result = '';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName(nisbet, andrew) should return "Andrew"', () => {
+    let str = 'nisbet, andrew';
+    let result = 'Andrew';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName(nisbet,andrew) should return "Andrew"', () => {
+    let str = 'nisbet,andrew';
+    let result = 'Andrew';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName(nisbet,   andrew) should return "Andrew"', () => {
+    let str = 'nisbet,   andrew';
+    let result = 'Andrew';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName(Coleen-Launce Coe) should return "Coleen-Launce"', () => {
+    let str = 'Coleen-Launce Coe';
+    let result = 'Coleen-Launce';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName(Grouer, Joline) should return "Joline"', () => {
+    let str = 'Grouer, Joline';
+    let result = 'Joline';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
+
+test('getFirstName(Mufi-Zacharia, Kensley) should return "Kensley"', () => {
+    let str = 'Mufi-Zacharia, Kensley';
+    let result = 'Kensley';
+    assert.strictEqual(helpers.getFirstName(str), result);
+});
 // Mufi-Zacharia, Kensley
 
 
