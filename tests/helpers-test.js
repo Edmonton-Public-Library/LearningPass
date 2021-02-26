@@ -107,6 +107,51 @@ test("getPostalCode() should return ''", () => {
     assert.strictEqual(helpers.getPostalCode(str), '');
 });
 
+
+// Test capitalize function.
+test('capitalize(aBc) should return "Abc"', () => {
+    let str = 'aBc';
+    let result = 'Abc';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+test('capitalize(some string of words) should return "Some String Of Words"', () => {
+    let str = 'some string of words';
+    let result = 'Some String Of Words';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+test('capitalize(1277 Elgin Cres. Oakville Ontario) should return "1277 Elgin Cres. Oakville Ontario"', () => {
+    let str = '1277 ElGIn CreS. OakVILLe oNTaRio';
+    let result = '1277 Elgin Cres. Oakville Ontario';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+test('capitalize(a) should return "A"', () => {
+    let str = 'a';
+    let result = 'A';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+test('capitalize() should return ""', () => {
+    let str = '';
+    let result = '';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+test('capitalize(1) should return "1"', () => {
+    let str = '1';
+    let result = '1';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+test('capitalize(USER-ID) should return "User-id"', () => {
+    let str = 'USER-ID';
+    let result = 'User-id';
+    assert.strictEqual(helpers.capitalize(str), result);
+});
+
+
 // Test for street.
 test("getStreet() should return '11811 74 Ave.'", () => {
     let str = '11811 74 Ave.';
@@ -224,9 +269,17 @@ test('getBarcodeRelaxed(m5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6) should r
     assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
 });
 
-test('getBarcodeRelaxed(28_q8ZUjqgs_27d9a1823ac0d) should return "28_Q8ZUJQGS_27D9A1823AC0D"', () => {
-    let str = '28_q8ZUjqgs_27d9a1823ac0d';
-    let result = '28_Q8ZUJQGS_27D9A1823AC0D';
-    assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
-});
+
+
+
+// Test first name last name functions.
+// test('getFirstName(Hakeem Sancto) should return "Hakeem Sancto"', () => {
+//     let str = 'Hakeem Sancto';
+//     let result = 'Hakeem Sancto';
+//     assert.strictEqual(helpers.getName(str), result);
+// });
+// Coleen-Launce Coe
+// Grouer, Joline
+// Mufi-Zacharia, Kensley
+
 
