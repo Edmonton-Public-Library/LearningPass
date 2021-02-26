@@ -47,6 +47,11 @@ test('a@b@c should return ""', () => {
     assert.strictEqual(helpers.getEmail(possibleAddr), '');
 });
 
+test('-a@B.com should return "-a@B.com"', () => {
+    let possibleAddr = '-a@B.com';
+    assert.strictEqual(helpers.getEmail(possibleAddr), '-a@B.com');
+});
+
 // Tests for valid phone
 const phone = '780-242-5555';
 test('+1(780) 242-5555 should return '+phone, () => {
