@@ -26,6 +26,50 @@ test('should return a JSON object', () => {
         helpers.parseJsonToObject('{"name" : "andrew"}'), {"name":"andrew"});
 });
 
+// Test for valid email.
+test('andrew@example.com should return true', () => {
+    let possibleAddr = 'andrew@example.com';
+    assert.strictEqual(helpers.getEmail(possibleAddr), possibleAddr);
+});
+
+test('_@_._ should return true', () => {
+    let possibleAddr = '_@_._';
+    assert.strictEqual(helpers.getEmail(possibleAddr), '');
+});
+
+test('a@b should return true', () => {
+    let possibleAddr = 'a@b';
+    assert.strictEqual(helpers.getEmail(possibleAddr), '');
+});
+
+test('a@b@c should return true', () => {
+    let possibleAddr = 'a@b@c';
+    assert.strictEqual(helpers.getEmail(possibleAddr), '');
+});
+
+// Tests for valid phone
+const phone = '780-242-5555';
+test('+1(780) 242-5555 should return true', () => {
+    let str = '+1(780) 242-5555';
+    assert.strictEqual(helpers.getPhone(str), phone);
+});
+
+test('+1 780 242-5555 should return true', () => {
+    let str = '+1 780 242-5555';
+    assert.strictEqual(helpers.getPhone(str), phone);
+});
+
+test('780 242-5555 should return true', () => {
+    let str = '780 242-5555';
+    assert.strictEqual(helpers.getPhone(str), phone);
+});
+
+test('78O 242-5555 should return ""', () => {
+    let str = '78O 242-5555';
+    let phone = '';
+    assert.strictEqual(helpers.getPhone(str), phone);
+});
+
 // {"customer": {   
 //     "first_name": "Andrew",   
 //     "last_name": "Nisbet", 
