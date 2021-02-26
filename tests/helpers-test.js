@@ -339,6 +339,62 @@ test('getFirstName(Mufi-Zacharia, Kensley) should return "Kensley"', () => {
     let result = 'Kensley';
     assert.strictEqual(helpers.getFirstName(str), result);
 });
-// Mufi-Zacharia, Kensley
+
+
+
+// Testing for getLastName()
+test('getLastName(Hakeem Sancto) should return "Sancto"', () => {
+    let str = 'Hakeem Sancto';
+    let result = 'Sancto';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName(Hakeem) should return "Hakeem"', () => {
+    let str = 'Hakeem';
+    let result = 'Hakeem';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName() should return ""', () => {
+    let str = '';
+    let result = '';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName(nisbet, andrew) should return "Nisbet"', () => {
+    let str = 'nisbet, andrew';
+    let result = 'Nisbet';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName(nisbet,andrew) should return "Nisbet"', () => {
+    let str = 'nisbet,andrew';
+    let result = 'Nisbet';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName(nisbet,   andrew) should return "Nisbet"', () => {
+    let str = 'nisbet,   andrew';
+    let result = 'Nisbet';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName(Coleen-Launce Coe) should return "Coe"', () => {
+    let str = 'Coleen-Launce Coe';
+    let result = 'Coe';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName(Grouer, Joline) should return "Grouer"', () => {
+    let str = 'Grouer, Joline';
+    let result = 'Grouer';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
+
+test('getLastName(mufi-zacharia, kensley) should return "Mufi-Zacharia"', () => {
+    let str = 'mufi-zacharia, kensley';
+    let result = 'Mufi-Zacharia';
+    assert.strictEqual(helpers.getLastName(str), result);
+});
 
 
