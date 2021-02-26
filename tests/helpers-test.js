@@ -217,3 +217,16 @@ test('getBarcodeRelaxed(andrew@example.com) should return ""', () => {
     let result = '';
     assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
 });
+
+test('getBarcodeRelaxed(m5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6) should return ""', () => {
+    let str = 'm5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6';
+    let result = '';
+    assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
+});
+
+test('getBarcodeRelaxed(28_q8ZUjqgs_27d9a1823ac0d) should return "28_Q8ZUJQGS_27D9A1823AC0D"', () => {
+    let str = '28_q8ZUjqgs_27d9a1823ac0d';
+    let result = '28_Q8ZUJQGS_27D9A1823AC0D';
+    assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
+});
+
