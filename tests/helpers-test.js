@@ -156,3 +156,64 @@ test("getStreet() should return '123 456 Street.'", () => {
     assert.strictEqual(helpers.getStreet(str), street);
 });
 
+// Test getBarcode strict.
+test("getBarcode() should return '21221012345678'", () => {
+    let str = '21221012345678';
+    let barcode = '21221012345678';
+    assert.strictEqual(helpers.getBarcode(11,14,str), barcode);
+});
+
+test("getBarcode(11,14,212210123456789) should return ''", () => {
+    let str = '212210123456789';
+    let barcode = '';
+    assert.strictEqual(helpers.getBarcode(11,14,str), barcode);
+});
+
+test("getBarcode(7,14,123456) should return ''", () => {
+    let str = '123456';
+    let barcode = '';
+    assert.strictEqual(helpers.getBarcode(7,14,str), barcode);
+});
+
+test("getBarcode(14,10,01234567890123) should return '01234567890123'", () => {
+    let str = '01234567890123';
+    let barcode = '01234567890123';
+    assert.strictEqual(helpers.getBarcode(14,10,str), barcode);
+});
+
+test("getBarcode(11,10,01234567890123) should return ''", () => {
+    let str = '01234567890123';
+    let barcode = '';
+    assert.strictEqual(helpers.getBarcode(11,10,str), barcode);
+});
+
+test("getBarcode(5,10,12345) should return ''", () => {
+    let str = '12345';
+    let barcode = '';
+    assert.strictEqual(helpers.getBarcode(5,10,str), barcode);
+});
+
+// Test loose barcode matching.
+test('getBarcodeRelaxed("some_bar_code") should return "SOME_BAR_CODE"', () => {
+    let str = 'some_bar_code';
+    let result = "SOME_BAR_CODE";
+    assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
+});
+
+test('getBarcodeRelaxed("USER-ID") should return ""', () => {
+    let str = 'USER-ID';
+    let result = "";
+    assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
+});
+
+test('getBarcodeRelaxed("user+id") should return ""', () => {
+    let str = 'user+id';
+    let result = "";
+    assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
+});
+
+test('getBarcodeRelaxed(andrew@example.com) should return ""', () => {
+    let str = 'andrew@example.com';
+    let result = '';
+    assert.strictEqual(helpers.getBarcodeRelaxed(str), result);
+});
