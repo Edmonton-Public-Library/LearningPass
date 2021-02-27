@@ -398,3 +398,48 @@ test('getLastName(mufi-zacharia, kensley) should return "Mufi-Zacharia"', () => 
 });
 
 
+// Test password field.
+test('getPassword(6gd~aqui.j1fo~tl) should return "6gd~aqui.j1fo~tl"', () => {
+    let str = '6gd~aqui.j1fo~tl';
+    let result = '6gd~aqui.j1fo~tl';
+    assert.strictEqual(helpers.getPassword(str), result);
+});
+
+test('getPassword(&3mp!&^08d0@g7) should return "&3mp!&^08d0@g7"', () => {
+    let str = '&3mp!&^08d0@g7';
+    let result = '&3mp!&^08d0@g7';
+    assert.strictEqual(helpers.getPassword(str), result);
+});
+
+test('getPassword(123) should return ""', () => {
+    let str = '123';
+    let result = '';
+    assert.strictEqual(helpers.getPassword(str), result);
+});
+
+test('getPassword(    ) should return ""', () => {
+    let str = '    ';
+    let result = '';
+    assert.strictEqual(helpers.getPassword(str), result);
+});
+
+// Test getDate()
+test('getDate(2021-01-02) should return "20210102"', () => {
+    let result = '20210102';
+    let str = '2021-01-02';
+    assert.strictEqual(helpers.getDate(str), result);
+});
+
+// Test getDate()
+test('getDate(1821-01-02) should return ""', () => {
+    let result = '';
+    let str = '1821-01-02';
+    assert.strictEqual(helpers.getDate(str), result);
+});
+
+// Test getDate()
+test('isdate(22/08/1963) should return true', () => {
+    let result = true;
+    let str = '22-08-1963';
+    assert.strictEqual(helpers.isDate(str), result);
+});
