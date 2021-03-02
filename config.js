@@ -16,26 +16,57 @@
  * limitations under the License.
  */
 // Read the configuration from JSON in the ./config/config.json file.
+const fs = require('fs');
+const helpers = require('./lib/helpers');
 
-var environments = {};
+const environment = {};
 
 // Staging environment object.
-environments.staging = {
-    'httpPort' : 3000,
-    'httpsPort' : 3001,
-    'envName' : 'staging'
-};
+// environment.staging = {
+//     'httpPort' : 3000,
+//     'httpsPort' : 3001,
+//     'envName' : 'staging'
+// };
 
 // production environment object.
-environments.production = {
-    'httpPort' : 5000,
-    'httpsPort' : 5001,
-    'envName' : 'production'
+// environment.production = {
+//     'httpPort' : 5000,
+//     'httpsPort' : 5001,
+//     'envName' : 'production'
+// };
+
+/**
+ * 
+ * Read the config file and load the environment.
+ */
+environment.getVersion = function (err, callback) {
+    fs.readFile('./config/config.json', 'utf8', function (err, data) {
+        if (!err) {
+            // var environmentName = typeof(process.env.NODE_ENV) == 'string' ? process.env.NODE_ENV.toLowerCase() : "";
+            let config = helpers.parseJsonToObject(data);
+            if (config){
+                // environment._env.server = typeof(environmentName) == 'string' && environmentName.length > 0 ? config[environmentName] : config['staging'];
+                // This currently is not fatal but could be important later.
+                // console.log("I did get here BTW:",config);
+                version = typeof(config.version) == 'string' ? config.version : "0.1";
+                callback(version);
+            } else {
+                console.log('Error: config/config.json is not valid JSON. Check for errors in config/config.json');
+                callback('Error: server failed to load config.');
+            }
+        } else {
+            console.log('Error: reading config.json. Check it exists, and is not empty.',err);
+            callback('Error: server failed to load config.');
+        }
+    });
 };
 
-// determine which should be exported.
-var environmentName = typeof(process.env.NODE_ENV) == 'string' ? process.env.NODE_ENV.toLowerCase() : "";
 
-// Check that the user has selected an environment that is defined.
-var environmentToExport = typeof(environments[environmentName]) == 'object' ? environments[environmentName] : environments.staging;
-module.exports = environmentToExport;
+
+// // determine which should be exported.
+// var environmentName = typeof(process.env.NODE_ENV) == 'string' ? process.env.NODE_ENV.toLowerCase() : "";
+
+// // Check that the user has selected an environment that is defined.
+// var environmentToExport = typeof(environment[environmentName]) == 'object' ? environment[environmentName] : environment.staging;
+// module.exports = environmentToExport;
+module.exports = environment;

@@ -25,8 +25,8 @@ const config = require('./config');
 const fs = require('fs');
 // Location of the cache database
 // @TODO: create cache database of already registered customers.
-var _data = require('./lib/data');
-var handlers = require('./lib/handlers');
+const _data = require('./lib/data');
+const handlers = require('./lib/handlers');
 
 
 // TESTING
@@ -40,7 +40,7 @@ _data.read('test', 'config', function(err, data){
 });
 
 // The http server should respond to all requests with a string.
-var httpServer = http.createServer(function(req, res){
+const httpServer = http.createServer(function(req, res){
     unifiedServer(req, res);
 });
 
@@ -50,13 +50,13 @@ httpServer.listen(config.httpPort, function() {
 });
 
 // The https server.
-var httpsServerOptions = {
+const httpsServerOptions = {
     // since we want the file to be read before proceeding...
     'key' : fs.readFileSync('./https/key.pem'),
     'cert' : fs.readFileSync('./https/cert.pem')
 };
 
-var httpsServer = https.createServer(httpsServerOptions, function(req, res){
+const httpsServer = https.createServer(httpsServerOptions, function(req, res){
     unifiedServer(req, res);
 });
 
@@ -66,7 +66,7 @@ httpsServer.listen(config.httpsPort, function() {
 });
 
 // Handle creating both http and https servers.
-var unifiedServer = function(req, res) {
+const unifiedServer = function(req, res) {
 
     // Get url and parse it.
     const baseURL   = 'http://' + req.headers.host + '/';
@@ -74,23 +74,23 @@ var unifiedServer = function(req, res) {
     const parsedUrl = new URL(req.url, baseURL);
 
     // Get the path from the URL.
-    var path = parsedUrl.pathname;
-    var trimmedPath = path.replace(/^\/+|\/+$/g, '');
+    let path = parsedUrl.pathname;
+    let trimmedPath = path.replace(/^\/+|\/+$/g, '');
 
     // get the query string as an object.
     // Use search with new URL()
-    var queryStringObject = parsedUrl.searchParams;
+    let queryStringObject = parsedUrl.searchParams;
 
     // Make sure you are consistent using either uppperCase or lowerCase 'GET' or 'get'.
     // This is part of the HEADER not part of the request itself.
-    var method = req.method.toLowerCase();
+    let method = req.method.toLowerCase();
 
     // get the headers.
-    var headers = req.headers;
+    let headers = req.headers;
 
     // get the payload (if any)
-    var decoder = new StringDecoder('utf-8');
-    var buffer = '';
+    let decoder = new StringDecoder('utf-8');
+    let buffer = '';
     // on the event called 'data' we want this callback
     // to handle the event that was emitted.
     req.on('data', function(data){
@@ -100,9 +100,9 @@ var unifiedServer = function(req, res) {
     req.on('end', function(){
         buffer += decoder.end();
         // choose the handler to route to.
-        var chooseHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
+        let chooseHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
         // if one is not found use notFound handler.
-        var data = {
+        let data = {
             'trimmedPath' : trimmedPath,
             'queryStringObject' : queryStringObject,
             'method' : method,
@@ -131,7 +131,7 @@ var unifiedServer = function(req, res) {
 };
 
 // defininition of a request router.
-var router = {
+const router = {
     'sample' : handlers.sample,
     'ping' : handlers.ping
 };

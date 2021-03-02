@@ -18,6 +18,6 @@
 .PHONY: test demo run
 test:
 	# node test.js ./tests/calculator-test.js
-	node test.js ./tests/helpers-test.js
+	node test.js ./tests/helpers-test.js ./tests/config-test.js
 run:
 	node index
