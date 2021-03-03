@@ -60,3 +60,27 @@ test('should find branch => default (EPLMNA) in default customer settings.', () 
     assert.strictEqual(defaultBranch, 'EPLMNA');
 });
 
+// Test read the testMode.
+test('Tests the server testMode.', () => {
+    // Note: test may fail if the config.json does not include 'testMode' : true.
+    // console.log('888>',environment.getDefaultCustomerSettings());
+    if (environment.useTestMode()){
+        let env = environment.getPartnerConfig('12345678');
+        let defaultPartner = env.name;
+        // console.log('888>',env);
+        assert.strictEqual(defaultPartner, 'default');
+    } else {
+        console.log('Server is not in testMode.');
+    }
+});
+
+// Test read the loopbackMode.
+test('Tests the server loopbackMode.', () => {
+    // Note: test may fail if the config.json does not include 'testMode' : true.
+    // console.log('888>',environment.getDefaultCustomerSettings());
+    if (environment.useLoopbackMode()){
+        assert.strictEqual(environment.useLoopbackMode(), true);
+    } else {
+        console.log('Server is not in loopbackMode.');
+    }
+});

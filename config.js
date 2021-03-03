@@ -21,9 +21,10 @@ const { env } = require("process");
 
 // Read the configuration from JSON in the ./config/config.json file.
 const configFile = './config/config.json';
+
+// A well formed config.json file contains these objects.
 const names = {
     serverSettings : "serverConfig",
-    version : "version",
     customerSettings : "customerSettings",
     partners : "partners"
 };
@@ -64,7 +65,7 @@ const defaultCustomerSettings = {
     ],
     "defaults" : {
         "userGroupId" : "",
-        "userNameDspPref" : 0,
+        "userNameDspPref" : "0",
         "userPrefLang" : "ENGLISH",
         "userRoutingFlag" : "Y",
         "userChgHistRule" : "ALLCHARGES",
@@ -75,7 +76,7 @@ const defaultCustomerSettings = {
         "userCategory5" : "",
         "userAccess" : "PUBLIC",
         "userEnvironment" : "PUBLIC",
-        "userMailingaddr" : 1,
+        "userMailingaddr" : "1",
         "notifyVia" : "PHONE",
         "retrnmail" : "YES"
     }
@@ -83,7 +84,7 @@ const defaultCustomerSettings = {
 
 
 // Default partner settings for testing purposes.
-const defaultPartners = [{
+const testPartners = [{
     "name" : "default",
     "key" : "12345678",
     "config" : "./config/default.json"
@@ -102,8 +103,16 @@ const defaultPartners = [{
         console.log(`Error in ${configFile}.`);
     }
     if (config){
-        environment.version = typeof(config.version) !== 'null' ? config.version : "0.0";
+
+        // Read in version from JSON and if it does not exist report '0.0' which could be diagnostic.
+        environment.version = typeof(config.version) === 'string' || typeof(config.version) === 'number' ? config.version : "0.0";
+        // Test if the server should be in loopback mode for situations like outages.
+        environment.loopbackMode = typeof(config.loopbackMode) === 'boolean' ? config.loopbackMode : false;
+        // Test if the server should be in loopback mode for situations like outages.
+        environment.testMode = typeof(config.testMode) === 'boolean' ? config.testMode : false;
         
+
+        // Load the server settings.
         // Read in the server configuration object, and have a default standing by if there isn't one.
         let envName = typeof(process.env.NODE_ENV) == 'string' ? process.env.NODE_ENV.toLowerCase() : "";
         // console.log('888>',envName);
@@ -114,7 +123,8 @@ const defaultPartners = [{
             console.log(`Server starting as '${environment.serverConfig.envName}'.`);
         }
 
-        // Load the customer settings.
+
+        // Load the default customer settings.
         environment.customerSettings = typeof(config[names.customerSettings]) == 'object' ? config[names.customerSettings] : defaultCustomerSettings;
         let csName = environment.customerSettings.library;
         // A custom config may not have included 'library' or have assigned an object to it.
@@ -125,35 +135,46 @@ const defaultPartners = [{
             console.log(`Using customer settings for ${csName}`);
         }
 
-        // Find configs for partners.
-        environment.partners = typeof(config[names.partners]) == 'object' ? config[names.partners] : defaultPartners;
 
-        // Test if the default had to be used because partner array is missing.
-        let partnerName = environment.partners[0].name;
-        if (!partnerName || typeof(partnerName) != 'string' || partnerName === 'default'){
-            console.log(`Warning: using default ${names.partners} in ${configFile}. They may be missing or invalid json.`);
+        if (environment.testMode){
+            // Test if the default had to be used because partner array is missing.
+            environment.partners = testPartners;
+            console.log(`Warning: using default partner settings for testing.`);
             console.log(`See documentation for more information. Using TEST partner settings.`);
         } else {
-
-            // Create a dictionary with { key : {"./config/partner.json"}}
-            // Find the apiKey
-            // Find the partner's configuration.json.
-            environment.partners.forEach(partner => {
-                let partnerKey = partner.key;
-                if (!partnerKey) {
-                    console.log(`Error: cannot find partner api key for ${partner.name}! They will not be able to create new accounts.`);
-                }
-                try {
-                    let partnerConfig = require(partner.config);
-                    // Save the partner's config.json data as their api key, value pair.
-                    environment[partner.key] = partnerConfig;
-                    console.log(`${partner.name} configs loaded.`);
-                } catch (error) {
-                    console.log(`Error in ${configFile}. Cannot find ${partner.name} configuration file.`);
-                }
-            });
-            console.log(`Partner configs loaded.`,environment);
+            // Load the partner preferences. If the server is in loopback mode server should return message, but if in testMode load
+            // the defaultPartners defined above.
+            // Find configs for partners, and if there isn't any listed, suggest using loopback mode and throw exception.
+            environment.partners = typeof(config[names.partners]) == 'object' ? config[names.partners] : {};
         }
+
+
+        // Confirm that the partners object has content, but only if server is not in loopback mode.
+        if (Object.keys(environment.partners).length == 0 && environment.loopbackMode == false){
+            console.log(`Error: no partner organizations found in config.`);
+            console.log(`Consider putting the server into loopback with 'loopbackMode':true in ${configFile}`);
+            throw new Error(`Error, no partner organizations listed in ${configFile}`);
+        }
+
+
+        // Create a dictionary with { key : {"./config/partner.json"}}
+        // Find the apiKey
+        // Find the partner's configuration.json.
+        environment.partners.forEach(partner => {
+            let partnerKey = partner.key;
+            if (!partnerKey) {
+                console.log(`Error: cannot find partner api key for ${partner.name}! They will not be able to create new accounts.`);
+            }
+            try {
+                let partnerConfig = require(partner.config);
+                // Save the partner's config.json data as their api key, value pair.
+                environment[partner.key] = partnerConfig;
+                console.log(`${partner.name} configs loaded.`);
+            } catch (error) {
+                console.log(`Error in ${configFile}. Cannot find ${partner.name} configuration file.`);
+            }
+        });
+        console.log(`Partner configs loaded.`,environment);
     } else {
         console.log(`It may be missing or contain errors.`);
     }
@@ -164,12 +185,7 @@ const defaultPartners = [{
  * or '0.0' if one is not in the json config file.
  */
 environment.getVersion = function(){
-    if (typeof(environment.version) == 'string'){
-        return environment.version;
-    } else {
-        console.log(`Error config version not set.`);
-        return {};
-    }
+    return environment.version;
 };
 
 /**
@@ -194,7 +210,7 @@ environment.getPartnerConfig = function(str){
         console.log(`Error no api key was submitted.`);
         return {};
     } else {
-        if (typeof(str) == 'string' && str.trim().length() > 0){
+        if (typeof(str) === 'string' && str.trim().length > 0){
             let apiKey = str.trim();
             if (typeof(environment[apiKey]) == 'object'){
                 return  environment[apiKey];
@@ -222,5 +238,21 @@ environment.getDefaultCustomerSettings = function(){
         return {};
     }
 };
+
+/**
+ * Returns true if the 'loopbackMode' key-value pair exists in the config.json
+ * and is set to true, and false otherwise.
+ */
+environment.useLoopbackMode = function(){
+    return environment.loopbackMode;
+}
+
+/**
+ * Returns true if the 'testMode' key-value pair exists in the config.json
+ * and is set to true, and false otherwise.
+ */
+environment.useTestMode = function(){
+    return environment.testMode;
+}
 
 module.exports = environment;
