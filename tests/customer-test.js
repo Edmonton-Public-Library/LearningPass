@@ -40,7 +40,7 @@ const {customerErrors,customerHelper} = require('../lib/customer');
    *}] 
    */
 // Test 
-test('Should do something...', () => {
+test('Should run multiple tests on modifying customer data.', () => {
     // console.log('888>',environment.getVersion());
     let error = customerErrors;
     let helpr = customerHelper;
