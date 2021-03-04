@@ -68,7 +68,10 @@ test('Should do something...', () => {
         .then(c)
         // Any error from any step above will get caught here.
         .catch(console.error);
-    console.log("888>",error);
-    console.log("999>",c);
-    // assert.strictEqual("","");
+    // console.log("888>",error);
+    // console.log("999>",c);
+    assert.strictEqual(error.errors,1);
+    assert.strictEqual(error.warnings,2);
+    assert.strictEqual(error.status,200);
+    assert.strictEqual(c.pin,"iLOVEbread");
 });
