@@ -493,3 +493,27 @@ test('should return false for array.', () => {
 test('should return false for empty dictionary.', () => {
     assert.strictEqual(helpers.hasDictData({}), false);
 });
+
+test('should return true for an array with data.', () => {
+    assert.strictEqual(helpers.hasArrayData([1,"two"]), true);
+});
+test('should return false for empty array.', () => {
+    assert.strictEqual(helpers.hasArrayData([]), false);
+});
+
+// Test hasStringData.
+test('hasStringData() should return true for a non-zero length string.', () => {
+    assert.strictEqual(helpers.hasStringData("two"), true);
+});
+test('hasStringData() should return false for an array.', () => {
+    assert.strictEqual(helpers.hasStringData([1,"two"]), false);
+});
+test('hasStringData() should return false for empty string.', () => {
+    assert.strictEqual(helpers.hasStringData(''), false);
+});
+test('hasStringData() should return false for null.', () => {
+    assert.strictEqual(helpers.hasStringData(null), false);
+});
+test('hasStringData() should return false for undefined.', () => {
+    assert.strictEqual(helpers.hasStringData(undefined), false);
+});

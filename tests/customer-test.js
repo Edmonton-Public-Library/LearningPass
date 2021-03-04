@@ -43,9 +43,9 @@ const {customerErrors,customerHelper} = require('../lib/customer');
 test('Should run multiple tests on modifying customer data.', () => {
     // console.log('888>',environment.getVersion());
     let error = customerErrors;
-    let helpr = customerHelper;
-    let c = {   
-      "firstName": "Andrew",
+    let required = ["firstName","lastName","country"];
+    let customer = {   
+      "firstName": "andrew nicebit",
       "lastName": "Nisbet", 
       "dob": "19740822", 
       "gender": "", 
@@ -54,7 +54,7 @@ test('Should run multiple tests on modifying customer data.', () => {
       "street": "11535 74 Ave.", 
       "city": "Edmonton", 
       "province": "AB", 
-      "country": "", 
+      // "country": "", 
       "postalCode": "T6G0G9",
       "barcode": "21221012345678",
       "pin": "IlikeBread",
@@ -64,14 +64,66 @@ test('Should run multiple tests on modifying customer data.', () => {
       "status": "OK",
       "notes": ""
     };
-    helpr.validate(error,c)
-        .then(c)
+    customerHelper.validate(error,customer,required)
+        .then(customer)
         // Any error from any step above will get caught here.
         .catch(console.error);
     // console.log("888>",error);
-    // console.log("999>",c);
-    assert.strictEqual(error.errors,1);
-    assert.strictEqual(error.warnings,2);
-    assert.strictEqual(error.status,200);
-    assert.strictEqual(c.pin,"iLOVEbread");
+    // console.log("999>",customer);
+    // assert.strictEqual(error.messages.length,0);
+    // console.log('888>',error);
+    assert.strictEqual(customer.firstName,"Andrew");
+    assert.strictEqual(customer.lastName,"Nisbet");
+});
+
+// Test for 
+test('getGender() should return a mapped gender.', () => {
+  let partnerConfig = {
+    "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" 
+  }};
+  assert.strictEqual(
+    customerHelper.getGender("MALE", partnerConfig), "M");
+});
+
+test('getGender() should fail to find mapped gender.', () => {
+  let partnerConfig = {
+    "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" 
+  }};
+  assert.strictEqual(
+    customerHelper.getGender("queer", partnerConfig), "");
+});
+
+test('getGender() should return a case-agnostic mapped gender.', () => {
+  let partnerConfig = {
+    "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" 
+  }};
+  assert.strictEqual(
+    customerHelper.getGender("male", partnerConfig), "M");
+});
+
+test('_getDefault() should return "Edmonton".', () => {
+  let partnerConfig = {
+    "defaults": {"city":"Edmonton"} 
+  };
+  assert.strictEqual(
+    customerHelper._getDefault("city", partnerConfig), "Edmonton");
+});
+test('_getDefault() should return "".', () => {
+  let partnerConfig = {
+    "defaults": {} 
+  };
+  assert.strictEqual(
+    customerHelper._getDefault("city", partnerConfig), "");
+});
+
+test('_getDefault() should return "".', () => {
+  let partnerConfig = { 
+  };
+  assert.strictEqual(
+    customerHelper._getDefault("city", partnerConfig), "");
+});
+
+test('_getDefault() should return "".', () => {
+  assert.strictEqual(
+    customerHelper._getDefault("city", null), "");
 });
