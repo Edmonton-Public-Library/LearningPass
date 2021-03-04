@@ -24,13 +24,13 @@ const config = require('./config');
 // Read cert and key
 const fs = require('fs');
 // Location of the cache database
-// @TODO: create cache database of already registered customers.
+/** @TODO : create cache database of already registered customers. */
 const _data = require('./lib/data');
 const handlers = require('./lib/handlers');
 
 
 // TESTING
-// @TODO: delete when done.
+/** @TODO  delete when done. */
 // _data.create('test', 'newFile', {'foo' : 'bar'}, function(err) {
 //     console.log('file created, is_err? ',err);
 // });
