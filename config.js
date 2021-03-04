@@ -17,7 +17,7 @@
  */
 
 const { env } = require("process");
-
+const fs = require('fs');
 
 // Read the configuration from JSON in the ./config/config.json file.
 const configFile = './config/config.json';
@@ -36,10 +36,8 @@ const environment ={};
 // Staging environment object.
 const defaultServerSettings = {
     'httpPort' : 3000,
-    'httpsPort' : 3001
-    // Do not include an 'envName' because neg. test for it warns that 
-    // the default is being used, but not because the process.env.NODE_ENV
-    // was set that way.
+    'httpsPort' : 3001,
+    'envName' : 'staging'
 };
 
 
@@ -90,6 +88,36 @@ const testPartners = [{
     "config" : "./config/default.json"
 }];
 
+environment._fields = [
+    "firstName","lastName","dob","gender","email",
+    "phone","street","city","province","country","postalCode",
+    "barcode","pin","type","expiry","branch","status","notes"
+];
+
+/**
+ * Validates that the fields marked required match field 
+ * names in the Learning Pass specification.
+ * 
+ * @param {*} jsonFile - string name of the file with errors.
+ * @param {*} pFields - 'required' fields read from JSON.
+ * @returns true if at least all the partner's required fields 
+ * match spelling and case of fields of JSON data inbound 
+ * from partner. 
+ */
+environment.validateFields = function(jsonFile, pFields){
+    let errors = [];
+    if (!pFields || typeof(pFields) != 'object' || pFields.length == 0) { 
+        errors.push('validateFields expected an array with data as an argument.');
+        return errors;
+    } else {
+        pFields.forEach(pField => {
+            if (environment._fields.indexOf(pField) < 0){
+                errors.push(pField);
+            }
+        });
+        return errors;
+    }
+};
 
 /**
  * Load all the server configs from the configFile.
@@ -166,19 +194,28 @@ const testPartners = [{
                 console.log(`Error: cannot find partner api key for ${partner.name}! They will not be able to create new accounts.`);
             }
             try {
-                let partnerConfig = require(partner.config);
-                // Save the partner's config.json data as their api key, value pair.
-                environment[partner.key] = partnerConfig;
-                console.log(`${partner.name} configs loaded.`);
+                let partnerConfigs = require(partner.config);
+                // check the required fields definition.
+                let anyErrors = environment.validateFields(partner.config, partnerConfigs.required);
+                if (anyErrors.length > 0){
+                    console.log(`**Error in ${partner.config}. One or more fields are mis-spelled: "${anyErrors}".`);
+                } else {
+                    // Save the partner's config.json data as their api key, value pair.
+                    environment[partner.key] = partnerConfigs;
+                    console.log(` - ${partner.name} configs loaded successfully.`);
+                }
             } catch (error) {
-                console.log(`Error in ${configFile}. Cannot find ${partner.name} configuration file.`);
+                console.log(`Error in ${configFile}. Cannot find file ${partner.config}.`);
             }
         });
-        console.log(`Partner configs loaded.`,environment);
+        console.log(`Finished loading valid partner configurations.`);
+
+        // Test that the partners' required and optional fields contain valid names that match environment._fields.
     } else {
         console.log(`It may be missing or contain errors.`);
     }
 })();
+
 
 /**
  * Returns the version number of the json config file

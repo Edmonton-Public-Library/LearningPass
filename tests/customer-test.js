@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+const assert = require('assert');
+const {customerErrors,customerHelper} = require('../lib/customer');
   /**
    * [{   
    *  "firstName": "Andrew",
@@ -38,4 +39,36 @@
    *  “notes": "" 
    *}] 
    */
-  
+// Test 
+test('Should do something...', () => {
+    // console.log('888>',environment.getVersion());
+    let error = customerErrors;
+    let helpr = customerHelper;
+    let c = {   
+      "firstName": "Andrew",
+      "lastName": "Nisbet", 
+      "dob": "19740822", 
+      "gender": "", 
+      "email": "example@gmail.com", 
+      "phone": "780-555-1212", 
+      "street": "11535 74 Ave.", 
+      "city": "Edmonton", 
+      "province": "AB", 
+      "country": "", 
+      "postalCode": "T6G0G9",
+      "barcode": "21221012345678",
+      "pin": "IlikeBread",
+      "type": "MAC-DSSTUD",
+      "expiry": "20210822",
+      "branch": "",
+      "status": "OK",
+      "notes": ""
+    };
+    helpr.validate(error,c)
+        .then(c)
+        // Any error from any step above will get caught here.
+        .catch(console.error);
+    console.log("888>",error);
+    console.log("999>",c);
+    // assert.strictEqual("","");
+});

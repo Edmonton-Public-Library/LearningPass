@@ -41,17 +41,6 @@ test('should return default HTTPS port', () => {
     assert.strictEqual(port, 3001);
 });
 
-// The default is loaded which does not have a "envName" entry
-// so you can test if the server started with 'staging' 
-// on purpose or because the JSON config.json is malformed.
-test('should fail to find default envName', () => {
-    // console.log('888>',environment.getServerConfig());
-    let env = environment.getServerConfig();
-    let name = env.envName;
-    // should 
-    assert.strictEqual(typeof(name), 'undefined');
-});
-
 // Test that default settings are available from config.js.
 test('should find branch => default (EPLMNA) in default customer settings.', () => {
     // console.log('888>',environment.getServerConfig());
@@ -83,4 +72,9 @@ test('Tests the server loopbackMode.', () => {
     } else {
         console.log('Server is not in loopbackMode.');
     }
+});
+
+test('should find mis-spelled field name "fistName"', () => {
+    // assert.throws(function() { environment.validateFields("andrew",["fistName"]); }, Error);
+    assert.deepStrictEqual(environment.validateFields("andrew",["fistName"]), ["fistName"]);
 });
