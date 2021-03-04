@@ -104,10 +104,10 @@ environment._fields = [
  * match spelling and case of fields of JSON data inbound 
  * from partner. 
  */
-environment.validateFields = function(jsonFile, pFields){
+environment.validateFields = function(objName,pFields){
     let errors = [];
     if (!pFields || typeof(pFields) != 'object' || pFields.length == 0) { 
-        errors.push('validateFields expected an array with data as an argument.');
+        errors.push(`the "${objName}" object is empty.`);
         return errors;
     } else {
         pFields.forEach(pField => {
@@ -196,9 +196,9 @@ environment.validateFields = function(jsonFile, pFields){
             try {
                 let partnerConfigs = require(partner.config);
                 // check the required fields definition.
-                let anyErrors = environment.validateFields(partner.config, partnerConfigs.required);
+                let anyErrors = environment.validateFields('required', partnerConfigs.required);
                 if (anyErrors.length > 0){
-                    console.log(`**Error in ${partner.config}. One or more fields are mis-spelled: "${anyErrors}".`);
+                    console.log(`**Error: ${partner.config} has errors: "${anyErrors}".`);
                 } else {
                     // Save the partner's config.json data as their api key, value pair.
                     environment[partner.key] = partnerConfigs;

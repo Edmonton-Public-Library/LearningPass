@@ -479,3 +479,17 @@ test('getDate(1963082) should return ""', () => {
     let str = '1963082';
     assert.strictEqual(helpers.getDate(str), result);
 });
+
+// Test hasDictData()
+test('should return that dictionary has data.', () => {
+    assert.strictEqual(helpers.hasDictData({"name" : "andrew"}), true);
+});
+
+// What happens if we send an array.
+test('should return false for array.', () => {
+    assert.strictEqual(helpers.hasDictData([1]), false);
+});
+
+test('should return false for empty dictionary.', () => {
+    assert.strictEqual(helpers.hasDictData({}), false);
+});
