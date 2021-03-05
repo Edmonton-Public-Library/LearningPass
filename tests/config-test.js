@@ -54,10 +54,9 @@ test('Tests the server testMode.', () => {
     // Note: test may fail if the config.json does not include 'testMode' : true.
     // console.log('888>',environment.getDefaultCustomerSettings());
     if (environment.useTestMode()){
-        let env = environment.getPartnerConfig('12345678');
-        let defaultPartner = env.name;
+        let env = environment.getPartnerConfig('QJnc2JQLICWASpVj6eIR');
         // console.log('888>',env);
-        assert.strictEqual(defaultPartner, 'default');
+        assert.strictEqual(env.name, 'default');
     } else {
         console.log('Server is not in testMode.');
     }
@@ -66,15 +65,9 @@ test('Tests the server testMode.', () => {
 // Test read the loopbackMode.
 test('Tests the server loopbackMode.', () => {
     // Note: test may fail if the config.json does not include 'testMode' : true.
-    // console.log('888>',environment.getDefaultCustomerSettings());
+    // console.log('99999>',environment.getDefaultCustomerSettings());
     if (environment.useLoopbackMode()){
         assert.strictEqual(environment.useLoopbackMode(), true);
-    } else {
-        console.log('Server is not in loopbackMode.');
     }
-});
-
-test('should find mis-spelled field name "fistName"', () => {
-    // assert.throws(function() { environment.validateFields("andrew",["fistName"]); }, Error);
-    assert.deepStrictEqual(environment.validateFields("andrew",["fistName"]), ["fistName"]);
+    console.log('Server is not in loopbackMode.');
 });
