@@ -62,21 +62,22 @@ const defaultCustomerSettings = {
         "barcode","pin","type","expiry","branch","status","notes"
     ],
     "defaults" : {
-        "userGroupId" : "",
-        "userNameDspPref" : "0",
-        "userPrefLang" : "ENGLISH",
-        "userRoutingFlag" : "Y",
-        "userChgHistRule" : "ALLCHARGES",
-        "userCategory1" : "",
-        "userCategory2" : "NA",
-        "userCategory3" : "",
-        "userCategory4" : "",
-        "userCategory5" : "",
-        "userAccess" : "PUBLIC",
-        "userEnvironment" : "PUBLIC",
-        "userMailingaddr" : "1",
-        "notifyVia" : "PHONE",
-        "retrnmail" : "YES"
+        "city" : "Edmonton",
+        "province" : "AB",
+        "country" : "Canada"
+    },
+    "symphonyDefaults" : {
+        "USER_NAME_DSP_PREF" : 0,
+        "USER_PREF_LANG" : "ENGLISH",
+        "USER_ROUTING_FLAG" : "Y",
+        "USER_CHG_HIST_RULE" : "ALLCHARGES",
+        "USER_CATEGORY2" : "NA",
+        "USER_CATEGORY3" : "ECONSENT",
+        "USER_ACCESS" : "PUBLIC",
+        "USER_ENVIRONMENT" : "PUBLIC",
+        "USER_MAILINGADDR" : 1,
+        "NOTIFY_VIA" : "PHONE",
+        "RETRNMAIL" : "YES"
     }
 };
 

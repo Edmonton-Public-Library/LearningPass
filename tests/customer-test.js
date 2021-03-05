@@ -101,6 +101,7 @@ test('getGender() should return a case-agnostic mapped gender.', () => {
     customerHelper.getGender("male", partnerConfig), "M");
 });
 
+// Test 'private' helper that will get a default if there is one.
 test('_getDefault() should return "Edmonton".', () => {
   let partnerConfig = {
     "defaults": {"city":"Edmonton"} 
@@ -126,4 +127,12 @@ test('_getDefault() should return "".', () => {
 test('_getDefault() should return "".', () => {
   assert.strictEqual(
     customerHelper._getDefault("city", null), "");
+});
+
+test('_getDefault() should return "Canada".', () => {
+  let partnerConfig = { 
+    "defaults": {"city":"Edmonton"} 
+  };
+  assert.strictEqual(
+    customerHelper._getDefault("country", partnerConfig), "Canada");
 });
