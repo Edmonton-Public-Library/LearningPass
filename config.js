@@ -185,6 +185,8 @@ environment.validatePartnerConfigs = function(partnerConfigs){
         });
         console.log(`Finished loading valid partner configurations.`);
 
+        /** @TODO load directory settings for logging, incoming etc. */
+
         // Test that the partners' required and optional fields contain valid names that match environment._fields.
     } else {
         console.log(`It may be missing or contain errors.`);
