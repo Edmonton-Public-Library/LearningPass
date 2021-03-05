@@ -62,9 +62,9 @@ const defaultCustomerSettings = {
         "barcode","pin","type","expiry","branch","status","notes"
     ],
     "defaults" : {
-        "city" : "Edmonton",
-        "province" : "AB",
-        "country" : "Canada"
+        // "city" : "Edmonton",
+        // "province" : "AB",
+        // "country" : "Canada"
     },
     "symphonyDefaults" : {
         "USER_NAME_DSP_PREF" : 0,

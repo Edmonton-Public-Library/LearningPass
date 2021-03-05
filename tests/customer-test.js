@@ -102,37 +102,127 @@ test('getGender() should return a case-agnostic mapped gender.', () => {
 });
 
 // Test 'private' helper that will get a default if there is one.
-test('_getDefault() should return "Edmonton".', () => {
+test('_getFromDefault() should return "Edmonton".', () => {
   let partnerConfig = {
     "defaults": {"city":"Edmonton"} 
   };
   assert.strictEqual(
-    customerHelper._getDefault("city", partnerConfig), "Edmonton");
+    customerHelper._getFromDefault("city", partnerConfig), "Edmonton");
 });
-test('_getDefault() should return "".', () => {
+test('_getFromDefault() should return "".', () => {
   let partnerConfig = {
     "defaults": {} 
   };
   assert.strictEqual(
-    customerHelper._getDefault("city", partnerConfig), "");
+    customerHelper._getFromDefault("city", partnerConfig), "Edmonton");
 });
 
-test('_getDefault() should return "".', () => {
+test('_getFromDefault() should return "".', () => {
   let partnerConfig = { 
   };
   assert.strictEqual(
-    customerHelper._getDefault("city", partnerConfig), "");
+    // This is defined in the library's defaults.
+    customerHelper._getFromDefault("city", partnerConfig), "Edmonton");
 });
 
-test('_getDefault() should return "".', () => {
+test('_getFromDefault() should return "Edmonton".', () => {
   assert.strictEqual(
-    customerHelper._getDefault("city", null), "");
+    customerHelper._getFromDefault("city", null), "Edmonton");
 });
 
-test('_getDefault() should return "Canada".', () => {
+test('_getFromDefault() should return "Canada".', () => {
   let partnerConfig = { 
     "defaults": {"city":"Edmonton"} 
   };
   assert.strictEqual(
-    customerHelper._getDefault("country", partnerConfig), "Canada");
+    customerHelper._getFromDefault("country", partnerConfig), "Canada");
+});
+
+// Test get -Province() -City
+test('getProvince() should return province.', () => {
+  let partnerConfig = { 
+    "defaults": {"city":"Dartmouth"} 
+  };
+  assert.strictEqual(
+    customerHelper.getProvince("",partnerConfig), "AB");
+});
+
+test('getProvince() should return Alberta.', () => {
+  let partnerConfig = { 
+    "defaults": {"city":"Dartmouth"} 
+  };
+  assert.strictEqual(
+    customerHelper.getProvince("alberta",partnerConfig), "Alberta");
+});
+
+test('getCity() should return Dartmouth.', () => {
+  let partnerConfig = { 
+    "defaults": {"city":"Dartmouth"} 
+  };
+  assert.strictEqual(
+    customerHelper.getCity("",partnerConfig), "Dartmouth");
+});
+
+test('getCity() should return Edmonton.', () => {
+  let partnerConfig = { 
+    // "defaults": {"province":"Nova Scotia"} 
+  };
+  assert.strictEqual(
+    customerHelper.getCity("",partnerConfig), "Edmonton");
+});
+
+// Test the getCountry() function.
+test('getCountry() should return Canada.', () => {
+  let partnerConfig = { 
+    "defaults": {"country":"Scotland"} 
+  };
+  assert.strictEqual(
+    customerHelper.getCountry("canada",partnerConfig), "Canada");
+});
+test('getCountry() should return Scotland.', () => {
+  let partnerConfig = { 
+    "defaults": {"country":"Scotland"} 
+  };
+  assert.strictEqual(
+    customerHelper.getCountry("",partnerConfig), "Scotland");
+});
+
+test('getCountry() should return Canada.', () => {
+  let partnerConfig = { 
+    "defaults": {} 
+  };
+  assert.strictEqual(
+    customerHelper.getCountry("",partnerConfig), "Canada");
+});
+test('getCountry() should return Canada.', () => {
+  let partnerConfig = { 
+    "defaults": {"city":"Belfast"} 
+  };
+  assert.strictEqual(
+    customerHelper.getCountry("",partnerConfig), "Canada");
+});
+test('getCountry() should return Canada.', () => {
+  let partnerConfig = { 
+  };
+  assert.strictEqual(
+    customerHelper.getCountry("",partnerConfig), "Canada");
+});
+
+
+// Test the customer types.
+test('getType() should return EPL_NEOS.', () => {
+  let partnerConfig = { 
+    typeProfiles : {"GMU-STAFF" : "EPL_NEOS"}
+  };
+  assert.strictEqual(
+    customerHelper.getType("GMU-STAFF",partnerConfig), "EPL_NEOS");
+});
+
+test('getType() should return EPL_NEXUS.', () => {
+  let partnerConfig = { 
+    typeProfiles : {"GMU-STUDENT" : "EPL_NEOS",
+      "GMU-Staff" : "EPL_NEOSSTF"}
+  };
+  assert.strictEqual(
+    customerHelper.getType("GMU-Staff",partnerConfig), "EPL_NEOSSTF");
 });
