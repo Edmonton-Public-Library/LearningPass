@@ -517,3 +517,35 @@ test('hasStringData() should return false for null.', () => {
 test('hasStringData() should return false for undefined.', () => {
     assert.strictEqual(helpers.hasStringData(undefined), false);
 });
+
+// Test is a date is in the past.
+test('dateInPast() should return fasle for 2020-03-13.', () => {
+    let oldDate = new Date('2020-03-13');
+    assert.strictEqual(helpers.compareToday(oldDate), -1);
+});
+test('dateInPast() should return true for 2112-03-13.', () => {
+    let futureDate = new Date('2112-03-13');
+    assert.strictEqual(helpers.compareToday(futureDate), 1);
+});
+test('dateInPast() should return true for today().', () => {
+    let today = new Date();
+    assert.strictEqual(helpers.compareToday(today), 0);
+});
+
+
+
+// Test date daysYearsFromToday
+test('daysYearsFromToday() should return how many days and years since "1963-08-22".', () => {
+    let longAgo = new Date("1963-08-22");
+    let howLongDict = helpers.daysYearsFromToday(longAgo);
+    // assert.strictEqual(helpers.timeSinceToday(longAgo), 0);
+    console.log("It was a long time ago: ",howLongDict);
+});
+
+// Test date daysYearsFromToday
+test('daysYearsFromToday() should return how many days and years until "2025-08-22".', () => {
+    let longAgo = new Date("2025-08-22");
+    let howLongDict = helpers.daysYearsFromToday(longAgo);
+    // assert.strictEqual(helpers.timeSinceToday(longAgo), 0);
+    console.log("It was a long time ago: ",howLongDict);
+});
