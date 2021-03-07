@@ -538,14 +538,43 @@ test('dateInPast() should return true for today().', () => {
 test('daysYearsFromToday() should return how many days and years since "1963-08-22".', () => {
     let longAgo = new Date("1963-08-22");
     let howLongDict = helpers.daysYearsFromToday(longAgo);
-    // assert.strictEqual(helpers.timeSinceToday(longAgo), 0);
     console.log("It was a long time ago: ",howLongDict);
 });
 
-// Test date daysYearsFromToday
+// Test date daysYearsFromToday()
 test('daysYearsFromToday() should return how many days and years until "2025-08-22".', () => {
     let longAgo = new Date("2025-08-22");
     let howLongDict = helpers.daysYearsFromToday(longAgo);
-    // assert.strictEqual(helpers.timeSinceToday(longAgo), 0);
     console.log("It was a long time ago: ",howLongDict);
 });
+
+// Test hasDateData()
+test('hasDateData() should return true for ansi date "19740822".', () => {
+    let longAgo = "19740822";
+    assert.strictEqual(helpers.hasDateData(longAgo), true);
+});
+test('hasDateData() should return true for ansi date "1974-08-22".', () => {
+    let longAgo = new Date("1974-08-22");
+    assert.strictEqual(helpers.hasDateData(longAgo), true);
+});
+test('hasDateData() should return true for ansi date "197408222".', () => {
+    let weirdDate = "197408222";
+    assert.strictEqual(helpers.hasDateData(weirdDate), false);
+});
+test('hasDateData() should return false for null.', () => {
+    let weirdDate = null;
+    assert.strictEqual(helpers.hasDateData(weirdDate), false);
+});
+test('hasDateData() should return false for undefined.".', () => {
+    let weirdDate = undefined;
+    assert.strictEqual(helpers.hasDateData(weirdDate), false);
+});
+test('hasDateData() should return false for {}.".', () => {
+    let weirdDate = {};
+    assert.strictEqual(helpers.hasDateData(weirdDate), false);
+});
+test('hasDateData() should return false for [].".', () => {
+    let weirdDate = [];
+    assert.strictEqual(helpers.hasDateData(weirdDate), false);
+});
+
