@@ -427,57 +427,57 @@ test('getPassword(    ) should return ""', () => {
 test('getDate(2021-01-02) should return "20210102"', () => {
     let result = 20210102;
     let str = '2021-01-02';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 // Test getDate()
 test('getDate(1821-01-02) should return ""', () => {
     let result = 18210102;
     let str = '1821-01-02';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 // Test getDate()
 test('getDate(22/08/1963) should return 19630822', () => {
     let result = 19630822;
     let str = '22/08/1963';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 test('getDate(22-08-1963) should return 19630822', () => {
     let result = 19630822;
     let str = '22-08-1963';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 test('getDate(1963-08-22) should return 19630822', () => {
     let result = 19630822;
     let str = '1963-08-22';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 test('getDate(1963/08/22) should return 19630822', () => {
     let result = 19630822;
     let str = '1963/08/22';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 test('getDate(19630822) should return 19630822', () => {
     let result = 19630822;
     let str = '19630822';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 test('getDate(196308222) should return ""', () => {
     let result = '';
     let str = '196308222';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 test('getDate(1963082) should return ""', () => {
     let result = '';
     let str = '1963082';
-    assert.strictEqual(helpers.getDate(str), result);
+    assert.strictEqual(helpers.getANSIDate(str), result);
 });
 
 // Test hasDictData()
