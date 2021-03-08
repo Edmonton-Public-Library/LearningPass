@@ -240,10 +240,17 @@ test('validate() should run multiple tests on modifying customer data.', () => {
 
 test('getDOB() should return 2000-02-06.', () => {
   let partnerConfig = { 
-      age : {minimum : 18, maximum : 99
-    }
+      age : {minimum : 18}
   };
   assert.deepStrictEqual(
     customerHelper.getDOB("2000-02-06",partnerConfig), 
     new Date("2000-02-06"));
+});
+
+test('getDOB() should return "".', () => {
+  let partnerConfig = { 
+      age : {minimum : 18, maximum : 120}
+  };
+  assert.deepStrictEqual(
+    customerHelper.getDOB("1850-02-06",partnerConfig), '');
 });

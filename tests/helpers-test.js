@@ -578,3 +578,39 @@ test('hasDateData() should return false for [].".', () => {
     assert.strictEqual(helpers.hasDateData(weirdDate), false);
 });
 
+// Test helper.hasPosInt()
+test('hasDateData() should return false for 4.".', () => {
+    let possibleInt = 4;
+    assert.strictEqual(helpers.hasPosInt(possibleInt), true);
+});
+test('hasDateData() should return false for null.".', () => {
+    let possibleInt = null;
+    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+});
+test('hasDateData() should return false for undefined.".', () => {
+    let possibleInt = undefined;
+    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+});
+test('hasDateData() should return false for -1.".', () => {
+    let possibleInt = -1;
+    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+});
+test('hasDateData() should return true for "7".".', () => {
+    let possibleInt = "7";
+    assert.strictEqual(helpers.hasPosInt(possibleInt), true);
+});
+test('hasDateData() should return true for "andrew".', () => {
+    assert.strictEqual(helpers.hasPosInt("andrew"), false);
+});
+test('hasDateData() should return true for "0".".', () => {
+    let possibleInt = '0';
+    assert.strictEqual(helpers.hasPosInt(possibleInt), true);
+});
+test('hasDateData() should return false for [].".', () => {
+    let possibleInt = [];
+    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+});
+test('hasDateData() should return false for {}.".', () => {
+    let possibleInt = {};
+    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+});
