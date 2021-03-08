@@ -534,18 +534,18 @@ test('dateInPast() should return true for today().', () => {
 
 
 
-// Test date daysYearsFromToday
-test('daysYearsFromToday() should return how many days and years since "1963-08-22".', () => {
+// Test date daysAndYearsAgo
+test('daysAndYearsAgo() should return how many days and years since "1963-08-22".', () => {
     let longAgo = new Date("1963-08-22");
-    let howLongDict = helpers.daysYearsFromToday(longAgo);
+    let howLongDict = helpers.daysAndYearsAgo(longAgo);
     console.log("It was a long time ago: ",howLongDict);
 });
 
-// Test date daysYearsFromToday()
-test('daysYearsFromToday() should return how many days and years until "2025-08-22".', () => {
+// Test date daysAndYearsAgo()
+test('daysAndYearsAgo() should return how many days and years since "2025-08-22".', () => {
     let longAgo = new Date("2025-08-22");
-    let howLongDict = helpers.daysYearsFromToday(longAgo);
-    console.log("It was a long time ago: ",howLongDict);
+    let howLongDict = helpers.daysAndYearsAgo(longAgo);
+    console.log("It will be a long time ago: ",howLongDict);
 });
 
 // Test hasDateData()
