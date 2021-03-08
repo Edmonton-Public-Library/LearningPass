@@ -44,9 +44,9 @@ test("getBarcode(14,10,01234567890123) should return '01234567890123'", () => {
   assert.strictEqual(bcHelpers.getBarcode(14,10,str), barcode);
 });
 
-test("getBarcode(11,10,01234567890123) should return ''", () => {
+test("getBarcode(11,10,01234567890123) should return '01234567890123'", () => {
   let str = '01234567890123';
-  let barcode = '';
+  let barcode = '01234567890123';
   assert.strictEqual(bcHelpers.getBarcode(11,10,str), barcode);
 });
 
@@ -54,6 +54,12 @@ test("getBarcode(5,10,12345) should return ''", () => {
   let str = '12345';
   let barcode = '';
   assert.strictEqual(bcHelpers.getBarcode(5,10,str), barcode);
+});
+
+test("getBarcode(6,-10,01234567890123) should return '01234567890123'", () => {
+  let str = '01234567890123';
+  let barcode = '01234567890123';
+  assert.strictEqual(bcHelpers.getBarcode(6,-10,str), barcode);
 });
 
 // Test loose barcode matching.
