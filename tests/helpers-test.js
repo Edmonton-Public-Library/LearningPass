@@ -581,36 +581,36 @@ test('hasDateData() should return false for [].".', () => {
 // Test helper.hasPosInt()
 test('hasDateData() should return false for 4.".', () => {
     let possibleInt = 4;
-    assert.strictEqual(helpers.hasPosInt(possibleInt), true);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), true);
 });
 test('hasDateData() should return false for null.".', () => {
     let possibleInt = null;
-    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
 test('hasDateData() should return false for undefined.".', () => {
     let possibleInt = undefined;
-    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
 test('hasDateData() should return false for -1.".', () => {
     let possibleInt = -1;
-    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
 test('hasDateData() should return true for "7".".', () => {
     let possibleInt = "7";
-    assert.strictEqual(helpers.hasPosInt(possibleInt), true);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), true);
 });
 test('hasDateData() should return true for "andrew".', () => {
-    assert.strictEqual(helpers.hasPosInt("andrew"), false);
+    assert.strictEqual(helpers.hasPosIntData("andrew"), false);
 });
 test('hasDateData() should return true for "0".".', () => {
     let possibleInt = '0';
-    assert.strictEqual(helpers.hasPosInt(possibleInt), true);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), true);
 });
 test('hasDateData() should return false for [].".', () => {
     let possibleInt = [];
-    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
 test('hasDateData() should return false for {}.".', () => {
     let possibleInt = {};
-    assert.strictEqual(helpers.hasPosInt(possibleInt), false);
+    assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
