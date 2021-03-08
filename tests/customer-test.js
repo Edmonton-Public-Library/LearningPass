@@ -264,3 +264,20 @@ test('getDOB() should return "2000-02-06".', () => {
       "2000-02-06",partnerConfig), 
       new Date('2000-02-06'));
 });
+test('getDOB() should return "".', () => {
+  let partnerConfig = { 
+      age : {minimum : 18}
+  };
+  assert.deepStrictEqual(
+    customerHelper.getDOB("andrew",partnerConfig), '');
+});
+
+test('getDOB() should return "2000-02-06" if min age is negative.', () => {
+  let partnerConfig = { 
+      age : {minimum : -18}
+  };
+  assert.deepStrictEqual(
+    customerHelper.getDOB(
+      "2000-02-06",partnerConfig),
+      new Date('2000-02-06'));
+});
