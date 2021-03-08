@@ -260,5 +260,7 @@ test('getDOB() should return "2000-02-06".', () => {
       age : {minimum : -20, maximum : 120}
   };
   assert.deepStrictEqual(
-    customerHelper.getDOB("2000-02-06",partnerConfig), new Date('2000-02-06'));
+    customerHelper.getDOB(
+      "2000-02-06",partnerConfig), 
+      new Date('2000-02-06'));
 });
