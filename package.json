@@ -1,0 +1,35 @@
+{
+  "name": "learningpass",
+  "version": "1.0.0",
+  "description": "A replacement for LPass",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "dependencies": {
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anisbet/LearningPass.git"
+  },
+  "keywords": [
+    "Learning",
+    "Pass",
+    "Partner",
+    "registration",
+    "public",
+    "library"
+  ],
+  "author": "Andrew Nisbet",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/anisbet/LearningPass/issues"
+  },
+  "homepage": "https://github.com/anisbet/LearningPass#readme"
+}

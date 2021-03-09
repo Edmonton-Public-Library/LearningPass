@@ -61,6 +61,16 @@ test("getBarcode(6,-10,01234567890123) should return '01234567890123'", () => {
   let barcode = '01234567890123';
   assert.strictEqual(bcHelpers.getBarcode(6,-10,str), barcode);
 });
+test("getBarcode(null,null,12345678) should return '12345678'", () => {
+  let str = '12345678';
+  let barcode = '12345678';
+  assert.strictEqual(bcHelpers.getBarcode(null,null,str), barcode);
+});
+test("getBarcode(undefined,undefined,12345678) should return '12345678'", () => {
+  let str = '12345678';
+  let barcode = '12345678';
+  assert.strictEqual(bcHelpers.getBarcode(undefined,undefined,str), barcode);
+});
 
 // Test loose barcode matching.
 test('getBarcodeRelaxed("some_bar_code") should return "SOME_BAR_CODE"', () => {
@@ -91,4 +101,13 @@ test('getBarcodeRelaxed(m5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6) should r
   let str = 'm5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6';
   let result = '';
   assert.strictEqual(bcHelpers.getBarcodeRelaxed(str), result);
+});
+
+
+
+test('getLibraryBarcode() should return a barcode.', () => {
+  let err;
+  let data = {};
+  assert.deepStrictEqual(bcHelpers.getLibraryBarcode(err,data),
+  "21221800000001");
 });

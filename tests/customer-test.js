@@ -200,7 +200,12 @@ test('validate() should run multiple tests on modifying customer data.', () => {
   // console.log('888>',environment.getVersion());
   let error = customerErrors;
   let pConfig = {};
-  pConfig.required = ["firstName","lastName"];
+  pConfig.barcodeFilter = {
+    prefix:"8888888",
+    minimum:"11",
+    maximum:"14"
+  };
+  pConfig.required = ["firstName","lastName","barcode"];
   pConfig.optional = ["gender"];
   pConfig.defaults = {"gender" : "not-saying"}//,
   //  "country" : "Jamacia"};

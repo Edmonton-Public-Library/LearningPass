@@ -449,7 +449,7 @@ test('hasStringData() should return false for undefined.', () => {
 });
 
 // Test is a date is in the past.
-test('dateInPast() should return fasle for 2020-03-13.', () => {
+test('dateInPast() should return false for 2020-03-13.', () => {
     let oldDate = new Date('2020-03-13');
     assert.strictEqual(helpers.compareToday(oldDate), -1);
 });
