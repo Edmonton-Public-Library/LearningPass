@@ -105,9 +105,9 @@ test('getBarcodeRelaxed(m5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6) should r
 
 
 
-test('getLibraryBarcode() should return a barcode.', () => {
-  let err;
-  let data = {};
-  assert.deepStrictEqual(bcHelpers.getLibraryBarcode(err,data),
-  "21221800000001");
-});
+// test('getLibraryBarcode() should return a barcode.', () => {
+//   let err;
+//   let data = {};
+//   assert.deepStrictEqual(bcHelpers.getLibraryBarcode(err,data),
+//   "21221800000001");
+// });
