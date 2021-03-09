@@ -201,7 +201,7 @@ test('validate() should run multiple tests on modifying customer data.', () => {
   let error = customerErrors;
   let pConfig = {};
   pConfig.barcodeFilter = {
-    prefix:"8888888",
+    // prefix:"8888888",
     minimum:"11",
     maximum:"14"
   };
@@ -285,4 +285,30 @@ test('getDOB() should return "2000-02-06" if min age is negative.', () => {
     customerHelper.getDOB(
       "2000-02-06",partnerConfig),
       new Date('2000-02-06'));
+});
+
+// Test getBarcode()
+test('getBarcode() should return a valid barcode with prefix.', () => {
+  let partnerConfig = {"barcodeFilter" : {
+      "prefix" : "21221800",
+      "regex" : "",
+      "minimum" : 13,
+      "maximum" : 14
+  }};
+  let pCard  = "123456";
+  let result = partnerConfig.barcodeFilter.prefix + pCard;
+  assert.strictEqual(
+    customerHelper.getBarcode(pCard,partnerConfig), result);
+});
+
+test('getBarcode() should report an error with width but return barcode.', () => {
+  let partnerConfig = {"barcodeFilter" : {
+      "prefix" : "21221800",
+      "minimum" : 1,
+      "maximum" : 14
+  }};
+  let pCard  = "123456";
+  let result = partnerConfig.barcodeFilter.prefix + pCard;
+  assert.strictEqual(
+    customerHelper.getBarcode(pCard,partnerConfig), result);
 });

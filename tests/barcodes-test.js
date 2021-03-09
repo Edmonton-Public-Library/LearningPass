@@ -20,7 +20,7 @@
  
  
 // Test getBarcode strict.
-test("getBarcode() should return '21221012345678'", () => {
+test("getBarcode(11,14,'21221012345678') should return '21221012345678'", () => {
   let str = '21221012345678';
   let barcode = '21221012345678';
   assert.strictEqual(bcHelpers.getBarcode(11,14,str), barcode);
@@ -50,10 +50,10 @@ test("getBarcode(11,10,01234567890123) should return '01234567890123'", () => {
   assert.strictEqual(bcHelpers.getBarcode(11,10,str), barcode);
 });
 
-test("getBarcode(5,10,12345) should return ''", () => {
+test("bcHelpers.getBarcode(6,10,'12345') should return ''", () => {
   let str = '12345';
   let barcode = '';
-  assert.strictEqual(bcHelpers.getBarcode(5,10,str), barcode);
+  assert.strictEqual(bcHelpers.getBarcode(6,10,str), barcode);
 });
 
 test("getBarcode(6,-10,01234567890123) should return '01234567890123'", () => {
