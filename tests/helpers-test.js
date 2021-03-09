@@ -556,3 +556,7 @@ test('getFourDigitPin() should compute a 4-digit PIN.".', () => {
     let password = "HelloWorld";
     assert.strictEqual(helpers.getFourDigitPin(password), 9280);
 });
+test('getFourDigitPin() should return empty string.', () => {
+    let password = "";
+    assert.strictEqual(helpers.getFourDigitPin(password), '');
+});

@@ -2,7 +2,8 @@
 
 ### TODO list
 * Handle customer status.
-* Complete PIN helper.
+* Complete PIN helpers. *Done*
+* Complete password checking for customer.
 * Manage expiry.
 * Manage customer's preferred branch.
 * Stub notes.js for future dev if required.
