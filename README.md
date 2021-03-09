@@ -1,5 +1,18 @@
 # Learning Pass
 
+### TODO list
+* Handle customer status.
+* Complete PIN helper.
+* Manage expiry.
+* Manage customer's preferred branch.
+* Stub notes.js for future dev if required.
+* Implement issuing library cards in barcodes section.
+* Create flat file of customer data.
+* Server
+    * Upload library card list if admin.
+    * New route to show available branches.
+* Use Map and Set.
+
 # License
 Copyright 2021 Andrew Nisbet
 

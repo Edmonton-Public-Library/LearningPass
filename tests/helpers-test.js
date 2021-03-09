@@ -544,3 +544,15 @@ test('hasDateData() should return false for {}.".', () => {
     let possibleInt = {};
     assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
+
+
+// PIN and hash tests.
+test('hashCode() should computes Java equiv hash.".', () => {
+    // ref: https://www.w3schools.com/java/tryjava.asp?filename=demo_ref_string_hashcode
+    let password = "HelloWorld";
+    assert.strictEqual(helpers.hashCode(password), 439329280);
+});
+test('getFourDigitPin() should compute a 4-digit PIN.".', () => {
+    let password = "HelloWorld";
+    assert.strictEqual(helpers.getFourDigitPin(password), 9280);
+});
