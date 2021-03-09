@@ -326,43 +326,43 @@ test('getBarcode() should return empty if barcode + prefix exceed maximum.', () 
 
 
 test('getPassword() Should allow legit password.', () => {
-  let partnerConfig = {};
+  let libConfig = {};
   let password  = "123456789";
   let result = password;
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), result);
+    customerHelper.getPassword(password,libConfig), result);
 });
 
 test('getPassword() Should allow legit password more than 4 digits', () => {
-  let partnerConfig = {"passwords" : {
+  let libConfig = {"passwords" : {
     "minimum" : 4
   }};
   let password  = "123456789";
   let result = password;
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), result);
+    customerHelper.getPassword(password,libConfig), result);
 });
 test('getPassword() Should not allow legit password less than 4 digits', () => {
-  let partnerConfig = {"passwords" : {
+  let libConfig = {"passwords" : {
     "minimum" : 4
   }};
   let password  = "123";
   let result = password;
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), "");
+    customerHelper.getPassword(password,libConfig), "");
 });
 test('getPassword() Should not allow legit password more than max digits', () => {
-  let partnerConfig = {"passwords" : {
+  let libConfig = {"passwords" : {
     "minimum" : 4,
     "maximum" : 5
   }};
   let password  = "123456";
   let result = password;
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), "");
+    customerHelper.getPassword(password,libConfig), "");
 });
 test('getPassword() Should get PIN from password when passwordToPin = true', () => {
-  let partnerConfig = {"passwords" : {
+  let libConfig = {"passwords" : {
     "minimum" : 4,
     "maximum" : 100,
     "passwordToPin" : true
@@ -370,10 +370,10 @@ test('getPassword() Should get PIN from password when passwordToPin = true', () 
   let password  = "HelloWorld";
   let result = 9280;
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), result);
+    customerHelper.getPassword(password,libConfig), result);
 });
 test('getPassword() Should get password when passwordToPin = false', () => {
-  let partnerConfig = {"passwords" : {
+  let libConfig = {"passwords" : {
     "minimum" : 4,
     "maximum" : 6,
     "passwordToPin" : false
@@ -381,10 +381,10 @@ test('getPassword() Should get password when passwordToPin = false', () => {
   let password  = "123456";
   let result = password;
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), result);
+    customerHelper.getPassword(password,libConfig), result);
 });
 test('getPassword() Should get password with user defined regex', () => {
-  let partnerConfig = {"passwords" : {
+  let libConfig = {"passwords" : {
     "minimum" : 4,
     "maximum" : 100,
     "passwordToPin" : false,
@@ -393,10 +393,10 @@ test('getPassword() Should get password with user defined regex', () => {
   let password  = "12345678";
   let result = password;
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), result);
+    customerHelper.getPassword(password,libConfig), result);
 });
 test('getPassword() Should return "" if regex password does not match regex', () => {
-  let partnerConfig = {"passwords" : {
+  let libConfig = {"passwords" : {
     "minimum" : 4,
     "maximum" : 100,
     "passwordToPin" : false,
@@ -405,5 +405,5 @@ test('getPassword() Should return "" if regex password does not match regex', ()
   let password  = "abcdef8";
   let result = '';
   assert.strictEqual(
-    customerHelper.getPassword(password,partnerConfig), result);
+    customerHelper.getPassword(password,libConfig), result);
 });
