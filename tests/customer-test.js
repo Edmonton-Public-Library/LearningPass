@@ -200,7 +200,7 @@ test('validate() should run multiple tests on modifying customer data.', () => {
   // console.log('888>',environment.getVersion());
   let error = customerErrors;
   let pConfig = {};
-  pConfig.barcodeFilter = {
+  pConfig.barcodes = {
     // prefix:"8888888",
     minimum:"11",
     maximum:"14"
@@ -289,32 +289,32 @@ test('getDOB() should return "2000-02-06" if min age is negative.', () => {
 
 // Test getBarcode()
 test('getBarcode() should return a valid barcode with prefix.', () => {
-  let partnerConfig = {"barcodeFilter" : {
+  let partnerConfig = {"barcodes" : {
       "prefix" : "21221800",
       "regex" : "",
       "minimum" : 13,
       "maximum" : 14
   }};
   let pCard  = "123456";
-  let result = partnerConfig.barcodeFilter.prefix + pCard;
+  let result = partnerConfig.barcodes.prefix + pCard;
   assert.strictEqual(
     customerHelper.getBarcode(pCard,partnerConfig), result);
 });
 
 test('getBarcode() should report an error with width but return barcode.', () => {
-  let partnerConfig = {"barcodeFilter" : {
+  let partnerConfig = {"barcodes" : {
       "prefix" : "21221800",
       "minimum" : 1,
       "maximum" : 14
   }};
   let pCard  = "123456";
-  let result = partnerConfig.barcodeFilter.prefix + pCard;
+  let result = partnerConfig.barcodes.prefix + pCard;
   assert.strictEqual(
     customerHelper.getBarcode(pCard,partnerConfig), result);
 });
 
 test('getBarcode() should return empty if barcode + prefix exceed maximum.', () => {
-  let partnerConfig = {"barcodeFilter" : {
+  let partnerConfig = {"barcodes" : {
       "prefix" : "21221800",
       "minimum" : 1,
       "maximum" : 14
