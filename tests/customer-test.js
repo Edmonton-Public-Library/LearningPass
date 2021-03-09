@@ -312,3 +312,14 @@ test('getBarcode() should report an error with width but return barcode.', () =>
   assert.strictEqual(
     customerHelper.getBarcode(pCard,partnerConfig), result);
 });
+
+test('getBarcode() should return empty if barcode + prefix exceed maximum.', () => {
+  let partnerConfig = {"barcodeFilter" : {
+      "prefix" : "21221800",
+      "minimum" : 1,
+      "maximum" : 14
+  }};
+  let pCard  = "123456789";
+  assert.strictEqual(
+    customerHelper.getBarcode(pCard,partnerConfig), '');
+});
