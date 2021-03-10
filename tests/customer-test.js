@@ -493,3 +493,58 @@ test('getExpiry() Should replace past expiry with default.', () => {
   assert.strictEqual(
     customerHelper.getExpiry(expiry,partnerConfig), result);
 });
+
+
+
+
+/**
+ * Get branch testing.
+ */
+ const libEnv = require('../config');
+ const libCS = libEnv.getDefaultCustomerSettings();
+
+test('Should return empty with no library "branch" object.', () => {
+  // Get Default from config.json
+  let libCustConfig = {};
+  let custPrefBranch = '';
+  // let result = libCS.branch.default;
+  let result = "";
+  assert.strictEqual(
+    customerHelper.getBranch(custPrefBranch,libCustConfig), result);
+});
+test('Should use customer-preferred branch.', () => {
+  // Get Default from config.json
+  let custPrefBranch = 'EPLWMC';
+  // let result = libCS.branch.default;
+  let result = "EPLWMC";
+  assert.strictEqual(
+    customerHelper.getBranch(custPrefBranch,libCS), result);
+});
+test('Should return library default branch.', () => {
+  // Get Default from config.json
+  let custPrefBranch = '';
+  // let result = libCS.branch.default;
+  let result = "EPLMNA";
+  assert.strictEqual(
+    customerHelper.getBranch(custPrefBranch,libCS), result);
+});
+test('Should return library default if customer preference is invalid.', () => {
+  // Get Default from config.json
+  let libCustConfig = {branch : {default : "EPLCLV"}};
+  let custPrefBranch = 'EPLBADBRANCH';
+  // let result = libCS.branch.default;
+  let result = libCustConfig.branch.default;
+  assert.strictEqual(
+    customerHelper.getBranch(custPrefBranch,libCustConfig), result);
+});
+test('Should return customer preference over library default.', () => {
+  // Get Default from config.json
+  let libCustConfig = {branch : {default : "EPLMNA",
+    valid : ["EPLMNA","EPLCLV","EPLWMC","EPLSTR"]
+  }};
+  let custPrefBranch = 'EPLCLV';
+  // let result = libCS.branch.default;
+  let result = custPrefBranch;
+  assert.strictEqual(
+    customerHelper.getBranch(custPrefBranch,libCustConfig), result);
+});
