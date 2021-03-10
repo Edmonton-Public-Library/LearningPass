@@ -548,3 +548,44 @@ test('Should return customer preference over library default.', () => {
   assert.strictEqual(
     customerHelper.getBranch(custPrefBranch,libCustConfig), result);
 });
+
+
+/**
+ * Check and apply customer status.
+ */
+test('Should return default status OK.', () => {
+  // Get Default from config.json
+  let partnerConfig = {};
+  let status = "";
+  let result = "OK";
+  assert.strictEqual(
+    customerHelper.getStatus(status,partnerConfig), result);
+});
+test('Should return default when status sent but no statusMap available.', () => {
+  // Get Default from config.json
+  let partnerConfig = {};
+  let status = "SOME_STATUS";
+  let result = "OK";
+  assert.strictEqual(
+    customerHelper.getStatus(status,partnerConfig), result);
+});
+test('Should return OK if partner has statusMap but status sent is invalid.', () => {
+  // Get Default from config.json
+  let partnerConfig = {statusMap:{}};
+  let status = "SOME_STATUS";
+  let result = "OK";
+  assert.strictEqual(
+    customerHelper.getStatus(status,partnerConfig), result);
+});
+test('Should return valid status from partner statusMap lookup.', () => {
+  // Get Default from config.json
+  let partnerConfig = {statusMap : {
+    GOOD : "OK",
+    BAD : "DELINQUENT",
+    UGLY : "BLOCKED"
+}};
+  let status = "BAD";
+  let result = "DELINQUENT";
+  assert.strictEqual(
+    customerHelper.getStatus(status,partnerConfig), result);
+});
