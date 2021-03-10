@@ -409,46 +409,87 @@ test('getPassword() Should return "" if regex password does not match regex', ()
 });
 
 
-// Test expiry
-test('getExpiry() Should allow valid partner requested expiry', () => {
+// Test expiry This next one depends on date=NEVER or date='2022-03-10'
+// or days=30
+// ********** success is conditional on the 'expiry' object in the config.json ****
+test('getExpiry() Should get default library expiry date : [NEVER|<date>] or days=<n>', () => {
   // Get Default from config.json
   let partnerConfig = {};
+  let expiry  = "";
+  let result = "NEVER";
+  assert.deepStrictEqual(
+    customerHelper.getExpiry(expiry,partnerConfig), result);
+}
+  // let result = new Date("2022-03-10T00:00:00.000Z");
+  // assert.deepStrictEqual(
+  //   customerHelper.getExpiry(expiry,partnerConfig), result);
+  // }
+
+//   let today = new Date();
+//   today.setHours(0,0,0,0);
+//   let result = new Date(today.setDate(today.getDate() + 30));
+//   assert.deepStrictEqual(
+//     customerHelper.getExpiry(expiry,partnerConfig), result);
+// }
+);
+// ******* this test can only pass if you remove the 'expiry' object from the config.json.
+// test('getExpiry() Should fail if expiry is in the past', () => {
+//   // Get Default from config.json
+//   let partnerConfig = {};
+//   let expiry  = "1950-08-22";
+//   let result = '';
+//   assert.strictEqual(
+//     customerHelper.getExpiry(expiry,partnerConfig), result);
+// });
+// test('getExpiry() Should fail if expiry is empty lib and partner have no defaults', () => {
+//   // Get Default from config.json
+//   let partnerConfig = {};
+//   let expiry  = "";
+//   let result = '';
+//   assert.strictEqual(
+//     customerHelper.getExpiry(expiry,partnerConfig), result);
+// });
+
+test('getExpiry() Should get partner expiry date=NEVER.', () => {
+  // Get Default from config.json
+  let partnerConfig = {"expiry": {"date": "NEVER"}};
+  let expiry  = "";
+  let result = "NEVER";
+  assert.deepStrictEqual(
+    customerHelper.getExpiry(expiry,partnerConfig), result);
+});
+test('getExpiry() Should get partner expiry date=2022-03-10.', () => {
+  // Get Default from config.json
+  let partnerConfig = {"expiry": {"date": "2022-03-10"}};
+  let expiry = '';
+  let result = new Date("2022-03-10T00:00:00.000Z");
+  assert.deepStrictEqual(
+    customerHelper.getExpiry(expiry,partnerConfig), result);
+});
+test('getExpiry() Should get partner expiry days=30.', () => {
+  // Get Default from config.json
+  let partnerConfig = {"expiry": {"days": 30}};
+  let expiry = '';
+  let today = new Date();
+  today.setHours(0,0,0,0);
+  let result = new Date(today.setDate(today.getDate() + 30));
+  assert.deepStrictEqual(
+    customerHelper.getExpiry(expiry,partnerConfig), result);
+});
+
+test('getExpiry() Should prefer customer expiry', () => {
+  // Get Default from config.json
+  let partnerConfig = {"expiry": {"date": 30}};
   let expiry  = "2030-08-22";
   let result = new Date(expiry);
   assert.deepStrictEqual(
     customerHelper.getExpiry(expiry,partnerConfig), result);
 });
-test('getExpiry() Should fail if expiry is in the past', () => {
+test('getExpiry() Should replace past expiry with default.', () => {
   // Get Default from config.json
-  let partnerConfig = {};
+  let partnerConfig = {"expiry": {"date": "NEVER"}};
   let expiry  = "1950-08-22";
-  let result = '';
+  let result = 'NEVER';
   assert.strictEqual(
     customerHelper.getExpiry(expiry,partnerConfig), result);
 });
-test('getExpiry() Should get default library expiry', () => {
-  // Get Default from config.json
-  let partnerConfig = {};
-  let expiry  = "";
-  let result = "NEVER";
-  assert.strictEqual(
-    customerHelper.getExpiry(expiry,partnerConfig), result);
-});
-test('getExpiry() Should get expiry a year from now.', () => {
-  // Get Default from config.json
-  let partnerConfig = {"expiry": {"days": 365}};
-  let expiry  = "";
-  let today = new Date();
-  today.setHours(0,0,0,0);
-  let result = new Date(today.setDate(today.getDate() + 365));
-  assert.deepStrictEqual(
-    customerHelper.getExpiry(expiry,partnerConfig), result);
-});
-// test('getExpiry() Should get default partner expiry NEVER', () => {
-//   // Get Default from config.json
-//   let getPartnerConfig = {"expiry": "never"};
-//   let expiry  = "2021-08-22";
-//   let result = "never";
-//   assert.strictEqual(
-//     customerHelper.getExpiry(expiry,getPartnerConfig), result);
-// });
