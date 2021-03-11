@@ -589,3 +589,44 @@ test('Should return valid status from partner statusMap lookup.', () => {
   assert.strictEqual(
     customerHelper.getStatus(status,partnerConfig), result);
 });
+
+
+
+/** Tests notes */
+test('Should an empty string if notes empty and no partner "notes" object.', () => {
+  // Get Default from config.json
+  let partnerConfig = {};
+  let notes = "";
+  let result = "";
+  assert.strictEqual(
+    customerHelper.checkNoteTokens(notes,partnerConfig), result);
+});
+test('Should an note sent.', () => {
+  // Get Default from config.json
+  let partnerConfig = {};
+  let notes = "This customer is awesome!";
+  let result = notes;
+  assert.strictEqual(
+    customerHelper.checkNoteTokens(notes,partnerConfig), result);
+});
+/** If note.js is triggers an error this can be tested. */
+test('Should COMPILE note sent.', () => {
+  // Get Default from config.json
+  let partnerConfig = {"notes" : {
+    "require" : "../plugin/note.js"
+   }};
+  let notes = "This customer is awesome!";
+  let result = "SUCCESS";
+  assert.strictEqual(
+    customerHelper.checkNoteTokens(notes,partnerConfig), result);
+});
+// test('Should COMPILE but ERROR.', () => {
+//   // Get Default from config.json
+//   let partnerConfig = {"notes" : {
+//     "require" : "../plugin/note.js"
+//    }};
+//   let notes = "This customer is awesome!";
+//   let result = 'Error customer is not nice:SUCCESS with "This customer is awesome!"';
+//   assert.strictEqual(
+//     customerHelper.checkNoteTokens(notes,partnerConfig), result);
+// });
