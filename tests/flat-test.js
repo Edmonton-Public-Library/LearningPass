@@ -59,21 +59,19 @@ test('Should reject missing customer data', () => {
 });
 
 
-// test('Should create flat customer data.', () => {
-//     let cJson = {
-
-//     };
-//     let cFlat = flat.registrationData;
-//     let status = flat.status;
-//     let result = [flat._msg.noJson,flat._msg.noFlatContainer];
-//     try{
-//         flat.toFlat(cJson,cFlat)
-//         .then(console.log)
-//         .catch((err) => {
-//             return err;
-//         });
-//     } catch(e) {
-//         console.log(`${e} is expected.`);
-//     }
-//     assert.deepStrictEqual(status.errors,result);
-// });
+test('Should create flat customer data.', () => {
+    let cJson = custJson;
+    let cFlat = flat.registrationData;
+    let status = flat.status;
+    let result = [flat._msg.noJson,flat._msg.noFlatContainer];
+    try{
+        flat.toFlat(cJson,cFlat)
+        .then(console.log)
+        .catch((err) => {
+            return err;
+        });
+    } catch(e) {
+        console.log(`${e} is expected.`);
+    }
+    assert.deepStrictEqual(status.errors,result);
+});
