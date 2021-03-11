@@ -17,11 +17,63 @@
  */
 
 const assert = require('assert');
-const flatFile = require('../lib/flat');
+const flat = require('../lib/flat');
+const custJson = [{   
+    "firstName": "Andrew",
+    "lastName": "Nisbet", 
+    "dob": "1974-08-22", 
+    "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",    	
+    "pin": "IlikeBread",    	
+    "type": "MAC-DSSTUD",    	
+    "expiry": "2021-08-22",    	
+    "branch": "",    	
+    "status": "OK",    	
+    "notes": "" 
+  }];
 
-// We do not need to import the test functions since
-// they are made global variables by test.js
-// test('should produce flat file content', () => {
-//     assert.strictEqual(
-//         flatFile.toFlat(customerJSON, customerFLAT));
+test('Should reject missing customer data', () => {
+    let cJson = {
+
+    };
+    let cFlat = flat.registrationData;
+    let status = flat.status;
+    let result = [flat._msg.noJson,flat._msg.noFlatContainer];
+    try{
+        flat.toFlat(cJson,cFlat)
+        .then(console.log)
+        .catch((err) => {
+            return err;
+        });
+    } catch(e) {
+        console.log(`${e} is expected.`);
+    }
+    assert.deepStrictEqual(status.errors,result);
+});
+
+
+// test('Should create flat customer data.', () => {
+//     let cJson = {
+
+//     };
+//     let cFlat = flat.registrationData;
+//     let status = flat.status;
+//     let result = [flat._msg.noJson,flat._msg.noFlatContainer];
+//     try{
+//         flat.toFlat(cJson,cFlat)
+//         .then(console.log)
+//         .catch((err) => {
+//             return err;
+//         });
+//     } catch(e) {
+//         console.log(`${e} is expected.`);
+//     }
+//     assert.deepStrictEqual(status.errors,result);
 // });
