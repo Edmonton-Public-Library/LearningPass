@@ -60,81 +60,81 @@ test('Should reject missing customer data', () => {
 });
 
 
-test('Should create flat customer data.', () => {
-    const customer = {
-        errors: [],
-        data: []
-    };
-    let cJson = custJson;
-    flat.toFlat(cJson,customer)
-        .then(console.log)
-        .catch((err) => {
-            return err;
-        });
-    console.log(customer);
-});
+// test('Should create flat customer data.', () => {
+//     const customer = {
+//         errors: [],
+//         data: []
+//     };
+//     let cJson = custJson;
+//     flat.toFlat(cJson,customer)
+//         .then(console.log)
+//         .catch((err) => {
+//             return err;
+//         });
+//     console.log(customer);
+// });
 
-test('Should create flat customer data.', () => {
-    const customer = {
-        errors: [],
-        data: []
-    };
-    let cJson = custJson;
-    flat.toFlat(cJson,customer)
-        .then(console.log)
-        .catch((err) => {
-            return err;
-        });
-    console.log(customer);
-});
+// test('Should create flat customer data.', () => {
+//     const customer = {
+//         errors: [],
+//         data: []
+//     };
+//     let cJson = custJson;
+//     flat.toFlat(cJson,customer)
+//         .then(console.log)
+//         .catch((err) => {
+//             return err;
+//         });
+//     console.log(customer);
+// });
 
 test('Should return postalCode false', () => {
     let result = false;
     let key = "postalCode";
     let value = "T6G 0G4"
-    assert.strictEqual(flat._getBlockData(key,value), result);
+    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return street false', () => {
     let result = false;
     let key = "street";
     let value = "123 45 Street"
-    assert.strictEqual(flat._getBlockData(key,value), result);
+    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return email false', () => {
     let result = false;
     let key = "email";
     let value = "name@example.com"
-    assert.strictEqual(flat._getBlockData(key,value), result);
+    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return city false', () => {
     let result = false;
     let key = "city";
     let value = "Edmonton, AB"
-    assert.strictEqual(flat._getBlockData(key,value), result);
+    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return phone false', () => {
     let result = false;
     let key = "phone";
     let value = "780-555-1212"
-    assert.strictEqual(flat._getBlockData(key,value), result);
+    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return note false', () => {
     let result = false;
     let key = "note";
     let value = "Customer is awesome!"
-    assert.strictEqual(flat._getBlockData(key,value), result);
+    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return firstName', () => {
     let result = ".USER_FIRST_NAME.    |aDoug";
     let key = "firstName";
     let value = "Doug";
-    assert.strictEqual(flat._getBlockData(key,value), result);
+    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return error message', () => {
@@ -144,4 +144,36 @@ test('Should return error message', () => {
     let defaults = {"FOO":"bar"};
     flat._updateDefaults(flatDefaults,defaults);
     assert.deepStrictEqual(flatDefaults.get("FOO"), result);
+});
+
+/** Convert date fields. */
+test('Should convert all legit dates string to ANSI date', () => {
+    let cJson = new Map(Object.entries(custJson));
+    let result = '19740822';
+    let expiry = '20210822';
+    let err = [];
+    flat._convertDates(err,cJson);
+    assert.deepStrictEqual(cJson.get('dob'), result);
+    assert.deepStrictEqual(cJson.get('expiry'), expiry);
+    // console.log(cJson);
+});
+test('Should remove invalid dates and report them', () => {
+    let dob = "bad date";
+    let cJson = new Map(Object.entries(custJson));
+    cJson.set("dob",dob);
+    let result = `"dob" ${flat._msg.invalidDate}`;
+    let err = [];
+    flat._convertDates(err,cJson);
+    assert.deepStrictEqual(err, [result]);
+    // console.log(cJson,err);
+});
+test('Should convert date object', () => {
+    let dob = new Date("1974-08-22");
+    let cJson = new Map(Object.entries(custJson));
+    cJson.set("dob",dob);
+    let result = '19740822';
+    let err = [];
+    flat._convertDates(err,cJson);
+    assert.deepStrictEqual(cJson.get('dob'), result);
+    // console.log(cJson,err);
 });

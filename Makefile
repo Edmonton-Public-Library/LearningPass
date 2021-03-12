@@ -23,7 +23,7 @@ test:
 	# node test.js ./tests/customer-test.js
 	# node test.js ./tests/barcodes-test.js
 	# node test.js ./tests/util-tests.js
-	# node test.js ./tests/date-tests.js
+	node test.js ./tests/date-tests.js
 	node test.js ./tests/flat-test.js
 run:
 	node index
