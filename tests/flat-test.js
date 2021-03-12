@@ -15,10 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-const assert = require('assert');
 const flat = require('../lib/flat');
-const custJson = [{   
+const assert = require('assert');
+const custJson = {   
     "firstName": "Andrew",
     "lastName": "Nisbet", 
     "dob": "1974-08-22", 
@@ -37,17 +36,19 @@ const custJson = [{
     "branch": "",    	
     "status": "OK",    	
     "notes": "" 
-  }];
+  };
 
 test('Should reject missing customer data', () => {
     let cJson = {
 
     };
-    let cFlat = flat.registrationData;
-    let status = flat.status;
-    let result = [flat._msg.noJson,flat._msg.noFlatContainer];
+    const customer = {
+        errors: [],
+        data: []
+    };
+    let result = [flat._msg.noJson];
     try{
-        flat.toFlat(cJson,cFlat)
+        flat.toFlat(cJson,customer)
         .then(console.log)
         .catch((err) => {
             return err;
@@ -55,23 +56,92 @@ test('Should reject missing customer data', () => {
     } catch(e) {
         console.log(`${e} is expected.`);
     }
-    assert.deepStrictEqual(status.errors,result);
+    assert.deepStrictEqual(customer.errors,result);
 });
 
 
 test('Should create flat customer data.', () => {
+    const customer = {
+        errors: [],
+        data: []
+    };
     let cJson = custJson;
-    let cFlat = flat.registrationData;
-    let status = flat.status;
-    let result = [flat._msg.noJson,flat._msg.noFlatContainer];
-    try{
-        flat.toFlat(cJson,cFlat)
+    flat.toFlat(cJson,customer)
         .then(console.log)
         .catch((err) => {
             return err;
         });
-    } catch(e) {
-        console.log(`${e} is expected.`);
-    }
-    assert.deepStrictEqual(status.errors,result);
+    console.log(customer);
+});
+
+test('Should create flat customer data.', () => {
+    const customer = {
+        errors: [],
+        data: []
+    };
+    let cJson = custJson;
+    flat.toFlat(cJson,customer)
+        .then(console.log)
+        .catch((err) => {
+            return err;
+        });
+    console.log(customer);
+});
+
+test('Should return postalCode false', () => {
+    let result = false;
+    let key = "postalCode";
+    let value = "T6G 0G4"
+    assert.strictEqual(flat._getBlockData(key,value), result);
+});
+
+test('Should return street false', () => {
+    let result = false;
+    let key = "street";
+    let value = "123 45 Street"
+    assert.strictEqual(flat._getBlockData(key,value), result);
+});
+
+test('Should return email false', () => {
+    let result = false;
+    let key = "email";
+    let value = "name@example.com"
+    assert.strictEqual(flat._getBlockData(key,value), result);
+});
+
+test('Should return city false', () => {
+    let result = false;
+    let key = "city";
+    let value = "Edmonton, AB"
+    assert.strictEqual(flat._getBlockData(key,value), result);
+});
+
+test('Should return phone false', () => {
+    let result = false;
+    let key = "phone";
+    let value = "780-555-1212"
+    assert.strictEqual(flat._getBlockData(key,value), result);
+});
+
+test('Should return note false', () => {
+    let result = false;
+    let key = "note";
+    let value = "Customer is awesome!"
+    assert.strictEqual(flat._getBlockData(key,value), result);
+});
+
+test('Should return firstName', () => {
+    let result = ".USER_FIRST_NAME.    |aDoug";
+    let key = "firstName";
+    let value = "Doug";
+    assert.strictEqual(flat._getBlockData(key,value), result);
+});
+
+test('Should return error message', () => {
+    let flatDefaults = new Map();
+    flatDefaults.set("USER_FIRST_NAME","Doug");
+    let result = undefined;
+    let defaults = {"FOO":"bar"};
+    flat._updateDefaults(flatDefaults,defaults);
+    assert.deepStrictEqual(flatDefaults.get("FOO"), result);
 });
