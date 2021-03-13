@@ -353,63 +353,6 @@ test('getPassword(    ) should return ""', () => {
     assert.strictEqual(helpers.getPassword(str), result);
 });
 
-// Test getDate()
-test('getDate(2021-01-02) should return "20210102"', () => {
-    let result = 20210102;
-    let str = '2021-01-02';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-// Test getDate()
-test('getDate(1821-01-02) should return ""', () => {
-    let result = 18210102;
-    let str = '1821-01-02';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-// Test getDate()
-test('getDate(22/08/1963) should return 19630822', () => {
-    let result = 19630822;
-    let str = '22/08/1963';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-test('getDate(22-08-1963) should return 19630822', () => {
-    let result = 19630822;
-    let str = '22-08-1963';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-test('getDate(1963-08-22) should return 19630822', () => {
-    let result = 19630822;
-    let str = '1963-08-22';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-test('getDate(1963/08/22) should return 19630822', () => {
-    let result = 19630822;
-    let str = '1963/08/22';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-test('getDate(19630822) should return 19630822', () => {
-    let result = 19630822;
-    let str = '19630822';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-test('getDate(196308222) should return ""', () => {
-    let result = '';
-    let str = '196308222';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
-test('getDate(1963082) should return ""', () => {
-    let result = '';
-    let str = '1963082';
-    assert.strictEqual(helpers.getANSIDate(str), result);
-});
-
 // Test hasDictData()
 test('should return that dictionary has data.', () => {
     assert.strictEqual(helpers.hasDictData({"name" : "andrew"}), true);
@@ -448,99 +391,39 @@ test('hasStringData() should return false for undefined.', () => {
     assert.strictEqual(helpers.hasStringData(undefined), false);
 });
 
-// Test is a date is in the past.
-test('dateInPast() should return false for 2020-03-13.', () => {
-    let oldDate = new Date('2020-03-13');
-    assert.strictEqual(helpers.compareToday(oldDate), -1);
-});
-test('dateInPast() should return true for 2112-03-13.', () => {
-    let futureDate = new Date('2112-03-13');
-    assert.strictEqual(helpers.compareToday(futureDate), 1);
-});
-test('dateInPast() should return true for today().', () => {
-    let today = new Date();
-    assert.strictEqual(helpers.compareToday(today), 0);
-});
-
-
-
-// Test date daysAndYearsAgo
-test('daysAndYearsAgo() should return how many days and years since "1963-08-22".', () => {
-    let longAgo = new Date("1963-08-22");
-    let howLongDict = helpers.daysAndYearsAgo(longAgo);
-    console.log("It was a long time ago: ",howLongDict);
-});
-
-// Test date daysAndYearsAgo()
-test('daysAndYearsAgo() should return how many days and years since "2025-08-22".', () => {
-    let longAgo = new Date("2025-08-22");
-    let howLongDict = helpers.daysAndYearsAgo(longAgo);
-    console.log("It will be a long time ago: ",howLongDict);
-});
-
-// Test hasDateData()
-test('hasDateData() should return true for ansi date "19740822".', () => {
-    let longAgo = "19740822";
-    assert.strictEqual(helpers.hasDateData(longAgo), true);
-});
-test('hasDateData() should return true for ansi date "1974-08-22".', () => {
-    let longAgo = new Date("1974-08-22");
-    assert.strictEqual(helpers.hasDateData(longAgo), true);
-});
-test('hasDateData() should return true for ansi date "197408222".', () => {
-    let weirdDate = "197408222";
-    assert.strictEqual(helpers.hasDateData(weirdDate), false);
-});
-test('hasDateData() should return false for null.', () => {
-    let weirdDate = null;
-    assert.strictEqual(helpers.hasDateData(weirdDate), false);
-});
-test('hasDateData() should return false for undefined.".', () => {
-    let weirdDate = undefined;
-    assert.strictEqual(helpers.hasDateData(weirdDate), false);
-});
-test('hasDateData() should return false for {}.".', () => {
-    let weirdDate = {};
-    assert.strictEqual(helpers.hasDateData(weirdDate), false);
-});
-test('hasDateData() should return false for [].".', () => {
-    let weirdDate = [];
-    assert.strictEqual(helpers.hasDateData(weirdDate), false);
-});
-
 // Test helper.hasPosInt()
-test('hasDateData() should return false for 4.".', () => {
+test('hasPosIntData() should return false for 4.".', () => {
     let possibleInt = 4;
     assert.strictEqual(helpers.hasPosIntData(possibleInt), true);
 });
-test('hasDateData() should return false for null.".', () => {
+test('hasPosIntData() should return false for null.".', () => {
     let possibleInt = null;
     assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
-test('hasDateData() should return false for undefined.".', () => {
+test('hasPosIntData() should return false for undefined.".', () => {
     let possibleInt = undefined;
     assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
-test('hasDateData() should return false for -1.".', () => {
+test('hasPosIntData() should return false for -1.".', () => {
     let possibleInt = -1;
     assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
-test('hasDateData() should return true for "7".".', () => {
+test('hasPosIntData() should return true for "7".".', () => {
     let possibleInt = "7";
     assert.strictEqual(helpers.hasPosIntData(possibleInt), true);
 });
-test('hasDateData() should return true for "andrew".', () => {
+test('hasPosIntData() should return true for "andrew".', () => {
     assert.strictEqual(helpers.hasPosIntData("andrew"), false);
 });
-test('hasDateData() should return true for "0".".', () => {
+test('hasPosIntData() should return true for "0".".', () => {
     let possibleInt = '0';
     assert.strictEqual(helpers.hasPosIntData(possibleInt), true);
 });
-test('hasDateData() should return false for [].".', () => {
+test('hasPosIntData() should return false for [].".', () => {
     let possibleInt = [];
     assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
-test('hasDateData() should return false for {}.".', () => {
+test('hasPosIntData() should return false for {}.".', () => {
     let possibleInt = {};
     assert.strictEqual(helpers.hasPosIntData(possibleInt), false);
 });
