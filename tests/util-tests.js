@@ -68,3 +68,78 @@ test('Should return false when testing a dictionary.', () => {
 test('Should return false for empty dictionary.', () => {
     assert.strictEqual(util.hasStringData({}), false);
 });
+
+
+test('should return that dictionary has data.', () => {
+    assert.strictEqual(util.hasDictData({"name" : "andrew"}), true);
+});
+
+// What happens if we send an array.
+test('should return false for array.', () => {
+    assert.strictEqual(util.hasDictData([1]), false);
+});
+
+test('should return false for empty dictionary.', () => {
+    assert.strictEqual(util.hasDictData({}), false);
+});
+
+test('should return true for an array with data.', () => {
+    assert.strictEqual(util.hasArrayData([1,"two"]), true);
+});
+test('should return false for empty array.', () => {
+    assert.strictEqual(util.hasArrayData([]), false);
+});
+
+// Test hasStringData.
+test('hasStringData() should return true for a non-zero length string.', () => {
+    assert.strictEqual(util.hasStringData("two"), true);
+});
+test('hasStringData() should return false for an array.', () => {
+    assert.strictEqual(util.hasStringData([1,"two"]), false);
+});
+test('hasStringData() should return false for empty string.', () => {
+    assert.strictEqual(util.hasStringData(''), false);
+});
+test('hasStringData() should return false for null.', () => {
+    assert.strictEqual(util.hasStringData(null), false);
+});
+test('hasStringData() should return false for undefined.', () => {
+    assert.strictEqual(util.hasStringData(undefined), false);
+});
+
+// Test helper.hasPosInt()
+test('hasPosIntData() should return false for 4.".', () => {
+    let possibleInt = 4;
+    assert.strictEqual(util.hasPosIntData(possibleInt), true);
+});
+test('hasPosIntData() should return false for null.".', () => {
+    let possibleInt = null;
+    assert.strictEqual(util.hasPosIntData(possibleInt), false);
+});
+test('hasPosIntData() should return false for undefined.".', () => {
+    let possibleInt = undefined;
+    assert.strictEqual(util.hasPosIntData(possibleInt), false);
+});
+test('hasPosIntData() should return false for -1.".', () => {
+    let possibleInt = -1;
+    assert.strictEqual(util.hasPosIntData(possibleInt), false);
+});
+test('hasPosIntData() should return true for "7".".', () => {
+    let possibleInt = "7";
+    assert.strictEqual(util.hasPosIntData(possibleInt), true);
+});
+test('hasPosIntData() should return true for "andrew".', () => {
+    assert.strictEqual(util.hasPosIntData("andrew"), false);
+});
+test('hasPosIntData() should return true for "0".".', () => {
+    let possibleInt = '0';
+    assert.strictEqual(util.hasPosIntData(possibleInt), true);
+});
+test('hasPosIntData() should return false for [].".', () => {
+    let possibleInt = [];
+    assert.strictEqual(util.hasPosIntData(possibleInt), false);
+});
+test('hasPosIntData() should return false for {}.".', () => {
+    let possibleInt = {};
+    assert.strictEqual(util.hasPosIntData(possibleInt), false);
+});

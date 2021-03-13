@@ -18,7 +18,7 @@
 
 const { env } = require("process");
 const fs = require('fs');
-const helpers = require('./lib/helpers');
+const helpers = require('./lib/util');
 
 // Read the configuration from JSON in the ./config/config.json file.
 const configFile = './config/config.json';
