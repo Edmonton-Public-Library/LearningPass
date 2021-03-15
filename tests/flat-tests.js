@@ -17,6 +17,10 @@
  */
 const flat = require('../lib/flat');
 const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+
+// Bogus customer data.
 const custJson = {   
     "firstName": "Andrew",
     "lastName": "Nisbet", 
@@ -37,6 +41,87 @@ const custJson = {
     "status": "OK",    	
     "notes": "" 
   };
+
+// returns a promise which resolves true if file exists:
+const checkFileExists = (filepath) => new Promise((resolve,rejects) => {
+    let filePath = path.join(__dirname, filepath);
+    fs.access(filePath, fs.constants.F_OK, error => {
+        if (error) {
+            console.log(error);
+            rejects(false);
+        }
+        return resolve(true);
+    });
+});
+
+
+test("Should write flat to file.",() => {
+    // const filePath = '/home/anisbet/Dev/EPL/LearningPass/.data/test/test.flat';
+    const filePath = '../.data/test/test.flat';
+    const customer = {
+        errors: [],
+        data: []
+    };
+    let result = true;
+    flat.toFlat(custJson,customer)
+        .catch(console.log);
+
+    flat.write(customer,filePath)
+        // .then(console.log)
+        .catch(console.log);
+    checkFileExists(filePath)
+        .then((result) => {
+            assert.strictEqual(result,true);
+        })
+        .catch(console.log);
+});
+
+test("Should print a well formed flat file.",() => {
+    let customer = {
+        errors: [],
+        data: []
+    };
+    let result = {
+        errors: [],
+        data: [
+          '*** DOCUMENT BOUNDARY ***',
+          'FORM=LDUSER',
+          '.USER_FIRST_NAME.    |aAndrew',
+          '.USER_LAST_NAME.    |aNisbet',
+          '.USER_BIRTH_DATE.    |a19740822',
+          '.USER_ID.    |a21221012345678',
+          '.USER_PIN.    |aIlikeBread',
+          '.USER_PROFILE.    |aMAC-DSSTUD',
+          '.USER_PRIV_EXPIRES.    |a20210822',
+          '.USER_STATUS.    |aOK',
+          '.USER_NAME_DSP_PREF.    |a0',
+          '.USER_PREF_LANG.    |aENGLISH',
+          '.USER_ROUTING_FLAG.    |aY',
+          '.USER_CHG_HIST_RULE.    |aALLCHARGES',
+          '.USER_ACCESS.    |aPUBLIC',
+          '.USER_ENVIRONMENT.    |aPUBLIC',
+          '.USER_MAILINGADDR.    |a1',
+          '.NOTIFY_VIA.    |aPHONE',
+          '.RETRNMAIL.    |aYES',
+          '.USER_ADDR1_BEGIN.',
+          '.EMAIL.    |aexample@gmail.com',
+          '.PHONE.    |a780-555-1212',
+          '.STREET.    |a11535 74 Ave.',
+          '.CITY/PROV.    |aEdmonton',
+          '.POSTALCODE.    |aT6G0G9',
+          '.USER_ADDR1_END.'
+        ]
+      };
+    flat.toFlat(custJson,customer)
+        // .then(console.log)
+        .catch(console.log);
+    flat.write(customer)
+        // .then(console.log)
+        .catch(console.log);
+    assert.deepStrictEqual(customer,result);
+});
+
+
 
 test('Should reject missing customer data', () => {
     let cJson = {

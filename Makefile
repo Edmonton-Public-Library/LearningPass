@@ -18,12 +18,12 @@
 .PHONY: test demo run
 test:
 	# node test.js ./tests/calculator-test.js
-	node test.js ./tests/helpers-tests.js 
-	node test.js ./tests/config-tests.js
-	node test.js ./tests/customer-tests.js
-	node test.js ./tests/barcodes-tests.js
-	node test.js ./tests/util-tests.js
-	node test.js ./tests/date-tests.js
+	# node test.js ./tests/helpers-tests.js 
+	# node test.js ./tests/config-tests.js
+	# node test.js ./tests/customer-tests.js
+	# node test.js ./tests/barcodes-tests.js
+	# node test.js ./tests/util-tests.js
+	# node test.js ./tests/date-tests.js
 	node test.js ./tests/flat-tests.js
 run:
 	node index
