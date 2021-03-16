@@ -15,15 +15,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-.PHONY: test demo run
+.PHONY: test run customer all util helpers config date flat
+customer:
+	clear
+	node test.js ./tests/customer-tests.js
 test:
-	node test.js ./tests/calculator-test.js
+	# node test.js ./tests/calculator-test.js
 	node test.js ./tests/helpers-tests.js 
 	node test.js ./tests/config-tests.js
 	node test.js ./tests/customer-tests.js
 	node test.js ./tests/barcodes-tests.js
 	node test.js ./tests/util-tests.js
 	node test.js ./tests/date-tests.js
+	node test.js ./tests/flat-tests.js
+
+util:
+	node test.js ./tests/util-tests.js
+helpers:
+	node test.js ./tests/helpers-tests.js 
+config:
+	node test.js ./tests/config-tests.js
+date:
+	node test.js ./tests/date-tests.js
+flat:
 	node test.js ./tests/flat-tests.js
 run:
 	node index

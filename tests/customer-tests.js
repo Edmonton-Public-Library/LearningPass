@@ -647,3 +647,231 @@ test('Should COMPILE note sent.', () => {
 //   assert.strictEqual(
 //     customerHelper.checkNoteTokens(notes,partnerConfig), result);
 // });
+
+
+// Test merge fields.
+test("Should return string 'Edmonton, AB'", () => {
+  let result = 'Edmonton, AB';
+  let pc = {"merge" : {
+    "delimiter" : ", ",
+    "fields" : {"city" : ["city","province"]}
+  }};
+  customer = {   
+    "firstName": "andrew nicebit",
+    "lastName": "Nisbet", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer.city, result);
+
+});
+
+// Test merge fields.
+test("Should return string new 'preferredName'='A+B'", () => {
+  let result = 'A+B';
+  let pc = {"merge" : {
+    "delimiter" : "+",
+    "fields" : {"preferredName" : ["firstName","lastName"]}
+  }};
+  customer = {   
+    "firstName": "A",
+    "lastName": "B", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer['preferredName'], result);
+
+});
+
+// Test merge fields.
+test("Should return merged string without delimiter", () => {
+  let result = 'AB';
+  let pc = {"merge" : {
+    "fields" : {"preferredName" : ["firstName","lastName"]}
+  }};
+  customer = {   
+    "firstName": "A",
+    "lastName": "B", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer['preferredName'], result);
+
+});
+test("Should merge all defined fields", () => {
+  let result = 'B';
+  let pc = {"merge" : {
+    "fields" : {"city" : ["x","lastName"]}
+  }};
+  customer = {   
+    "firstName": "A",
+    "lastName": "B", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer.city, result);
+
+});
+test("Should return '' for merging undefined fields", () => {
+  let result = '';
+  let pc = {"merge" : {
+    "fields" : {"city" : ["x","y"]}
+  }};
+  customer = {   
+    "firstName": "A",
+    "lastName": "B", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer.city, result);
+
+});
+test("Should change city to province", () => {
+  let result = 'AB';
+  let pc = {"merge" : {
+    "delimiter" : "-",
+    "fields" : {"city" : ["province"]}
+  }};
+  customer = {   
+    "firstName": "A",
+    "lastName": "B", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer.city, result);
+
+});
+test("Should not change anything if 'fields' is empty.", () => {
+  let result = 'Edmonton';
+  let pc = {"merge" : {
+    "delimiter" : "-",
+    "fields" : {}
+  }};
+  customer = {   
+    "firstName": "A",
+    "lastName": "B", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer.city, result);
+
+});
