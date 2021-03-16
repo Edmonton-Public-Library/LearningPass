@@ -18,7 +18,7 @@
 .PHONY: test run customer all util helpers config date flat
 customer:
 	clear
-	node --trace-warnings test.js ./tests/customer-tests.js
+	node test.js ./tests/customer-tests.js
 test:
 	# node test.js ./tests/calculator-test.js
 	node test.js ./tests/helpers-tests.js 

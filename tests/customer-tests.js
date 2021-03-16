@@ -46,39 +46,24 @@ test('getGender() should return a mapped gender.', () => {
   let partnerConfig = {
     "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" 
   }};
-  let customer = {"gender":"MALE"};
-  customerHelper.getGender(customer, partnerConfig);
-  assert.strictEqual(customer.gender, "M");
+  assert.strictEqual(
+    customerHelper.getGender("MALE", partnerConfig), "M");
 });
 
 test('getGender() should fail to find mapped gender.', () => {
   let partnerConfig = {
     "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" 
   }};
-  let customer = {"gender":"queer"};
-  customerHelper.getGender(customer, partnerConfig);
-  assert.strictEqual(customer.gender, "");
+  assert.strictEqual(
+    customerHelper.getGender("queer", partnerConfig), "");
 });
 
 test('getGender() should return a case-agnostic mapped gender.', () => {
   let partnerConfig = {
-    "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" }};
-  let customer = {"gender":"male"};
-  customerHelper.getGender(customer,partnerConfig);
-  assert.strictEqual(customer.gender, "M");
-});
-
-test('getGender() should error with missing required field.', () => {
-  let partnerConfig = {
-    // "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" }
-  };
-  let customer = {};
-  customerHelper.getGender(customer,partnerConfig,true)
-    .then(console.log('I return successfully.'))
-    .catch(err => {
-      console.log(`Yes, this got thrown: ${err}`);
-      assert.strictEqual(err, 'missing required field:"gender"');
-  });
+    "genderMap": {"MALE":"M","FEMALE":"F","NA":"NA","NONE":"X" 
+  }};
+  assert.strictEqual(
+    customerHelper.getGender("male", partnerConfig), "M");
 });
 
 // Test 'private' helper that will get a default if there is one.
