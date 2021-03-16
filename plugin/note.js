@@ -22,17 +22,13 @@
  */
 const noteCompiler = {};
 
-noteCompiler.compile = (str,resultDict) => new Promise((resolve,reject) => {
-    console.log('doing work...');
-    resultDict.result = "SUCCESS";
-    // Some condition to resolve or reject...
-    let err = true;
-    if (err) {
-        resolve('...done.');
+noteCompiler.compile = (customer,resultDict) => new Promise((resolve,reject) => {
+    if (customer.notes && customer.notes.indexOf('NOT') < 0){
+        customer.notes = customer.notes + "SUCCESS";
     } else {
-        resultDict.errors = "customer is not nice";
-        reject(new Error('customer is not nice'));
+        customer.notes = `Error in notes:"${customer.notes}"`;
     }
+    resolve(customer);
 });
 
 module.exports = noteCompiler;

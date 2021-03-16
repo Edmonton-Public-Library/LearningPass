@@ -20,7 +20,7 @@ customer:
 	clear
 	node test.js ./tests/customer-tests.js
 test:
-	# node test.js ./tests/calculator-test.js
+	clear
 	node test.js ./tests/helpers-tests.js 
 	node test.js ./tests/config-tests.js
 	node test.js ./tests/customer-tests.js
