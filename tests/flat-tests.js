@@ -43,12 +43,12 @@ const custJson = {
   };
 
 // returns a promise which resolves true if file exists:
-const checkFileExists = (filepath) => new Promise((resolve,rejects) => {
+const checkFileExists = (filepath) => new Promise((resolve,reject) => {
     let filePath = path.join(__dirname, filepath);
     fs.access(filePath, fs.constants.F_OK, error => {
         if (error) {
             console.log(error);
-            rejects(false);
+            reject(false);
         }
         return resolve(true);
     });
