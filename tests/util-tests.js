@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * This file util.tests.js contains utility functions testing data types.
  * 

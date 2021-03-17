@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+const process = require('process');
 // Testing framework for Learning Pass.
 // `tests` is a singleton variable that will contain all our tests
 let tests = [];
@@ -65,4 +65,4 @@ files.forEach(file => {
 // Now that all the tests from all the files are
 // added, run them one after the other
 run();
-
+module.exports = test;

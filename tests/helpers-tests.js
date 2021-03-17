@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * This file data.js contains utility functions for Learning Pass.
  * 
@@ -18,6 +19,7 @@
 // We use the assert standard library to make assertions
 const assert = require('assert');
 const helpers = require('../lib/helpers');
+
 
 // We do not need to import the test functions since
 // they are made global variables by test.js

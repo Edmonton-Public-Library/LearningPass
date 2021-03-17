@@ -7,12 +7,12 @@
     "lib": "lib",
     "test": "tests"
   },
-  "dependencies": {
-    "sqlite3": "^5.0.2"
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.22.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js ./tests/*.js"
   },
   "repository": {
     "type": "git",

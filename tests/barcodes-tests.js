@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * This file data.js contains utility functions for Learning Pass.
  * 
@@ -17,7 +18,6 @@
  */
  const assert = require('assert');
  const bcHelpers = require('../lib/barcodes.js');
- 
  
 // Test getBarcode strict.
 test("getBarcode(11,14,'21221012345678') should return '21221012345678'", () => {

@@ -16,20 +16,19 @@
  * limitations under the License.
  */
 
-const { env } = require("process");
-const fs = require('fs');
-const helpers = require('./lib/util');
+const utils = require('./lib/util');
+const process = require('process');
 
 // Read the configuration from JSON in the ./config/config.json file.
 const configFile = './config/config.json';
-const defaultPartnerConfig = './config/default.json';
+// const defaultPartnerConfig = './config/default.json';
 
 // A well formed config.json file contains these objects.
-const names = {
-    serverSettings : "serverConfig",
-    customerSettings : "customerSettings",
-    partners : "partners"
-};
+// const names = {
+//     serverSettings : "serverConfig",
+//     customerSettings : "customerSettings",
+//     partners : "partners"
+// };
 
 // The environment object of helper functions.
 const environment = {};
@@ -74,12 +73,12 @@ environment._fields = [
  * match spelling and case of fields of JSON data inbound 
  * from partner. 
  */
-environment.validatePartnerConfigs = function(partnerConfigs){
+const validatePartnerConfigs = function(partnerConfigs){
     let errors = [];
 
     // Test for special sub-objects.
     let requiredList = partnerConfigs.required;
-    if (helpers.hasArrayData(requiredList)) {
+    if (utils.hasArrayData(requiredList)) {
         requiredList.forEach(pField => {
             if (environment._fields.indexOf(pField) < 0){
                 errors.push(pField);
@@ -91,7 +90,7 @@ environment.validatePartnerConfigs = function(partnerConfigs){
 
 
     // Optional may be a list and if it is, check for spelling
-    if (helpers.hasArrayData(partnerConfigs.optional)){
+    if (utils.hasArrayData(partnerConfigs.optional)){
         let optionalList = partnerConfigs.optional;
         optionalList.forEach(pField => {
             if (environment._fields.indexOf(pField) < 0){
@@ -126,16 +125,16 @@ environment.validatePartnerConfigs = function(partnerConfigs){
 
         // Load the server settings.
         // Read in the server configuration object, and have a default standing by if there isn't one.
-        let envName = helpers.hasStringData(process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() : "staging";
+        let envName = utils.hasStringData(process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() : "staging";
         // console.log('888>',envName);
-        environment.serverConfig = helpers.hasDictData(config[envName]) ? config[envName] : defaultServerSettings;
+        environment.serverConfig = utils.hasDictData(config[envName]) ? config[envName] : defaultServerSettings;
         console.log(`Server starting as '${environment.serverConfig.envName}'.`);
 
 
         // Load the default customer settings from the config.json
-        if (helpers.hasDictData(config.customerSettings)){
+        if (utils.hasDictData(config.customerSettings)){
             let libraryName = config.customerSettings.library;
-            if (helpers.hasStringData(libraryName)){
+            if (utils.hasStringData(libraryName)){
                 console.log(`Using customer settings for ${libraryName}`);
                 environment.customerSettings = config.customerSettings;
             } else {
@@ -164,14 +163,14 @@ environment.validatePartnerConfigs = function(partnerConfigs){
         // Find the apiKey
         // Find the partner's configuration.json.
         environment.partners.forEach(partner => {
-            if (!helpers.hasStringData(partner.key)) {
+            if (!utils.hasStringData(partner.key)) {
                 console.log(`Error: cannot find partner api key for ${partner.name}! They will not be able to create new accounts.`);
             }
             try {
                 let partnerConfigs = require(partner.config);
                 // check the required fields definition.
                 /** @TODO test the other objects in the partnerConfig object. */
-                let anyErrors = environment.validatePartnerConfigs(partnerConfigs);
+                let anyErrors = validatePartnerConfigs(partnerConfigs);
                 if (anyErrors.length > 0){
                     console.log(`**Error: ${partner.config} has errors: "${anyErrors}".`);
                 } else {
@@ -208,7 +207,7 @@ environment.getVersion = function(){
  */
 environment.getServerConfig = function(){
     // if (typeof(environment.serverConfig) == 'object'){
-    if (helpers.hasDictData(environment.serverConfig)){
+    if (utils.hasDictData(environment.serverConfig)){
         return environment.serverConfig;
     } else {
         console.log(`Error server configs not set.`);
@@ -221,11 +220,11 @@ environment.getServerConfig = function(){
  * @param {*} apiKey api key for a given customer.
  */
 environment.getPartnerConfig = function(apiKey){
-    if (!helpers.hasStringData(apiKey)) {
+    if (!utils.hasStringData(apiKey)) {
         console.log(`Error no api key was submitted.`);
         return {};
     } else {
-        if (helpers.hasDictData(environment[apiKey])){
+        if (utils.hasDictData(environment[apiKey])){
             return environment[apiKey];
         } else {
             console.log(`Error: invalid API key.`);
@@ -240,7 +239,7 @@ environment.getPartnerConfig = function(apiKey){
  * library policy.
  */
 environment.getDefaultCustomerSettings = function(){
-    if (helpers.hasDictData(environment.customerSettings)){
+    if (utils.hasDictData(environment.customerSettings)){
         return environment.customerSettings;
     } else {
         console.log(`Error customer default configs not set.`);

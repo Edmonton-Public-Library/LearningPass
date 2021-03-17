@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * This file data.js contains utility functions for Learning Pass.
  * 
@@ -347,7 +348,6 @@ test('getPassword() Should not allow legit password less than 4 digits', () => {
     "minimum" : 4
   }};
   let password  = "123";
-  let result = password;
   assert.strictEqual(
     customerHelper.getPassword(password,libConfig), "");
 });
@@ -357,7 +357,6 @@ test('getPassword() Should not allow legit password more than max digits', () =>
     "maximum" : 5
   }};
   let password  = "123456";
-  let result = password;
   assert.strictEqual(
     customerHelper.getPassword(password,libConfig), "");
 });
@@ -414,8 +413,8 @@ test('getPassword() Should return "" if regex password does not match regex', ()
 // ********** success is conditional on the 'expiry' object in the config.json ****
 test('getExpiry() Should get default library expiry date : [NEVER|<date>] or days=<n>', () => {
   // Get Default from config.json
-  let partnerConfig = {};
-  let expiry  = "";
+  // let partnerConfig = {};
+  // let expiry  = "";
   
 
   // Test 1 start
@@ -657,7 +656,7 @@ test("Should return string 'Edmonton, AB'", () => {
     "delimiter" : ", ",
     "fields" : {"city" : ["city","province"]}
   }};
-  customer = {   
+  let customer = {   
     "firstName": "andrew nicebit",
     "lastName": "Nisbet", 
     "dob": "19740822", 
@@ -691,7 +690,7 @@ test("Should return string new 'preferredName'='A+B'", () => {
     "delimiter" : "+",
     "fields" : {"preferredName" : ["firstName","lastName"]}
   }};
-  customer = {   
+  let customer = {   
     "firstName": "A",
     "lastName": "B", 
     "dob": "19740822", 
@@ -724,7 +723,7 @@ test("Should return merged string without delimiter", () => {
   let pc = {"merge" : {
     "fields" : {"preferredName" : ["firstName","lastName"]}
   }};
-  customer = {   
+  let customer = {   
     "firstName": "A",
     "lastName": "B", 
     "dob": "19740822", 
@@ -755,7 +754,7 @@ test("Should merge all defined fields", () => {
   let pc = {"merge" : {
     "fields" : {"city" : ["x","lastName"]}
   }};
-  customer = {   
+  let customer = {   
     "firstName": "A",
     "lastName": "B", 
     "dob": "19740822", 
@@ -786,7 +785,7 @@ test("Should return '' for merging undefined fields", () => {
   let pc = {"merge" : {
     "fields" : {"city" : ["x","y"]}
   }};
-  customer = {   
+  let customer = {   
     "firstName": "A",
     "lastName": "B", 
     "dob": "19740822", 
@@ -818,7 +817,7 @@ test("Should change city to province", () => {
     "delimiter" : "-",
     "fields" : {"city" : ["province"]}
   }};
-  customer = {   
+  let customer = {   
     "firstName": "A",
     "lastName": "B", 
     "dob": "19740822", 
@@ -850,7 +849,7 @@ test("Should not change anything if 'fields' is empty.", () => {
     "delimiter" : "-",
     "fields" : {}
   }};
-  customer = {   
+  let customer = {
     "firstName": "A",
     "lastName": "B", 
     "dob": "19740822", 

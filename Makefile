@@ -16,9 +16,14 @@
 # limitations under the License.
 #
 .PHONY: test run customer all util helpers config date flat
+config:
+	clear
+	node test.js ./tests/config-tests.js
+
 customer:
 	clear
 	node test.js ./tests/customer-tests.js
+
 test:
 	clear
 	node test.js ./tests/helpers-tests.js 
@@ -30,14 +35,17 @@ test:
 	node test.js ./tests/flat-tests.js
 
 util:
+	clear
 	node test.js ./tests/util-tests.js
 helpers:
+	clear
 	node test.js ./tests/helpers-tests.js 
-config:
-	node test.js ./tests/config-tests.js
 date:
+	clear
 	node test.js ./tests/date-tests.js
 flat:
+	clear
 	node test.js ./tests/flat-tests.js
 run:
+	clear
 	node index

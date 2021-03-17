@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * This file data.js contains utility functions for Learning Pass.
  * 
@@ -62,7 +63,7 @@ test("Should write flat to file.",() => {
         errors: [],
         data: []
     };
-    let result = true;
+
     flat.toFlat(custJson,customer)
         .catch(console.log);
 

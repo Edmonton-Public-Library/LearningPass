@@ -19,26 +19,13 @@
 // Dependencies
 const http = require('http');
 const https = require('https');
-const url = require('url');
+// const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
 // Read cert and key
 const fs = require('fs');
-// Location of the cache database
-/** @TODO : create cache database of already registered customers. */
-const _data = require('./lib/data');
 const handlers = require('./lib/handlers');
 
-
-// TESTING
-/** @TODO  delete when done. */
-// _data.create('test', 'newFile', {'foo' : 'bar'}, function(err) {
-//     console.log('file created, is_err? ',err);
-// });
-
-_data.read('test', 'config', function(err, data){
-    console.log('read got back: ', err, data);
-});
 
 // The http server should respond to all requests with a string.
 const httpServer = http.createServer(function(req, res){
@@ -118,7 +105,7 @@ const unifiedServer = function(req, res) {
             
             payload = typeof(payload) == 'object' ? payload : {};
             // convert the payload from an object to a string.
-            payloadString = JSON.stringify(payload);
+            let payloadString = JSON.stringify(payload);
             // return the response
             // Let the user know we are returning JSON
             res.setHeader('Content-type', 'application/json');
