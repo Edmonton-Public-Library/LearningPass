@@ -1,7 +1,8 @@
+#!/usr/bin/env node
 /**
  * This file index.js, is part of the Learning Pass project.
  * 
- * Copyright 2021 Andrew Nisbet
+ * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
