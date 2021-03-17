@@ -33,15 +33,17 @@ const httpServer = http.createServer(function(req, res){
 });
 
 // Start the server and listen on port 3000
-httpServer.listen(config.httpPort, function() {
-    console.log('The server is listening on port '+config.httpPort+', env: ' + config.envName);
+httpServer.listen(config.getHttpPort(), function() {
+    console.log('The server is listening on HTTP port '+config.getHttpPort()+', env: ' + config.getEnvName());
 });
 
 // The https server.
 const httpsServerOptions = {
     // since we want the file to be read before proceeding...
-    'key' : fs.readFileSync('./https/key.pem'),
-    'cert' : fs.readFileSync('./https/cert.pem')
+    // 'key' : fs.readFileSync('./https/key.pem'),
+    // 'cert' : fs.readFileSync('./https/cert.pem')
+    'key' : fs.readFileSync(config.getCertsDir()+'/key.pem'),
+    'cert' : fs.readFileSync(config.getCertsDir()+'/cert.pem')
 };
 
 const httpsServer = https.createServer(httpsServerOptions, function(req, res){
@@ -49,8 +51,8 @@ const httpsServer = https.createServer(httpsServerOptions, function(req, res){
 });
 
 // Start the server and listen on port 3000
-httpsServer.listen(config.httpsPort, function() {
-    console.log('The server is listening on port '+config.httpsPort+', env: ' + config.envName);
+httpsServer.listen(config.getHttpsPort(), function() {
+    console.log('The server is listening on HTTPS port '+config.getHttpsPort()+', env: ' + config.getEnvName());
 });
 
 // Handle creating both http and https servers.
@@ -121,5 +123,5 @@ const unifiedServer = function(req, res) {
 // defininition of a request router.
 const router = {
     'sample' : handlers.sample,
-    'ping' : handlers.ping
+    'status' : handlers.status
 };

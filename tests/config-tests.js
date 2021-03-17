@@ -103,3 +103,10 @@ test('Should return certs dir for staging.', () => {
     let actualDir = environment.getCertsDir();
     assert.strictEqual(actualDir, correctDir);
 });
+
+// Test environment name.
+test('Should return environment name "staging".', () => {
+    let correctName = "staging";
+    let actualName = environment.getEnvName();
+    assert.strictEqual(actualName, correctName);
+});

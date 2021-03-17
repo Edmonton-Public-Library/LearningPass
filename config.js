@@ -301,11 +301,18 @@ environment.getFlatDir = function() {
 }
 
 /**
- * Returns true if the 'testMode' key-value pair exists in the config.json
+ * @returns true if the 'testMode' key-value pair exists in the config.json
  * and is set to true, and false otherwise.
  */
 environment.useTestMode = function(){
     return environment.testMode;
+}
+
+/**
+ * @returns the configured environment name.
+ */
+environment.getEnvName = function(){
+    return environment.serverConfig.envName;
 }
 
 module.exports = environment;

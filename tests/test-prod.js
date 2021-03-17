@@ -37,3 +37,10 @@ test('Should return https port for production.', () => {
     let actualPort = environment.getHttpsPort();
     assert.strictEqual(actualPort, correctPort);
 });
+
+// Test environment name.
+test('Should return environment name "production".', () => {
+    let correctName = "production";
+    let actualName = environment.getEnvName();
+    assert.strictEqual(actualName, correctName);
+});
