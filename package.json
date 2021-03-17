@@ -12,7 +12,7 @@
     "eslint": "^7.22.0"
   },
   "scripts": {
-    "test": "node test.js ./tests/*.js"
+    "test": "clear;node test.js ./tests/*-tests.js; NODE_ENV=production node test.js ./tests/test-prod.js"
   },
   "repository": {
     "type": "git",

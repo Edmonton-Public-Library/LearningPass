@@ -248,11 +248,56 @@ environment.getDefaultCustomerSettings = function(){
 };
 
 /**
+ * 
+ * @returns the http port for the environment set by process.env.NODE_ENV.
+ */
+environment.getHttpPort = function() {
+    return environment.serverConfig.httpPort;
+}
+
+/**
+ * 
+ * @returns the https port for the environment set by process.env.NODE_ENV.
+ */
+environment.getHttpsPort = function() {
+    return environment.serverConfig.httpsPort;
+}
+
+/**
  * Returns true if the 'loopbackMode' key-value pair exists in the config.json
  * and is set to true, and false otherwise.
  */
 environment.useLoopbackMode = function(){
     return environment.loopbackMode;
+}
+
+/**
+ * 
+ * @returns determines where to find the certs directory for the environment
+ * as set by process.env.NODE_ENV.
+ */
+environment.getCertsDir = function() {
+    return environment.serverConfig.directories.certs;
+}
+
+/**
+ * Determines where to write accounts that fail inspection.
+ * 
+ * @returns the fail directory depending on the installation
+ * environment set by process.env.NODE_ENV.
+ */
+environment.getFailDir = function() {
+    return environment.serverConfig.directories.fail;
+}
+
+/**
+ * Determines where to write flat files.
+ * 
+ * @returns the flat directory depending on the installation
+ * environment set by process.env.NODE_ENV.
+ */
+environment.getFlatDir = function() {
+    return environment.serverConfig.directories.flat;
 }
 
 /**

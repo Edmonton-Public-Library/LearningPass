@@ -72,3 +72,34 @@ test('Tests the server loopbackMode.', () => {
     }
     console.log('Server is not in loopbackMode.');
 });
+
+// Test the server ports and directories.
+test('Should return http port for staging.', () => {
+    let correctPort = 3000;
+    let actualPort = environment.getHttpPort();
+    assert.strictEqual(actualPort, correctPort);
+});
+
+// Test the server ports and directories.
+test('Should return https port for staging.', () => {
+    let correctPort = 3001;
+    let actualPort = environment.getHttpsPort();
+    assert.strictEqual(actualPort, correctPort);
+});
+
+// Test the server directories.
+test('Should return flat dir for staging.', () => {
+    let correctDir = "../Incoming";
+    let actualDir = environment.getFlatDir();
+    assert.strictEqual(actualDir, correctDir);
+});
+test('Should return fail dir for staging.', () => {
+    let correctDir = "../Fail";
+    let actualDir = environment.getFailDir();
+    assert.strictEqual(actualDir, correctDir);
+});
+test('Should return certs dir for staging.', () => {
+    let correctDir = "./https";
+    let actualDir = environment.getCertsDir();
+    assert.strictEqual(actualDir, correctDir);
+});

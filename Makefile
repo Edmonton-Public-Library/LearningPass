@@ -15,7 +15,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-.PHONY: test run customer all util helpers config date flat
+.PHONY: test run customer all util helpers config date flat prod
+
+prod:
+	clear
+	NODE_ENV=production node test.js ./tests/configprod-tests.js
+	
 config:
 	clear
 	node test.js ./tests/config-tests.js
