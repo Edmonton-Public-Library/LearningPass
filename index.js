@@ -19,7 +19,6 @@
 // Dependencies
 const http = require('http');
 const https = require('https');
-// const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
 // Read cert and key
@@ -122,6 +121,6 @@ const unifiedServer = function(req, res) {
 
 // defininition of a request router.
 const router = {
-    'sample' : handlers.sample,
+    'register' : handlers.register,
     'status' : handlers.status
 };
