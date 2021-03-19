@@ -833,54 +833,52 @@ test("Should not change anything if 'fields' is empty.", () => {
 
 
 
-// // Actual customer test on validate.
-// // Test 
-// test('validate() should run multiple tests on modifying customer data.', () => {
-//   // console.log('888>',environment.getVersion());
-//   let error = require('../lib/response');
-//   let pConfig = {};
-//   pConfig.barcodes = {
-//     // prefix:"8888888",
-//     minimum:"11",
-//     maximum:"14"
-//   };
-//   pConfig.required = ["firstName","lastName","barcode"];
-//   pConfig.optional = ["gender"];
-//   pConfig.defaults = {"gender" : "not-saying"}//,
-//   //  "country" : "Jamacia"};
-//   let customer = {   
-//     "firstName": "andrew nicebit",
-//     "lastName": "Nisbet", 
-//     "dob": "19740822", 
-//     // "gender": "", 
-//     "email": "example@gmail.com", 
-//     "phone": "780-555-1212", 
-//     "street": "11535 74 Ave.", 
-//     "city": "Edmonton", 
-//     "province": "AB", 
-//     "country": "", 
-//     "postalCode": "T6G0G9",
-//     "barcode": "21221012345678",
-//     "pin": "IlikeBread",
-//     "type": "MAC-DSSTUD",
-//     "expiry": "20210822",
-//     "branch": "",
-//     "status": "OK",
-//     "notes": ""
-//   };
-//   customerHelper.validate(error,customer,pConfig)
-//       .then((customer)=>{
-//         console.log(customer);
-//       })
-//       // Any error from any step above will get caught here.
-//       .catch(console.error);
-//   // console.log("888>",error);
-//   // console.log("999>",customer);
-//   // assert.strictEqual(error.messages.length,0);
-//   // console.log('888>',error);
-//   assert.strictEqual(customer.firstName,"Andrew");
-//   assert.strictEqual(customer.lastName,"Nisbet");
-// });
+// Actual customer test on validate.
+// Test 
+test('validate() should run multiple tests on modifying customer data.', () => {
+  // console.log('888>',environment.getVersion());
+  let error = require('../lib/response');
+  let pConfig = {};
+  pConfig.barcodes = {
+    // prefix:"8888888",
+    minimum:"11",
+    maximum:"14"
+  };
+  pConfig.required = ["firstName","lastName","barcode"];
+  pConfig.optional = ["gender"];
+  pConfig.defaults = {"gender" : "not-saying"}
+  pConfig.flatDefaults = {
+    "USER_CATEGORY2" : "GODDESS",
+    "USER_CATEGORY3" : "EMAILCONV"
+  };
+  let customer = {   
+    "firstName": "andrew nicebit",
+    "lastName": "Nisbet", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  };
+  customerHelper.validate(error,customer,pConfig);
+  // console.log("888>",error);
+  // console.log("999>",customer);
+  // assert.strictEqual(error.messages.length,0);
+  // console.log('888>',error);
+  assert.strictEqual(customer.firstName,"Andrew");
+  assert.strictEqual(customer.lastName,"Nisbet");
+});
 
 
 

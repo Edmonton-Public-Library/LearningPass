@@ -74,7 +74,7 @@ test("Should write flat to file.",() => {
 });
 
 test("Should print a well formed flat file.",() => {
-    let customer = {
+    let flatCustomer = {
         errors: [],
         data: []
     };
@@ -109,13 +109,14 @@ test("Should print a well formed flat file.",() => {
           '.USER_ADDR1_END.'
         ]
       };
-    flat.toFlat(custJson,customer)
+    result.json = custJson;
+    flat.toFlat(custJson,flatCustomer)
         // .then(console.log)
         .catch(console.log);
-    flat.write(customer)
+    flat.write(flatCustomer)
         // .then(console.log)
         .catch(console.log);
-    assert.deepStrictEqual(customer,result);
+    assert.deepStrictEqual(flatCustomer,result);
 });
 
 

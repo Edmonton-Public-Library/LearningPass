@@ -89,7 +89,7 @@ test('Should return https port for staging.', () => {
 
 // Test the server directories.
 test('Should return flat dir for staging.', () => {
-    let correctDir = "../Incoming";
+    let correctDir = "../.data/test";
     let actualDir = environment.getFlatDir();
     assert.strictEqual(actualDir, correctDir);
 });
