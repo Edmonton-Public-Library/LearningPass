@@ -16,10 +16,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const flat = require('../lib/flat');
+const {flatCustomer, flat} = require('../lib/flat');
 const assert = require('assert');
 const fs = require('fs');
-const path = require('path');
 
 // Bogus customer data.
 const custJson = {   
@@ -45,8 +44,7 @@ const custJson = {
 
 // returns a promise which resolves true if file exists:
 const checkFileExists = (filepath) => new Promise((resolve,reject) => {
-    let filePath = path.join(__dirname, filepath);
-    fs.access(filePath, fs.constants.F_OK, error => {
+    fs.access(filepath, fs.constants.F_OK, error => {
         if (error) {
             console.log(error);
             reject(false);
@@ -59,20 +57,18 @@ const checkFileExists = (filepath) => new Promise((resolve,reject) => {
 test("Should write flat to file.",() => {
     // const filePath = '/home/anisbet/Dev/EPL/LearningPass/.data/test/test.flat';
     const filePath = '../.data/test/test.flat';
-    const customer = {
-        errors: [],
-        data: []
-    };
+    let customer = flatCustomer;
 
     flat.toFlat(custJson,customer)
         .catch(console.log);
 
     flat.write(customer,filePath)
-        // .then(console.log)
-        .catch(console.log);
-    checkFileExists(filePath)
-        .then((result) => {
-            assert.strictEqual(result,true);
+        .then((filePath) => {
+            checkFileExists(filePath)
+            .then((result) => {
+                assert.strictEqual(result,true);
+            })
+            .catch(console.log);
         })
         .catch(console.log);
 });
