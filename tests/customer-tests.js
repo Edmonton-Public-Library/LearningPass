@@ -18,12 +18,14 @@
  * limitations under the License.
  */
 const assert = require('assert');
+const dotenv = require('dotenv');
+ dotenv.config();
 const customerHelper = require('../lib/customer');
   /**
-   * [{   
-   *  "firstName": "Andrew",
-   *  "lastName": "Nisbet", 
-   *  "dob": "19740822", 
+   * {   
+   *  "firstName": "Mike",
+   *  "lastName": "Mizer", 
+   *  "dob": "1974-08-22", 
    *  "gender": "", 
    *  "email": "example@gmail.com", 
    *  "phone": "780-555-1212", 
@@ -38,8 +40,8 @@ const customerHelper = require('../lib/customer');
    *  "expiry": "20210822",    	
    *  "branch": "",    	
    *  "status": "OK",    	
-   *  “notes": "" 
-   *}] 
+   *  "notes": "" 
+   *} 
    */
 
 
@@ -918,7 +920,7 @@ test('validate() should fail with message.', () => {
   };
 
 
-  customerHelper.createAccount(response,'QJnc2JQLICWASpVj6eIR',customer);
+  customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
   
   let expected = 'Some required fields are missing, lastName';
   assert.strictEqual(response.getStatus(),206);

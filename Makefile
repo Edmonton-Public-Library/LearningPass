@@ -16,7 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-.PHONY: test run customer all util helpers config date flat prod response
+.PHONY: test run customer all util helpers config date flat prod response handlers
+
+handlers:
+	clear
+	node test.js ./tests/handlers-tests.js
 
 response: test.js ./tests/response-tests.js
 	clear
@@ -44,6 +48,7 @@ test:
 	node test.js ./tests/date-tests.js
 	node test.js ./tests/flat-tests.js
 	node test.js ./tests/response-tests.js
+	node test.js ./tests/handlers-tests.js
 
 util:
 	clear
