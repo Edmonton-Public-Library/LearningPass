@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 const assert = require('assert');
-const {customerErrors,customerHelper} = require('../lib/customer');
+const customerHelper = require('../lib/customer');
   /**
    * [{   
    *  "firstName": "Andrew",
@@ -193,64 +193,12 @@ test('getType() should return EPL_NEXUS.', () => {
     customerHelper.getType("GMU-Staff",partnerConfig), "EPL_NEOSSTF");
 });
 
-
-
-// Actual customer test on validate.
-// Test 
-test('validate() should run multiple tests on modifying customer data.', () => {
-  // console.log('888>',environment.getVersion());
-  let error = customerErrors;
-  let pConfig = {};
-  pConfig.barcodes = {
-    // prefix:"8888888",
-    minimum:"11",
-    maximum:"14"
-  };
-  pConfig.required = ["firstName","lastName","barcode"];
-  pConfig.optional = ["gender"];
-  pConfig.defaults = {"gender" : "not-saying"}//,
-  //  "country" : "Jamacia"};
-  let customer = {   
-    "firstName": "andrew nicebit",
-    "lastName": "Nisbet", 
-    "dob": "19740822", 
-    // "gender": "", 
-    "email": "example@gmail.com", 
-    "phone": "780-555-1212", 
-    "street": "11535 74 Ave.", 
-    "city": "Edmonton", 
-    "province": "AB", 
-    "country": "", 
-    "postalCode": "T6G0G9",
-    "barcode": "21221012345678",
-    "pin": "IlikeBread",
-    "type": "MAC-DSSTUD",
-    "expiry": "20210822",
-    "branch": "",
-    "status": "OK",
-    "notes": ""
-  };
-  customerHelper.validate(error,customer,pConfig)
-      .then((customer)=>{
-        console.log(customer);
-      })
-      // Any error from any step above will get caught here.
-      .catch(console.error);
-  // console.log("888>",error);
-  // console.log("999>",customer);
-  // assert.strictEqual(error.messages.length,0);
-  // console.log('888>',error);
-  assert.strictEqual(customer.firstName,"Andrew");
-  assert.strictEqual(customer.lastName,"Nisbet");
-});
-
 test('getDOB() should return 2000-02-06.', () => {
   let partnerConfig = { 
       age : {minimum : 18}
   };
   assert.deepStrictEqual(
-    customerHelper.getDOB("2000-02-06",partnerConfig), 
-    new Date("2000-02-06"));
+    customerHelper.getDOB("2000-02-06",partnerConfig),"2000-02-06");
 });
 
 test('getDOB() should return "".', () => {
@@ -267,8 +215,7 @@ test('getDOB() should return "2000-02-06".', () => {
   };
   assert.deepStrictEqual(
     customerHelper.getDOB(
-      "2000-02-06",partnerConfig), 
-      new Date('2000-02-06'));
+      "2000-02-06",partnerConfig), '2000-02-06');
 });
 test('getDOB() should return "".', () => {
   let partnerConfig = { 
@@ -284,8 +231,7 @@ test('getDOB() should return "2000-02-06" if min age is negative.', () => {
   };
   assert.deepStrictEqual(
     customerHelper.getDOB(
-      "2000-02-06",partnerConfig),
-      new Date('2000-02-06'));
+      "2000-02-06",partnerConfig),'2000-02-06');
 });
 
 // Test getBarcode()
@@ -497,7 +443,7 @@ test('getExpiry() Should prefer customer expiry', () => {
   // Get Default from config.json
   let partnerConfig = {"expiry": {"date": 30}};
   let expiry  = "2030-08-22";
-  let result = new Date(expiry);
+  let result = expiry;
   assert.deepStrictEqual(
     customerHelper.getExpiry(expiry,partnerConfig), result);
 });
@@ -873,5 +819,110 @@ test("Should not change anything if 'fields' is empty.", () => {
   customerHelper.mergeFields(customer,pc);
 
   assert.strictEqual(customer.city, result);
+
+});
+
+
+
+
+
+
+
+
+
+
+
+// // Actual customer test on validate.
+// // Test 
+// test('validate() should run multiple tests on modifying customer data.', () => {
+//   // console.log('888>',environment.getVersion());
+//   let error = require('../lib/response');
+//   let pConfig = {};
+//   pConfig.barcodes = {
+//     // prefix:"8888888",
+//     minimum:"11",
+//     maximum:"14"
+//   };
+//   pConfig.required = ["firstName","lastName","barcode"];
+//   pConfig.optional = ["gender"];
+//   pConfig.defaults = {"gender" : "not-saying"}//,
+//   //  "country" : "Jamacia"};
+//   let customer = {   
+//     "firstName": "andrew nicebit",
+//     "lastName": "Nisbet", 
+//     "dob": "19740822", 
+//     // "gender": "", 
+//     "email": "example@gmail.com", 
+//     "phone": "780-555-1212", 
+//     "street": "11535 74 Ave.", 
+//     "city": "Edmonton", 
+//     "province": "AB", 
+//     "country": "", 
+//     "postalCode": "T6G0G9",
+//     "barcode": "21221012345678",
+//     "pin": "IlikeBread",
+//     "type": "MAC-DSSTUD",
+//     "expiry": "20210822",
+//     "branch": "",
+//     "status": "OK",
+//     "notes": ""
+//   };
+//   customerHelper.validate(error,customer,pConfig)
+//       .then((customer)=>{
+//         console.log(customer);
+//       })
+//       // Any error from any step above will get caught here.
+//       .catch(console.error);
+//   // console.log("888>",error);
+//   // console.log("999>",customer);
+//   // assert.strictEqual(error.messages.length,0);
+//   // console.log('888>',error);
+//   assert.strictEqual(customer.firstName,"Andrew");
+//   assert.strictEqual(customer.lastName,"Nisbet");
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Actual customer test on validate.
+// Test 
+test('validate() should fail with message.', () => {
+  let response = require('../lib/response');
+  let customer = {   
+    "firstName": "andrew nicebit",
+    // "lastName": "Nisbet", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  };
+
+
+  customerHelper.createAccount(response,'QJnc2JQLICWASpVj6eIR',customer);
+  
+  let expected = 'Some required fields are missing, lastName';
+  assert.strictEqual(response.getStatus(),206);
+  assert.deepStrictEqual(response.getMessages(),expected);
 
 });

@@ -23,11 +23,13 @@ const response = require('../lib/response');
 
 test("Should send back 200 if nothing else happens.", () => {
     let expected = 200;
+    response.headerCode = 200;
     let actual = response.getStatus();
     assert.deepStrictEqual(actual,expected);
 });
 test("Should getStatus() of 500 for unrecognized error type.", () => {
     let expected = 500;
+    response.headerCode = 200;
     response.setStatus('andrew',"some message");
     let actual = response.getStatus();
     assert.deepStrictEqual(actual,expected);
@@ -52,4 +54,18 @@ test("Should pass getMessage() for 405 'too young'.", () => {
     response.setStatus('notAllowed','too young.');
     let actual = response.getMessages();
     assert.deepStrictEqual(actual,expected);
+});
+test("Should hasErrors() returns true for 204.", () => {
+    let expected = true;
+    response.headerCode = 200;
+    response.setStatus('noContent',"");
+    let actual = response.hasErrors();
+    assert.strictEqual(actual,expected);
+});
+test("Should hasErrors() returns false for 202.", () => {
+    let expected = true;
+    response.headerCode = 200;
+    response.setStatus('accepted',"");
+    let actual = response.hasErrors();
+    assert.strictEqual(actual,expected);
 });

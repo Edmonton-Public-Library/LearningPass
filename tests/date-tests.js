@@ -145,3 +145,9 @@ test('hasDateData() should return false for [].".', () => {
     let weirdDate = [];
     assert.strictEqual(dateHelpers.hasDateData(weirdDate), false);
 });
+
+test('Should return string value of date .', () => {
+    let dateStrIn = "2021-03-18";
+    let testDate = new Date(dateStrIn);
+    assert.strictEqual(dateHelpers.dateToString(testDate), dateStrIn);
+});
