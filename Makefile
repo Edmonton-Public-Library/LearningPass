@@ -1,5 +1,6 @@
 #
-# This file data.js contains utility functions for Learning Pass.
+# This Makefile manages Learning Pass testing and starting from the
+# command line.
 # 
 # Copyright 2021 Andrew Nisbet, Edmonton Public Library
 #

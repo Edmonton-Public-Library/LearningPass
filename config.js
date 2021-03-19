@@ -281,16 +281,6 @@ environment.getCertsDir = function() {
 }
 
 /**
- * Determines where to write accounts that fail inspection.
- * 
- * @returns the fail directory depending on the installation
- * environment set by process.env.NODE_ENV.
- */
-environment.getFailDir = function() {
-    return environment.serverConfig.directories.fail;
-}
-
-/**
  * Determines where to write flat files.
  * 
  * @returns the flat directory depending on the installation

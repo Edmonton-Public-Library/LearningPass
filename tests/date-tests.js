@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /**
- * This file data.js contains utility functions for Learning Pass.
+ * This file date-tests.js tests date.js functions.
  * 
  * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *

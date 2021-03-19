@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /**
- * This file data.js contains utility functions for Learning Pass.
+ * This file test-prod.js contains tests for Learning Pass production 
+ * in production mode.
  * 
  * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *

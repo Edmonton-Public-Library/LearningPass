@@ -1,5 +1,6 @@
 /**
- * This file data.js contains utility functions for Learning Pass.
+ * This file test.js contains loads and runs scripts in a node
+ * test suite.
  * 
  * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *

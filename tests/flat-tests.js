@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /**
- * This file data.js contains utility functions for Learning Pass.
+ * flat-tests.js contains tests for creating flat files for Symphony ILS.
  * 
  * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *

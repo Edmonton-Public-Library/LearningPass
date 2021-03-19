@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /**
- * This file data.js contains utility functions for Learning Pass.
+ * This file contains test functions for Learning Pass configuration.
  * 
  * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *
@@ -91,11 +91,6 @@ test('Should return https port for staging.', () => {
 test('Should return flat dir for staging.', () => {
     let correctDir = "../Incoming";
     let actualDir = environment.getFlatDir();
-    assert.strictEqual(actualDir, correctDir);
-});
-test('Should return fail dir for staging.', () => {
-    let correctDir = "../Fail";
-    let actualDir = environment.getFailDir();
     assert.strictEqual(actualDir, correctDir);
 });
 test('Should return certs dir for staging.', () => {

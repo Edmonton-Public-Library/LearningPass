@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /**
- * This file data.js contains utility functions for Learning Pass.
+ * This file barcodes-tests.js contains tests for Learning Pass's
+ * barcode handling features.
  * 
  * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *
