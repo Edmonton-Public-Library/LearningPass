@@ -20,48 +20,48 @@
 
 handlers:
 	clear
-	node test.js ./tests/handlers-tests.js
+	node ./tests/test.js ./handlers-tests.js
 
-response: test.js ./tests/response-tests.js
+response: ./tests/test.js ./response-tests.js
 	clear
-	node test.js ./tests/response-tests.js
+	node ./tests/test.js ./response-tests.js
 
 customer:
 	clear
-	node test.js ./tests/customer-tests.js
+	node ./tests/test.js ./customer-tests.js
 
 prod:
 	clear
-	NODE_ENV=production node test.js ./tests/configprod-tests.js
+	NODE_ENV=production node ./tests/test.js ./configprod-tests.js
 	
 config:
 	clear
-	node test.js ./tests/config-tests.js
+	node ./tests/test.js ./config-tests.js
 
 test:
 	clear
-	node test.js ./tests/helpers-tests.js 
-	node test.js ./tests/config-tests.js
-	node test.js ./tests/customer-tests.js
-	node test.js ./tests/barcodes-tests.js
-	node test.js ./tests/util-tests.js
-	node test.js ./tests/date-tests.js
-	node test.js ./tests/flat-tests.js
-	node test.js ./tests/response-tests.js
-	node test.js ./tests/handlers-tests.js
+	node ./tests/test.js ./helpers-tests.js 
+	node ./tests/test.js ./config-tests.js
+	node ./tests/test.js ./customer-tests.js
+	node ./tests/test.js ./barcodes-tests.js
+	node ./tests/test.js ./util-tests.js
+	node ./tests/test.js ./date-tests.js
+	node ./tests/test.js ./flat-tests.js
+	node ./tests/test.js ./response-tests.js
+	node ./tests/test.js ./handlers-tests.js
 
 util:
 	clear
-	node test.js ./tests/util-tests.js
+	node ./tests/test.js ./util-tests.js
 helpers:
 	clear
-	node test.js ./tests/helpers-tests.js 
+	node ./tests/test.js ./helpers-tests.js 
 date:
 	clear
-	node test.js ./tests/date-tests.js
+	node ./tests/test.js ./date-tests.js
 flat:
 	clear
-	node test.js ./tests/flat-tests.js
+	node ./tests/test.js ./flat-tests.js
 run:
 	clear
 	node index
