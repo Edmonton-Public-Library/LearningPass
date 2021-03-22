@@ -97,6 +97,7 @@ test('dateInPast() should return true for 2112-03-13.', () => {
 });
 test('dateInPast() should return true for today().', () => {
     let today = new Date();
+    today.setHours(0,0,0,0);
     assert.strictEqual(dateHelpers.compareToday(today), 0);
 });
 
