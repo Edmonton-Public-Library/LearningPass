@@ -86,7 +86,7 @@ test("Should print a well formed flat file.",() => {
           '.USER_FIRST_NAME.    |aAndrew',
           '.USER_LAST_NAME.    |aNisbet',
           '.USER_BIRTH_DATE.    |a19740822',
-          '.USER_ID.    |a21221012345678',
+          '.USER_ID.    |a1101223334444',
           '.USER_PIN.    |aIlikeBread',
           '.USER_PROFILE.    |aMAC-DSSTUD',
           '.USER_PRIV_EXPIRES.    |a20210822',
