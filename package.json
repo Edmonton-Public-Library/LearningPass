@@ -7,16 +7,19 @@
     "lib": "lib",
     "test": "tests"
   },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
   "devDependencies": {
     "dotenv": "^8.2.0",
     "eslint": "^7.22.0"
   },
   "scripts": {
-    "test": "clear;node test.js ./tests/*-tests.js; NODE_ENV=production node test.js ./tests/test-prod.js"
+    "test": "clear;node tests/test.js ./*-tests.js; NODE_ENV=production node ./tests/test.js ./test-prod.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anisbet/LearningPass.git"
+    "url": "git+https://github.com/Edmonton-Public-Library/LearningPass.git"
   },
   "keywords": [
     "Learning",
@@ -29,7 +32,7 @@
   "author": "Andrew Nisbet",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/anisbet/LearningPass/issues"
+    "url": "https://github.com/Edmonton-Public-Library/LearningPass/issues"
   },
-  "homepage": "https://github.com/anisbet/LearningPass#readme"
+  "homepage": "https://github.com/Edmonton-Public-Library/LearningPass#readme"
 }

@@ -18,7 +18,8 @@
 
 const utils = require('./lib/util');
 const process = require('process');
-
+const dotenv = require('dotenv');
+dotenv.config();
 // Read the configuration from JSON in the ./config/config.json file.
 const configFile = './config/config.json';
 // const defaultPartnerConfig = './config/default.json';
@@ -183,8 +184,6 @@ const validatePartnerConfigs = function(partnerConfigs){
             }
         });
         console.log(`Finished loading valid partner configurations.`);
-
-        /** @TODO load directory settings for logging, incoming etc. */
 
         // Test that the partners' required and optional fields contain valid names that match environment._fields.
     } else {

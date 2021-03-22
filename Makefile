@@ -46,7 +46,8 @@ test:
 	node ./tests/test.js ./barcodes-tests.js
 	node ./tests/test.js ./util-tests.js
 	node ./tests/test.js ./date-tests.js
-	node ./tests/test.js ./flat-tests.js
+	### Commented out to stop sperious account creation during testing other library functions.
+	# node ./tests/test.js ./flat-tests.js
 	node ./tests/test.js ./response-tests.js
 	node ./tests/test.js ./handlers-tests.js
 
@@ -64,4 +65,4 @@ flat:
 	node ./tests/test.js ./flat-tests.js
 run:
 	clear
-	node index
+	NODE_ENV=staging node index

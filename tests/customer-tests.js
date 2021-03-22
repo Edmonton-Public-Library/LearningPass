@@ -19,7 +19,7 @@
  */
 const assert = require('assert');
 const dotenv = require('dotenv');
- dotenv.config();
+dotenv.config();
 const customerHelper = require('../lib/customer');
   /**
    * {   
