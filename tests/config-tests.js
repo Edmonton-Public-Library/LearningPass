@@ -94,7 +94,7 @@ test('Should return flat dir for staging.', () => {
     assert.strictEqual(actualDir, correctDir);
 });
 test('Should return certs dir for staging.', () => {
-    let correctDir = "../../https";
+    let correctDir = "../https";
     let actualDir = environment.getCertsDir();
     assert.strictEqual(actualDir, correctDir);
 });

@@ -65,4 +65,4 @@ flat:
 	node ./tests/test.js ./flat-tests.js
 run:
 	clear
-	node index
+	NODE_ENV=staging node index
