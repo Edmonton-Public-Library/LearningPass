@@ -272,12 +272,35 @@ environment.useLoopbackMode = function(){
 }
 
 /**
+ * The config file can contain a 'certs' entry in "staging" : { "directories" : { "certs" : "../https" } }.
+ * As of release 1.0 it is preferrable to use .env and use the following instead.
+ * LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/some.key
+ * LPASS_SSL_CERTIFICATE=/etc/ssl/certs/some.crt
  * 
  * @returns determines where to find the certs directory for the environment
  * as set by process.env.NODE_ENV.
+ * @deprecated
  */
 environment.getCertsDir = function() {
     return environment.serverConfig.directories.certs;
+}
+
+/**
+ * Returns the certificate file name found in process.env.LPASS_SSL_CERTIFICATE
+ * @returns the name and path of the SSL certificate for the LPass domain. 
+ * set in process.env.LPASS_SSL_CERTIFICATE.
+ */
+environment.getSSLCertificate = function() {
+    return process.env.LPASS_SSL_CERTIFICATE;
+}
+
+/**
+ * Returns the private key file name found in process.env.LPASS_SSL_PRIVATE_KEY
+ * @returns the name and path of the SSL private key for the LPass domain. 
+ * set in process.env.LPASS_SSL_PRIVATE_KEY.
+ */
+environment.getSSLKey = function() {
+    return process.env.LPASS_SSL_PRIVATE_KEY;
 }
 
 /**

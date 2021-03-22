@@ -19,6 +19,8 @@
 // We use the assert standard library to make assertions
 const assert = require('assert');
 const environment = require('../config.js');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Test that we get the right version by default.
 test('should return config version number', () => {
@@ -97,6 +99,32 @@ test('Should return certs dir for staging.', () => {
     let correctDir = "../https";
     let actualDir = environment.getCertsDir();
     assert.strictEqual(actualDir, correctDir);
+});
+
+/** 
+ * If this fails your .env may not be setup correctly.
+ * It should include:
+ * LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/some.key
+ * LPASS_SSL_CERTIFICATE=/etc/ssl/certs/some.crt
+ * or the like.
+ */
+test('Should return certs file name.', () => {
+    let correctCert = "/etc/ssl/certs/eplwild.crt";
+    let actualCert = environment.getSSLCertificate();
+    assert.strictEqual(actualCert, correctCert);
+});
+
+/** 
+ * If this fails your .env may not be setup correctly.
+ * It should include:
+ * LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/some.key
+ * LPASS_SSL_CERTIFICATE=/etc/ssl/certs/some.crt
+ * or the like.
+ */
+test('Should return private key.', () => {
+    let correctKey = "/etc/ssl/private/eplwild.key";
+    let actualKey = environment.getSSLKey();
+    assert.strictEqual(actualKey, correctKey);
 });
 
 // Test environment name.

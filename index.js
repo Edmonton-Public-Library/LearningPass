@@ -41,8 +41,8 @@ const httpsServerOptions = {
     // since we want the file to be read before proceeding...
     // 'key' : fs.readFileSync('./https/key.pem'),
     // 'cert' : fs.readFileSync('./https/cert.pem')
-    'key' : fs.readFileSync(config.getCertsDir()+'/key.pem'),
-    'cert' : fs.readFileSync(config.getCertsDir()+'/cert.pem')
+    'key' : fs.readFileSync(config.getSSLKey()),
+    'cert' : fs.readFileSync(config.getSSLCertificate())
 };
 
 const httpsServer = https.createServer(httpsServerOptions, function(req, res){
