@@ -18,6 +18,7 @@
 
 const utils = require('./lib/util');
 const process = require('process');
+// Check the .env for test partner keys and settings for the startup environment.
 const dotenv = require('dotenv');
 dotenv.config();
 // Read the configuration from JSON in the ./config/config.json file.
