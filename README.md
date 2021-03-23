@@ -45,6 +45,8 @@ The server can run with either http or https. If https is desired, ensure SSL ke
 
 ### Certificates
 Set the 
+LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/eplwild.key
+LPASS_SSL_CERTIFICATE=/etc/ssl/certs/eplwild.crt
 
 * The https directory is where Learning Pass looks for the certificate and key to run Learning Pass with SSL and HTTPS.
 
