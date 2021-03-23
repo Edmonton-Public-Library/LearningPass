@@ -1,18 +1,17 @@
 # Learning Pass
 
 ### TODO list
-* Handle customer status.
+* Handle customer status. *Done*
 * Complete PIN helpers. *Done*
-* Complete password checking for customer.
-* Manage expiry.
-* Manage customer's preferred branch.
-* Stub notes.js for future dev if required.
-* Implement issuing library cards in barcodes section.
-* Create flat file of customer data.
+* Complete password checking for customer. *Done*
+* Manage expiry.*Done*
+* Manage customer's preferred branch.*Done*
+* Stub notes.js for future dev if required.*Done*
+* Implement issuing library cards in barcodes section. *Pending*
+* Create flat file of customer data.*Done*
 * Server
     * Upload library card list if admin.
     * New route to show available branches.
-* Use Map and Set.
 
 # License
 Copyright 2021 Andrew Nisbet
@@ -47,5 +46,42 @@ I have followed a directory structure recommended by those that teach node.js, b
 * The .data directory is where the application has a simple database.
 * The https directory is where Learning Pass looks for the certificate and key to run Learning Pass with SSL and HTTPS.
 
-@TODO: This is now moved to google drive. Copy it back when finished.
- 
+# Customer Schema
+Learning Pass expects registration data to conform to the following JSON schema.
+<code>
+{   
+  "firstName": "Stacey",
+  "lastName": "Milner",
+  "dob": "1974-08-22",
+  "gender": "",
+  "email": "example@gmail.com",
+  "phone": "780-555-1212", 
+  "street": "11535 74 Ave.", 
+  "city": "Edmonton", 
+  "province": "AB", 
+  "country": "", 
+  "postalCode": "T6G0G9",
+  "barcode": "21221012345678",
+  "pin": "IlikeBread!",
+  "type": "STUDENT",
+  "expiry": "20210822",
+  "branch": "",
+  "status": "OK",
+  "notes": "Grad student"
+}
+</code>
+
+The example above include a complete set of fields, but the library can control which fields are required and those that are optional.
+
+## Required fields
+An account is created if the customer data contains all the fields the library and / or partner organization have decided are required.
+
+## Optional fields
+If an optional field is present the data is included in the registration. If a field is not indicated as required or optional is ignored.
+
+## Hints for fields
+[x] The few the fields that are marked as required, the less chance the account will be rejected.
+[x] The library should decide what their minimal requirement is and set that in their ```config.json```.
+[x] Further refinement can be controlled in the ```partner.json``` file, depending on their ability to provide information. For example, if a partner can, and agrees to supply gender information, it has no impact on other organizations that have strict policies that forbid sharing such information. 
+
+@TODO: Setup

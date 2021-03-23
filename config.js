@@ -23,18 +23,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 // Read the configuration from JSON in the ./config/config.json file.
 const configFile = './config/config.json';
-// const defaultPartnerConfig = './config/default.json';
-
-// A well formed config.json file contains these objects.
-// const names = {
-//     serverSettings : "serverConfig",
-//     customerSettings : "customerSettings",
-//     partners : "partners"
-// };
 
 // The environment object of helper functions.
 const environment = {};
-
 
 // Staging environment object.
 const defaultServerSettings = {
