@@ -33,13 +33,13 @@ const custJson = {
     "province": "AB", 
     "country": "", 
     "postalCode": "T6G0G9",
-    "barcode": "21221012345678",    	
+    "barcode": "1101223334444",    	
     "pin": "IlikeBread",    	
     "type": "MAC-DSSTUD",    	
     "expiry": "2021-08-22",    	
     "branch": "",    	
     "status": "OK",    	
-    "notes": "" 
+    "notes": "Hi" 
   };
 
 // returns a promise which resolves true if file exists:
@@ -58,8 +58,11 @@ test("Should write flat to file.",() => {
     // const filePath = '/home/anisbet/Dev/EPL/LearningPass/.data/test/test.flat';
     const filePath = '../.data/test/test.flat';
     let customer = flatCustomer;
-
-    flat.toFlat(custJson,customer)
+    let flatDefaults = {
+        "NOTIFY_VIA" : "PHONE",
+        "RETRNMAIL" : "YES"
+    };
+    flat.toFlat(custJson,customer,flatDefaults)
         .catch(console.log);
 
     flat.write(customer,filePath)
@@ -81,36 +84,43 @@ test("Should print a well formed flat file.",() => {
     let result = {
         errors: [],
         data: [
-          '*** DOCUMENT BOUNDARY ***',
-          'FORM=LDUSER',
-          '.USER_FIRST_NAME.    |aAndrew',
-          '.USER_LAST_NAME.    |aNisbet',
-          '.USER_BIRTH_DATE.    |a19740822',
-          '.USER_ID.    |a1101223334444',
-          '.USER_PIN.    |aIlikeBread',
-          '.USER_PROFILE.    |aMAC-DSSTUD',
-          '.USER_PRIV_EXPIRES.    |a20210822',
-          '.USER_STATUS.    |aOK',
-          '.USER_NAME_DSP_PREF.    |a0',
-          '.USER_PREF_LANG.    |aENGLISH',
-          '.USER_ROUTING_FLAG.    |aY',
-          '.USER_CHG_HIST_RULE.    |aALLCHARGES',
-          '.USER_ACCESS.    |aPUBLIC',
-          '.USER_ENVIRONMENT.    |aPUBLIC',
-          '.USER_MAILINGADDR.    |a1',
-          '.NOTIFY_VIA.    |aPHONE',
-          '.RETRNMAIL.    |aYES',
-          '.USER_ADDR1_BEGIN.',
-          '.EMAIL.    |aexample@gmail.com',
-          '.PHONE.    |a780-555-1212',
-          '.STREET.    |a11535 74 Ave.',
-          '.CITY/PROV.    |aEdmonton',
-          '.POSTALCODE.    |aT6G0G9',
-          '.USER_ADDR1_END.'
-        ]
+            '*** DOCUMENT BOUNDARY ***',
+            'FORM=LDUSER',
+            '.USER_FIRST_NAME.    |aAndrew',
+            '.USER_LAST_NAME.    |aNisbet',
+            '.USER_BIRTH_DATE.    |a19740822',
+            '.USER_ID.    |a1101223334444',
+            '.USER_PIN.    |aIlikeBread',
+            '.USER_PROFILE.    |aMAC-DSSTUD',
+            '.USER_PRIV_EXPIRES.    |a20210822',
+            '.USER_STATUS.    |aOK',
+            '.USER_NAME_DSP_PREF.    |a0',
+            '.USER_PREF_LANG.    |aENGLISH',
+            '.USER_ROUTING_FLAG.    |aY',
+            '.USER_CHG_HIST_RULE.    |aALLCHARGES',
+            '.USER_ACCESS.    |aPUBLIC',
+            '.USER_ENVIRONMENT.    |aPUBLIC',
+            '.USER_MAILINGADDR.    |a1',
+            '.USER_ADDR1_BEGIN.',
+            '.EMAIL.    |aexample@gmail.com',
+            '.PHONE.    |a780-555-1212',
+            '.STREET.    |a11535 74 Ave.',
+            '.CITY/PROV.    |aEdmonton',
+            '.POSTALCODE.    |aT6G0G9',
+            '.USER_ADDR1_END.',
+            '.USER_XINFO_BEGIN.',
+            '.NOTE.    |aHi',
+            '.NOTIFY_VIA.    |aPHONE',
+            '.RETRNMAIL.    |aYES',
+            '.USER_XINFO_END.'
+          ]
       };
     result.json = custJson;
-    flat.toFlat(custJson,flatCustomer)
+    let flatDefaults = {
+        "NOTIFY_VIA" : "PHONE",
+        "RETRNMAIL" : "YES"
+    };
+    flat.toFlat(custJson,flatCustomer,flatDefaults)
         // .then(console.log)
         .catch(console.log);
     flat.write(flatCustomer)
@@ -143,33 +153,23 @@ test('Should reject missing customer data', () => {
 });
 
 
-// test('Should create flat customer data.', () => {
-//     const customer = {
-//         errors: [],
-//         data: []
-//     };
-//     let cJson = custJson;
-//     flat.toFlat(cJson,customer)
-//         .then(console.log)
-//         .catch((err) => {
-//             return err;
-//         });
-//     console.log(customer);
-// });
-
-// test('Should create flat customer data.', () => {
-//     const customer = {
-//         errors: [],
-//         data: []
-//     };
-//     let cJson = custJson;
-//     flat.toFlat(cJson,customer)
-//         .then(console.log)
-//         .catch((err) => {
-//             return err;
-//         });
-//     console.log(customer);
-// });
+test('Should create flat customer data.', () => {
+    const customer = {
+        errors: [],
+        data: []
+    };
+    let cJson = custJson;
+    let flatDefaults = {
+        "NOTIFY_VIA" : "PHONE",
+        "RETRNMAIL" : "YES"
+    };
+    flat.toFlat(cJson,customer,flatDefaults)
+        .then(console.log)
+        .catch((err) => {
+            return err;
+        });
+    console.log(customer);
+});
 
 test('Should return postalCode false', () => {
     let result = false;
