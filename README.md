@@ -40,16 +40,18 @@ The Learning Pass is a re-write of the University of Albert's L-Pass. The move t
 # Overview
 The Learning Pass is an application that is written in pure node.js. There are no npm dependencies to install.
 
-## Standard Directory Structure
-I have followed a directory structure recommended by those that teach node.js, but have opted to add directories for mutable data so the project can be dockerized.
+## HTTP and HTTPS
+The server can run with either http or https. If https is desired, ensure SSL key and certificate are installed correctly, and up-to-date.
 
-* The .data directory is where the application has a simple database.
+### Certificates
+Set the 
+
 * The https directory is where Learning Pass looks for the certificate and key to run Learning Pass with SSL and HTTPS.
 
 # Customer Schema
 Learning Pass expects registration data to conform to the following JSON schema.
-<code>
-{   
+```json
+{
   "firstName": "Stacey",
   "lastName": "Milner",
   "dob": "1974-08-22",
@@ -69,7 +71,7 @@ Learning Pass expects registration data to conform to the following JSON schema.
   "status": "OK",
   "notes": "Grad student"
 }
-</code>
+```
 
 The example above include a complete set of fields, but the library can control which fields are required and those that are optional.
 
@@ -82,6 +84,6 @@ If an optional field is present the data is included in the registration. If a f
 ## Hints for fields
 [x] The few the fields that are marked as required, the less chance the account will be rejected.
 [x] The library should decide what their minimal requirement is and set that in their ```config.json```.
-[x] Further refinement can be controlled in the ```partner.json``` file, depending on their ability to provide information. For example, if a partner can, and agrees to supply gender information, it has no impact on other organizations that have strict policies that forbid sharing such information. 
+[x] Further refinement can be controlled in the ```partner.json``` file, depending on their ability to provide information. For example, if a partner can, and agrees to supply gender information, the server can treat it as required or optional without impacting other organizations.
 
 @TODO: Setup
