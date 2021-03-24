@@ -22,7 +22,7 @@
  */
 const noteCompiler = {};
 
-noteCompiler.compile = (customer) => new Promise((resolve,reject) => {
+noteCompiler.compile = function(customer) {
     let userCat1s = new Map();
     // UofA
     userCat1s.set("UA-ACADM"  , "UASTAFF");
@@ -57,8 +57,6 @@ noteCompiler.compile = (customer) => new Promise((resolve,reject) => {
     } else {
         customer.notes = `Error undefined NEOS user cat1:"${customer.type}"`;
     }
-    resolve(customer);
-    reject(customer.type);
-});
+};
 
 module.exports = noteCompiler;

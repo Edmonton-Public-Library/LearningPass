@@ -22,14 +22,12 @@
  */
 const noteCompiler = {};
 
-noteCompiler.compile = (customer) => new Promise((resolve,reject) => {
+noteCompiler.compile = function(customer) {
     if (customer.notes && customer.notes.indexOf('NOT') < 0){
         customer.notes = customer.notes + "SUCCESS";
     } else {
         customer.notes = `Error in notes:"${customer.notes}"`;
     }
-    resolve(customer);
-    reject(`Error processing in noteCompiler.`);
-});
+};
 
 module.exports = noteCompiler;
