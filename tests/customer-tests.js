@@ -925,7 +925,7 @@ test('validate() should fail with message.', () => {
 
   customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
   
-  let expected = 'Some required fields are missing, lastName';
+  let expected = 'Some required fields are incorrect or missing, lastName';
   assert.strictEqual(response.getStatus(),206);
   assert.deepStrictEqual(response.getMessages(),expected);
 
