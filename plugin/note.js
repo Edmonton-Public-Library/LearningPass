@@ -22,7 +22,7 @@
  */
 const noteCompiler = {};
 
-noteCompiler.compile = (customer,resultDict) => new Promise((resolve,reject) => {
+noteCompiler.compile = (customer) => new Promise((resolve,reject) => {
     if (customer.notes && customer.notes.indexOf('NOT') < 0){
         customer.notes = customer.notes + "SUCCESS";
     } else {

@@ -22,8 +22,8 @@ const fs = require('fs');
 
 // Bogus customer data.
 const custJson = {   
-    "firstName": "Andrew",
-    "lastName": "Nisbet", 
+    "firstName": "Lewis",
+    "lastName": "Hamilton", 
     "dob": "1974-08-22", 
     "gender": "", 
     "email": "example@gmail.com", 

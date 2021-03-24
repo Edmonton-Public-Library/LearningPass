@@ -90,16 +90,18 @@ test('Should return https port for staging.', () => {
 });
 
 // Test the server directories.
-test('Should return flat dir for staging.', () => {
-    let correctDir = "../tests/Incoming";
-    let actualDir = environment.getFlatDir();
-    assert.strictEqual(actualDir, correctDir);
-});
-test('Should return certs dir for staging.', () => {
-    let correctDir = "../https";
-    let actualDir = environment.getCertsDir();
-    assert.strictEqual(actualDir, correctDir);
-});
+/** This test is config dependent. Uncomment after setting up config.json */
+// test('Should return flat dir for staging.', () => {
+//     let correctDir = "../tests/Incoming";
+//     let actualDir = environment.getFlatDir();
+//     assert.strictEqual(actualDir, correctDir);
+// });
+/** @deprecated */
+// test('Should return certs dir for staging.', () => {
+//     let correctDir = "../https";
+//     let actualDir = environment.getCertsDir();
+//     assert.strictEqual(actualDir, correctDir);
+// });
 
 /** 
  * If this fails your .env may not be setup correctly.
@@ -109,7 +111,7 @@ test('Should return certs dir for staging.', () => {
  * or the like.
  */
 test('Should return certs file name.', () => {
-    let correctCert = "/etc/ssl/certs/eplwild.crt";
+    let correctCert = process.env.LPASS_SSL_CERTIFICATE;
     let actualCert = environment.getSSLCertificate();
     assert.strictEqual(actualCert, correctCert);
 });
@@ -122,7 +124,7 @@ test('Should return certs file name.', () => {
  * or the like.
  */
 test('Should return private key.', () => {
-    let correctKey = "/etc/ssl/private/eplwild.key";
+    let correctKey = process.env.LPASS_SSL_PRIVATE_KEY;
     let actualKey = environment.getSSLKey();
     assert.strictEqual(actualKey, correctKey);
 });
