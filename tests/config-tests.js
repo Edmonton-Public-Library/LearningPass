@@ -96,7 +96,7 @@ test('Should return https port for staging.', () => {
 //     let actualDir = environment.getFlatDir();
 //     assert.strictEqual(actualDir, correctDir);
 // });
-/** @deprecated */
+/** @deprecated Use .env to specify the cert and key files. */
 // test('Should return certs dir for staging.', () => {
 //     let correctDir = "../https";
 //     let actualDir = environment.getCertsDir();

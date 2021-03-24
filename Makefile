@@ -47,7 +47,7 @@ test:
 	node ./tests/test.js ./util-tests.js
 	node ./tests/test.js ./date-tests.js
 	### Commented out to stop sperious account creation during testing other library functions.
-	# node ./tests/test.js ./flat-tests.js
+	node ./tests/test.js ./flat-tests.js
 	node ./tests/test.js ./response-tests.js
 	node ./tests/test.js ./handlers-tests.js
 
@@ -63,6 +63,9 @@ date:
 flat:
 	clear
 	node ./tests/test.js ./flat-tests.js
+note:
+	clear
+	node ./tests/test.js ../plugin/neos-tests.js
 run:
 	clear
 	NODE_ENV=staging node index

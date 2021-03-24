@@ -16,6 +16,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 'use strict';
+ 
 const process = require('process');
 // Testing framework for Learning Pass.
 // `tests` is a singleton variable that will contain all our tests

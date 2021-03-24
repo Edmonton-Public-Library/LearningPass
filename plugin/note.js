@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 'use strict';
 /**
  * This is a template file of how to extend Learning Pass 
  * to compile data in note fields.
@@ -29,6 +29,7 @@ noteCompiler.compile = (customer) => new Promise((resolve,reject) => {
         customer.notes = `Error in notes:"${customer.notes}"`;
     }
     resolve(customer);
+    reject(`Error processing in noteCompiler.`);
 });
 
 module.exports = noteCompiler;

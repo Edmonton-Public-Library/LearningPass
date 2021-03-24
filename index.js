@@ -16,6 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+'use strict';
 // Dependencies
 const http = require('http');
 const https = require('https');
