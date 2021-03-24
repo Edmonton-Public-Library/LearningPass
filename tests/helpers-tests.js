@@ -27,12 +27,12 @@ const helpers = require('../lib/helpers');
 // they are made global variables by test.js
 test('should return a JSON object', () => {
     assert.deepStrictEqual(
-        helpers.parseJsonToObject('{"name" : "andrew"}'), {"name":"andrew"});
+        helpers.parseJsonToObject('{"name" : "lewis"}'), {"name":"lewis"});
 });
 
 // Test for valid email.
-test('andrew@example.com should return true', () => {
-    let possibleAddr = 'andrew@example.com';
+test('lewis@example.com should return true', () => {
+    let possibleAddr = 'lewis@example.com';
     assert.strictEqual(helpers.getEmail(possibleAddr), possibleAddr);
 });
 
@@ -238,21 +238,21 @@ test('getFirstName() should return ""', () => {
     assert.strictEqual(helpers.getFirstName(str), result);
 });
 
-test('getFirstName(nisbet, andrew) should return "Andrew"', () => {
-    let str = 'nisbet, andrew';
-    let result = 'Andrew';
+test('getFirstName(hamilton, lewis) should return "Lewis"', () => {
+    let str = 'hamilton, lewis';
+    let result = 'Lewis';
     assert.strictEqual(helpers.getFirstName(str), result);
 });
 
-test('getFirstName(nisbet,andrew) should return "Andrew"', () => {
-    let str = 'nisbet,andrew';
-    let result = 'Andrew';
+test('getFirstName(hamilton,lewis) should return "Lewis"', () => {
+    let str = 'hamilton,lewis';
+    let result = 'Lewis';
     assert.strictEqual(helpers.getFirstName(str), result);
 });
 
-test('getFirstName(nisbet,   andrew) should return "Andrew"', () => {
-    let str = 'nisbet,   andrew';
-    let result = 'Andrew';
+test('getFirstName(hamilton,   lewis) should return "Lewis"', () => {
+    let str = 'hamilton,   lewis';
+    let result = 'Lewis';
     assert.strictEqual(helpers.getFirstName(str), result);
 });
 
@@ -295,21 +295,21 @@ test('getLastName() should return ""', () => {
     assert.strictEqual(helpers.getLastName(str), result);
 });
 
-test('getLastName(nisbet, andrew) should return "Nisbet"', () => {
-    let str = 'nisbet, andrew';
-    let result = 'Nisbet';
+test('getLastName(hamilton, lewis) should return "Hamilton"', () => {
+    let str = 'hamilton, lewis';
+    let result = 'Hamilton';
     assert.strictEqual(helpers.getLastName(str), result);
 });
 
-test('getLastName(nisbet,andrew) should return "Nisbet"', () => {
-    let str = 'nisbet,andrew';
-    let result = 'Nisbet';
+test('getLastName(hamilton,lewis) should return "Hamilton"', () => {
+    let str = 'hamilton,lewis';
+    let result = 'Hamilton';
     assert.strictEqual(helpers.getLastName(str), result);
 });
 
-test('getLastName(nisbet,   andrew) should return "Nisbet"', () => {
-    let str = 'nisbet,   andrew';
-    let result = 'Nisbet';
+test('getLastName(hamilton,   lewis) should return "Hamilton"', () => {
+    let str = 'hamilton,   lewis';
+    let result = 'Hamilton';
     assert.strictEqual(helpers.getLastName(str), result);
 });
 

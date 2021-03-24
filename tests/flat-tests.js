@@ -17,7 +17,7 @@
  * limitations under the License.
  */
  'use strict';
- 
+
 const {flatCustomer, flat} = require('../lib/flat');
 const assert = require('assert');
 const fs = require('fs');
@@ -88,8 +88,8 @@ test("Should print a well formed flat file.",() => {
         data: [
             '*** DOCUMENT BOUNDARY ***',
             'FORM=LDUSER',
-            '.USER_FIRST_NAME.    |aAndrew',
-            '.USER_LAST_NAME.    |aNisbet',
+            '.USER_FIRST_NAME.    |aLewis',
+            '.USER_LAST_NAME.    |aHamilton',
             '.USER_BIRTH_DATE.    |a19740822',
             '.USER_ID.    |a1101223334444',
             '.USER_PIN.    |aIlikeBread',

@@ -228,7 +228,7 @@ test('getDOB() should return "".', () => {
       age : {minimum : 18}
   };
   assert.deepStrictEqual(
-    customerHelper.getDOB("andrew",partnerConfig), '');
+    customerHelper.getDOB("lewis",partnerConfig), '');
 });
 
 test('getDOB() should return "2000-02-06" if min age is negative.', () => {
@@ -609,8 +609,8 @@ test("Should return string 'Edmonton, AB'", () => {
     "fields" : {"city" : ["city","province"]}
   }};
   let customer = {   
-    "firstName": "andrew nicebit",
-    "lastName": "Nisbet", 
+    "firstName": "Lewis nicebit",
+    "lastName": "Hamilton", 
     "dob": "19740822", 
     // "gender": "", 
     "email": "example@gmail.com", 
@@ -857,8 +857,8 @@ test('validate() should run multiple tests on modifying customer data.', () => {
     "USER_CATEGORY3" : "EMAILCONV"
   };
   let customer = {   
-    "firstName": "andrew nicebit",
-    "lastName": "Nisbet", 
+    "firstName": "lewis nicebit",
+    "lastName": "hamilton", 
     "dob": "19740822", 
     // "gender": "", 
     "email": "example@gmail.com", 
@@ -881,8 +881,8 @@ test('validate() should run multiple tests on modifying customer data.', () => {
   // console.log("999>",customer);
   // assert.strictEqual(error.messages.length,0);
   // console.log('888>',error);
-  assert.strictEqual(customer.firstName,"Andrew");
-  assert.strictEqual(customer.lastName,"Nisbet");
+  assert.strictEqual(customer.firstName,"Lewis");
+  assert.strictEqual(customer.lastName,"Hamilton");
 });
 
 
@@ -902,8 +902,8 @@ test('validate() should run multiple tests on modifying customer data.', () => {
 test('validate() should fail with message.', () => {
   let response = require('../lib/response');
   let customer = {   
-    "firstName": "andrew nicebit",
-    // "lastName": "Nisbet", 
+    "firstName": "Lewis nicebit",
+    // "lastName": "Hamilton", 
     "dob": "19740822", 
     // "gender": "", 
     "email": "example@gmail.com", 
