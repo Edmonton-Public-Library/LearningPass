@@ -22,7 +22,7 @@ handlers:
 	clear
 	node ./tests/test.js ./handlers-tests.js
 
-response: ./tests/test.js ./response-tests.js
+response:
 	clear
 	node ./tests/test.js ./response-tests.js
 

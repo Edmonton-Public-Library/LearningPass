@@ -88,32 +88,32 @@ test("Should print a well formed flat file.",() => {
         data: [
             '*** DOCUMENT BOUNDARY ***',
             'FORM=LDUSER',
-            '.USER_FIRST_NAME.    |aLewis',
-            '.USER_LAST_NAME.    |aHamilton',
-            '.USER_BIRTH_DATE.    |a19740822',
-            '.USER_ID.    |a1101223334444',
-            '.USER_PIN.    |aIlikeBread',
-            '.USER_PROFILE.    |aMAC-DSSTUD',
-            '.USER_PRIV_EXPIRES.    |a20210822',
-            '.USER_STATUS.    |aOK',
-            '.USER_NAME_DSP_PREF.    |a0',
-            '.USER_PREF_LANG.    |aENGLISH',
-            '.USER_ROUTING_FLAG.    |aY',
-            '.USER_CHG_HIST_RULE.    |aALLCHARGES',
-            '.USER_ACCESS.    |aPUBLIC',
-            '.USER_ENVIRONMENT.    |aPUBLIC',
-            '.USER_MAILINGADDR.    |a1',
+            '.USER_FIRST_NAME.   |aLewis',
+            '.USER_LAST_NAME.   |aHamilton',
+            '.USER_BIRTH_DATE.   |a19740822',
+            '.USER_ID.   |a1101223334444',
+            '.USER_PIN.   |aIlikeBread',
+            '.USER_PROFILE.   |aMAC-DSSTUD',
+            '.USER_PRIV_EXPIRES.   |a20210822',
+            '.USER_STATUS.   |aOK',
+            '.USER_NAME_DSP_PREF.   |a0',
+            '.USER_PREF_LANG.   |aENGLISH',
+            '.USER_ROUTING_FLAG.   |aY',
+            '.USER_CHG_HIST_RULE.   |aALLCHARGES',
+            '.USER_ACCESS.   |aPUBLIC',
+            '.USER_ENVIRONMENT.   |aPUBLIC',
+            '.USER_MAILINGADDR.   |a1',
             '.USER_ADDR1_BEGIN.',
-            '.EMAIL.    |aexample@gmail.com',
-            '.PHONE.    |a780-555-1212',
-            '.STREET.    |a11535 74 Ave.',
-            '.CITY/PROV.    |aEdmonton',
-            '.POSTALCODE.    |aT6G0G9',
+            '.EMAIL.   |aexample@gmail.com',
+            '.PHONE.   |a780-555-1212',
+            '.STREET.   |a11535 74 Ave.',
+            '.CITY/STATE.   |aEdmonton',
+            '.POSTALCODE.   |aT6G0G9',
             '.USER_ADDR1_END.',
             '.USER_XINFO_BEGIN.',
-            '.NOTE.    |aHi',
-            '.NOTIFY_VIA.    |aPHONE',
-            '.RETRNMAIL.    |aYES',
+            '.NOTE.   |aHi',
+            '.NOTIFY_VIA.   |aPHONE',
+            '.RETRNMAIL.   |aYES',
             '.USER_XINFO_END.'
           ]
       };
@@ -216,7 +216,7 @@ test('Should return note false', () => {
 });
 
 test('Should return firstName', () => {
-    let result = ".USER_FIRST_NAME.    |aDoug";
+    let result = ".USER_FIRST_NAME.   |aDoug";
     let key = "firstName";
     let value = "Doug";
     assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);

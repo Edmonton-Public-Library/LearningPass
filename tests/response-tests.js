@@ -68,4 +68,20 @@ test("Should hasErrors() returns false for 202.", () => {
     response.setStatus('accepted',"");
     let actual = response.hasErrors();
     assert.strictEqual(actual,expected);
+    response.getStatus(true);
+    response.getMessages(true);
+});
+
+// Test if response object is reset.
+test("Should reset the response object.", () => {
+    let expected = 401;
+    let expectedMessage = "Sorry, your API key is missing, or invalid., x-api-key problem";
+    response.getMessages(true);
+    response.setStatus('apiKeyProblem','x-api-key problem');
+    assert.deepStrictEqual(response.getStatus(),expected);
+    assert.deepStrictEqual(response.getMessages(),expectedMessage);
+    assert.deepStrictEqual(response.getStatus(),expected);
+    assert.deepStrictEqual(response.getMessages(true),expectedMessage);
+    assert.strictEqual(response.getStatus(),200);
+    assert.strictEqual(response.getMessages(),response.baseMessage[200]);
 });
