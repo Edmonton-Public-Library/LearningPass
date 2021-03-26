@@ -25,6 +25,7 @@ const config = require('./config');
 // Read cert and key
 const fs = require('fs');
 const handlers = require('./lib/handlers');
+const logger = require('./logger');
 
 
 // The http server should respond to all requests with a string.
@@ -34,7 +35,7 @@ const httpServer = http.createServer(function(req, res){
 
 // Start the server and listen on port 3000
 httpServer.listen(config.getHttpPort(), function() {
-    console.log('The server is listening on HTTP port '+config.getHttpPort()+', env: ' + config.getEnvName());
+    logger.info('The server is listening on HTTP port '+config.getHttpPort()+', env: ' + config.getEnvName());
 });
 
 // The https server.
@@ -52,7 +53,7 @@ const httpsServer = https.createServer(httpsServerOptions, function(req, res){
 
 // Start the server and listen on port 3000
 httpsServer.listen(config.getHttpsPort(), function() {
-    console.log('The server is listening on HTTPS port '+config.getHttpsPort()+', env: ' + config.getEnvName());
+    logger.info('The server is listening on HTTPS port '+config.getHttpsPort()+', env: ' + config.getEnvName());
 });
 
 // Handle creating both http and https servers.
@@ -115,7 +116,7 @@ const unifiedServer = function(req, res) {
             res.end(payloadString);
 
             // Log out status code, payload.
-            console.log("log: ", statusCode, payloadString);
+            logger.debug("log: ", statusCode, payloadString);
         });
     });
 };

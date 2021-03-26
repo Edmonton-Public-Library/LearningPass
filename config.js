@@ -17,7 +17,7 @@
  */
 'use strict';
 
-
+const logger = require('./logger');
 const utils = require('./lib/util');
 const process = require('process');
 // Check the .env for test partner keys and settings for the startup environment.
@@ -106,7 +106,7 @@ const validatePartnerConfigs = function(partnerConfigs){
         config = require(configFile);
     } catch (error) {
         // Happens if the file is missing.
-        console.log(`Error in ${configFile}.`);
+        logger.error(`Error in ${configFile}.`);
     }
     if (config){
 
@@ -121,16 +121,15 @@ const validatePartnerConfigs = function(partnerConfigs){
         // Load the server settings.
         // Read in the server configuration object, and have a default standing by if there isn't one.
         let envName = utils.hasStringData(process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() : "staging";
-        // console.log('888>',envName);
         environment.serverConfig = utils.hasDictData(config[envName]) ? config[envName] : defaultServerSettings;
-        console.log(`Server starting as '${environment.serverConfig.envName}'.`);
+        logger.info(`Server starting as '${environment.serverConfig.envName}'.`);
 
 
         // Load the default customer settings from the config.json
         if (utils.hasDictData(config.customerSettings)){
             let libraryName = config.customerSettings.library;
             if (utils.hasStringData(libraryName)){
-                console.log(`Using customer settings for ${libraryName}`);
+                logger.info(`Using customer settings for ${libraryName}`);
                 environment.customerSettings = config.customerSettings;
             } else {
                 throw new Error(`Error: ${configFile}'s 'customerSettings' must contain a 'library' entry.`)
@@ -144,8 +143,8 @@ const validatePartnerConfigs = function(partnerConfigs){
         if (environment.testMode){
             // Test if the default had to be used because partner array is missing.
             environment.partners = testPartners;
-            console.log(`TEST_MODE: using default partner settings for testing.`);
-            console.log(`TEST_MODE: See documentation for more information.`);
+            logger.debug(`TEST_MODE: using default partner settings for testing.`);
+            logger.debug(`TEST_MODE: See documentation for more information.`);
         } else {
             // Load the partner preferences. If the server is in loopback mode server should return message, but if in testMode load
             // the defaultPartners defined above.
@@ -159,7 +158,7 @@ const validatePartnerConfigs = function(partnerConfigs){
         // Find the partner's configuration.json.
         environment.partners.forEach(partner => {
             if (!utils.hasStringData(partner.key)) {
-                console.log(`Error: cannot find partner api key for ${partner.name}! They will not be able to create new accounts.`);
+                logger.error(`Error: cannot find partner api key for ${partner.name}! They will not be able to create new accounts.`);
             }
             try {
                 let partnerConfigs = require(partner.config);
@@ -167,21 +166,21 @@ const validatePartnerConfigs = function(partnerConfigs){
                 /** @TODO test the other objects in the partnerConfig object. */
                 let anyErrors = validatePartnerConfigs(partnerConfigs);
                 if (anyErrors.length > 0){
-                    console.log(`**Error: ${partner.config} has errors: "${anyErrors}".`);
+                    logger.error(`**Error: ${partner.config} has errors: "${anyErrors}".`);
                 } else {
                     // Save the partner's config.json data as their api key, value pair.
                     environment[partner.key] = partnerConfigs;
-                    console.log(` - ${partner.name} configs loaded successfully.`);
+                    logger.info(` - ${partner.name} configs loaded successfully.`);
                 }
             } catch (err) {
-                console.log(`Error in ${configFile}.`,err);
+                logger.error(`Error in ${configFile}.`,err);
             }
         });
-        console.log(`Finished loading valid partner configurations.`);
+        logger.info(`Finished loading valid partner configurations.`);
 
         // Test that the partners' required and optional fields contain valid names that match environment._fields.
     } else {
-        console.log(`It may be missing or contain errors.`);
+        logger.error(`Error config may be missing or contain errors.`);
     }
 })();
 
@@ -203,7 +202,7 @@ environment.getServerConfig = function(){
     if (utils.hasDictData(environment.serverConfig)){
         return environment.serverConfig;
     } else {
-        console.log(`Error server configs not set.`);
+        logger.error(`Error server configs not set.`);
         return {};
     }
 };
@@ -214,13 +213,13 @@ environment.getServerConfig = function(){
  */
 environment.getPartnerConfig = function(apiKey){
     if (!utils.hasStringData(apiKey)) {
-        console.log(`Error no api key was submitted.`);
+        logger.error(`Error no api key was submitted.`);
         return {};
     } else {
         if (utils.hasDictData(environment[apiKey])){
             return environment[apiKey];
         } else {
-            console.log(`Error: invalid API key.`);
+            logger.error(`Error: invalid API key.`);
             return {};
         }
     }
@@ -235,7 +234,7 @@ environment.getDefaultCustomerSettings = function(){
     if (utils.hasDictData(environment.customerSettings)){
         return environment.customerSettings;
     } else {
-        console.log(`Error customer default configs not set.`);
+        logger.error(`Error customer default configs not set.`);
         return {};
     }
 };

@@ -8,7 +8,8 @@
     "test": "tests"
   },
   "dependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "eslint": "^7.22.0"

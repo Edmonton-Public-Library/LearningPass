@@ -18,6 +18,14 @@
 #
 .PHONY: test run customer all util helpers config date flat prod response handlers
 
+barcodes:
+	clear
+	node ./tests/test.js ./barcodes-tests.js
+	
+helpers:
+	clear
+	node ./tests/test.js ./helpers-tests.js
+
 handlers:
 	clear
 	node ./tests/test.js ./handlers-tests.js

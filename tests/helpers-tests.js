@@ -30,6 +30,11 @@ test('should return a JSON object', () => {
         helpers.parseJsonToObject('{"name" : "lewis"}'), {"name":"lewis"});
 });
 
+test('Should fail on non-json object', () => {
+    assert.deepStrictEqual(
+        helpers.parseJsonToObject('hello'), {});
+});
+
 // Test for valid email.
 test('lewis@example.com should return true', () => {
     let possibleAddr = 'lewis@example.com';
