@@ -124,5 +124,6 @@ const unifiedServer = function(req, res) {
 // defininition of a request router.
 const router = {
     'register' : handlers.register,
-    'status' : handlers.status
+    'status' : handlers.status,
+    'version' : handlers.version
 };
