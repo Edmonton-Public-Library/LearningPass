@@ -898,12 +898,43 @@ test('validate() should run multiple tests on modifying customer data.', () => {
 
 
 // Actual customer test on validate.
-// Test 
+
 test('validate() should fail with message.', () => {
   let response = require('../lib/response');
   let customer = {   
     "firstName": "Lewis nicebit",
     // "lastName": "Hamilton", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345677",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  };
+
+
+  customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
+  
+  let expected = 'Some required fields are incorrect or missing, lastName';
+  assert.strictEqual(response.getStatus(),206);
+  assert.deepStrictEqual(response.getMessages(),expected);
+
+});
+test('validate() should create USER_NAME "Hamilton, Lewis".', () => {
+  let response = require('../lib/response');
+  let customer = {   
+    "firstName": "Lewis",
+    "lastName": "Hamilton", 
     "dob": "19740822", 
     // "gender": "", 
     "email": "example@gmail.com", 
@@ -924,9 +955,6 @@ test('validate() should fail with message.', () => {
 
 
   customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
-  
-  let expected = 'Some required fields are incorrect or missing, lastName';
-  assert.strictEqual(response.getStatus(),206);
-  assert.deepStrictEqual(response.getMessages(),expected);
-
-});
+  // You are ment to go to file 21221012345678.flat and check for USER_NAME
+  assert.strictEqual(response.getStatus(),200);
+}); 
