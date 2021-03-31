@@ -114,9 +114,6 @@ const unifiedServer = function(req, res) {
             res.setHeader('Content-type', 'application/json');
             res.writeHead(statusCode);
             res.end(payloadString);
-
-            // Log out status code, payload.
-            logger.debug("log: ", statusCode, payloadString);
         });
     });
 };
