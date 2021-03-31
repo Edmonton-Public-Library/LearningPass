@@ -14,7 +14,7 @@
     * New route to show available branches.
 
 # License
-Copyright 2021 Andrew Nisbet
+Copyright 2021 Andrew Nisbet and Edmonton Public Library
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ The Learning Pass is an application that is written in pure node.js. There are n
 The server can run with either http or https. If https is desired, ensure SSL key and certificate are installed correctly, and up-to-date.
 
 ### Certificates
-Set the 
+Set the following variables to the values for your server. Note that you will have to 
 LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/eplwild.key
 LPASS_SSL_CERTIFICATE=/etc/ssl/certs/eplwild.crt
 
