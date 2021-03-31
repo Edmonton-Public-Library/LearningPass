@@ -65,12 +65,12 @@ test('-a@B.com should return "-a@B.com"', () => {
 const phone = '780-242-5555';
 test('+1(780) 242-5555 should return '+phone, () => {
     let str = '+1(780) 242-5555';
-    assert.strictEqual(helpers.getPhone(str), phone);
+    assert.strictEqual(helpers.getPhone(str), "1-780-242-5555");
 });
 
 test('+1 780 242-5555 should return '+phone, () => {
     let str = '+1 780 242-5555';
-    assert.strictEqual(helpers.getPhone(str), phone);
+    assert.strictEqual(helpers.getPhone(str), "1-780-242-5555");
 });
 
 test('780 242-5555 should return '+phone, () => {
@@ -78,10 +78,9 @@ test('780 242-5555 should return '+phone, () => {
     assert.strictEqual(helpers.getPhone(str), phone);
 });
 
-test('78O 242-5555 should return ""', () => {
-    let str = '78O 242-5555';
-    let phone = '';
-    assert.strictEqual(helpers.getPhone(str), phone);
+test('Should return valid phone', () => {
+    let str = '380-128-303-0897';
+    assert.strictEqual(helpers.getPhone(str), '380-128-303-0897');
 });
 
 // Tests for valid Postal code.
