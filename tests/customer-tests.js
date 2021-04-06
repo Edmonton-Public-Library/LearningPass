@@ -469,6 +469,7 @@ test('getExpiry() Should replace past expiry with default.', () => {
  * Get branch testing.
  */
  const libEnv = require('../config');
+const environment = require('../config');
  const libCS = libEnv.getDefaultCustomerSettings();
 
 test('Should return empty with no library "branch" object.', () => {
@@ -870,7 +871,7 @@ test('validate() should run multiple tests on modifying customer data.', () => {
     "postalCode": "T6G0G9",
     "barcode": "21221012345678",
     "pin": "IlikeBread",
-    "type": "MAC-DSSTUD",
+    "type": "NQ-STUDOC",
     "expiry": "20210822",
     "branch": "",
     "status": "OK",
@@ -974,11 +975,15 @@ test('Create account should create user with street in initial caps.', () => {
     "pin": "7679",
     "type": "NQ-STUDOC",
     "expiry": "2021-05-04",
-    "branch": "EPLMEA"
+    "branch": "EPLMEA",
+    "notes": ""
   };
 
-
-  customerHelper.createAccount(response,process.env.NEOS_API_KEY,customer);
-  // You are ment to go to file 1380030606016.flat and check if street is capitalized.
-  assert.strictEqual(response.getStatus(),200);
+  if (environment.useTestMode()) {
+    customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
+    assert.strictEqual(response.getStatus(),202);
+  } else {
+    customerHelper.createAccount(response,process.env.NEOS_API_KEY,customer);
+    assert.strictEqual(response.getStatus(),200);
+  }
 }); 
