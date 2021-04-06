@@ -22,6 +22,14 @@
 const assert = require('assert');
 const helpers = require('../lib/helpers');
 
+// Test options for capitalization.
+test('Should Capitalize street', () => {
+    let street = "414 JENNINGS BAY NW";
+    let expected = "414 Jennings Bay Nw";
+    let result = helpers.getStreet(street);
+
+    assert.deepStrictEqual(result, expected);
+});
 
 // We do not need to import the test functions since
 // they are made global variables by test.js
@@ -374,4 +382,16 @@ test('getFourDigitPin() should compute a 4-digit PIN.".', () => {
 test('getFourDigitPin() should return empty string.', () => {
     let password = "";
     assert.strictEqual(helpers.getFourDigitPin(password), '');
+});
+test('Should split "EDMONTON,AB" into Edmonton and Ab', () => {
+    let commaString = "EDMONTON,AB";
+    let city = "EDMONTON";
+    let prov = "AB"
+    assert.strictEqual(helpers.splitCommaString(commaString,true),city);
+    assert.strictEqual(helpers.splitCommaString(commaString,false),prov);
+});
+test('Should return "Barney"', () => {
+    let commaString = "Barney";
+    let name = "Barney";
+    assert.strictEqual(helpers.splitCommaString(commaString,true),name);
 });
