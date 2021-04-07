@@ -16,7 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-.PHONY: test run customer all util helpers config date flat prod response handlers
+.PHONY: test run customer all util helpers config date flat prod response handlers passwords
+passwords:
+	clear
+	node ./tests/test.js ./password-tests.js
 
 barcodes:
 	clear
