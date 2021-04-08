@@ -30,12 +30,12 @@ Copyright 2021 Andrew Nisbet and Edmonton Public Library
 
 # Project Goals
 Learning Pass is a web service that creates customer accounts on a SirsiDynix Symphony ILS. It was originally designed to allow students to register their student ID as a library card at Edmonton Public Library. The project is re-written to meet the following objectives.
-* Allow orgnaizations that partner with a library to create library accounts on behalf of that partner.
+* Allow organizations that partner with a library to create library accounts on behalf of that partner.
 * Scale to allow multiple organizations to use the same web service.
-* Allow different business rules for different organizations. For example, age restrictions, or expiry dates can be managed independantly. 
+* Allow different business rules for different organizations. For example, age restrictions, or expiry dates can be managed independently. 
 
 # Project History
-The Learning Pass is a re-write of the University of Albert's L-Pass. The move to Learning Pass was prompted by Edmonton Public Library moving off of University servers, offering an opportunity to moderize this business system.
+The Learning Pass is a re-write of the University of Albert's L-Pass. The move to Learning Pass was prompted by Edmonton Public Library moving off of University servers, offering an opportunity to modernize this business system.
 
 # Overview
 The Learning Pass is an application that is written in pure node.js. There are no npm dependencies to install.
@@ -160,7 +160,7 @@ You can add as many partner dictionaries as are needed to differentiate customer
 It is also helpful to have a test partner configuration to sandbox settings.
 
 ## Customer settings
-A dictionary of settings used by Learning Pass to correctly configure customer data for loading in the ILS. There are controls for things like valid password limitations, resonable default values for missing data, and other features explored in the sections below.
+A dictionary of settings used by Learning Pass to correctly configure customer data for loading in the ILS. There are controls for things like valid password limitations, reasonable default values for missing data, and other features explored in the sections below.
 ```json
 "customerSettings" : {
   "library" : "EPL",
@@ -219,7 +219,7 @@ Name of the library implementing Learning Pass.
 ```
 
 ### Expiry
-Controls when accounts expire by default. The partner may also have an expiry dictionary which will supercede the library's. For example, if the library, by default, does not expire cards, the keyword 'NEVER' should be used.
+Controls when accounts expire by default. The partner may also have an expiry dictionary which will supersede the library's. For example, if the library, by default, does not expire cards, the keyword 'NEVER' should be used.
 ```json
 "expiry" : { 
   "date" : "NEVER"
