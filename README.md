@@ -88,4 +88,151 @@ If an optional field is present the data is included in the registration. If a f
 [x] The library should decide what their minimal requirement is and set that in their ```config.json```.
 [x] Further refinement can be controlled in the ```partner.json``` file, depending on their ability to provide information. For example, if a partner can, and agrees to supply gender information, the server can treat it as required or optional without impacting other organizations.
 
-@TODO: Setup
+# Setup
+Learning Pass has a main ```config.json``` file for the library and server settings, including a dictionary of partners and where to find their configuration file.
+# Library settings and dictionaries (config.json)
+```json
+{
+    "application" : "Learning Pass",
+    "version" : "1.0",
+    "loopbackMode" : false,
+    "testMode" : false,
+    "customerSettings" : { ... },
+    "production" : { ... },
+    "staging" : { ... },
+    "partners" : { ... }
+}
+```
+## Application (optional)
+The name of the application, which can be anything you wish. It can be used in welcome messaging.
+```json
+"application" : "Learning Pass",
+```
+
+## Version (optional)
+The version of the ```config.json``` file. This can be anything and is meant to help with version control.
+```json
+"version" : "1.1",
+```
+
+## Loop back mode (required)
+Puts the server into loopback mode. When registrations arrive the server will write flat files, but will append '.loopback' to the file name. This will stop any service from attempting to load the data on the ILS if it is not available during a planned outage. Once the outage is over, change the file(s)' name(s) by removing '.loopback' and they should be loaded on the next tick of [watcher.sh](https://github.com/anisbet/watcher). See [watcher.sh](https://github.com/anisbet/watcher) for more details.
+
+```json
+"loopbackMode" : false,
+```
+
+## Test mode (required)
+Similar to loopback mode, but the files are output with a '.test' extension. This allows inspection of Learning Pass flat files with actually loading test data.
+```json
+"testMode" : false
+```
+
+## Production and Staging (required)
+Dictionaries for controlling what ports Learning Pass will listen on for inbound requests, depending on if the instance is a test or production server.
+```json
+"production" : {
+    "httpPort" : 5000,
+    "httpsPort" : 5001,
+    "envName" : "production",
+    "directories" : {
+        "flat" : "../Incoming",
+        "certs" : "./https"
+    }
+}
+```
+
+## Partners
+An array of partner dictionaries that list which organizations that are allowed to use Learning Pass. Each dictionary has three entries, all required.
+```json
+[{
+  "name" : "Partner Name",
+  "key" : "parnters_api_key",
+  "config" : "./path/to/partner.json"
+},
+...
+]
+```
+The API key can be any string you want but should be shared with only that organization. Learning Pass uses that API key to identify which organization is sending a registration request and will parse, and modify registration information to meet the SLA of the library and partner.
+
+You can add as many partner dictionaries as are needed to differentiate customer registrations. Think; for every class of customer, have a different partner configuration file. For example, if a school wanted student accounts to expire on August 31, but staff registration to never expire, the partner could have 2 different configuration files though, in this case it is highly likely students and staff could be differentiated in a more efficient way.
+
+It is also helpful to have a test partner configuration to sandbox settings.
+
+## Customer settings
+A dictionary of settings used by Learning Pass to correctly configure customer data for loading in the ILS. There are controls for things like valid password limitations, resonable default values for missing data, and other features explored in the sections below.
+```json
+"customerSettings" : {
+  "library" : "EPL",
+  "expiry" : { 
+      "date" : "NEVER"
+  },
+  "branch" : {
+      "default" : "EPLMNA",
+      "valid" : ["EPLMNA","EPLWMC","EPLCAL","EPLJPL",
+          "EPLCPL","EPLSTR","EPLWOO","EPLHIG","EPLCSD",
+          "EPLMCN","EPLLON","EPLRIV","EPLWHP","EPLMEA",
+          "EPLIDY","EPLMLW","EPLWMC","EPLCPL","EPLABB"
+      ]},
+  "flatDefaults" : {
+      "USER_CATEGORY5" : "ECONSENT",
+      "USER_ACCESS" : "PUBLIC",
+      "USER_ENVIRONMENT" : "PUBLIC",
+      "USER_MAILINGADDR" : 1,
+      "NOTIFY_VIA" : "PHONE",
+      "RETRNMAIL" : "YES"
+  },
+  "defaults" : {
+      "city" : "Edmonton",
+      "province" : "AB"
+  },
+  "required" : [
+      "firstName",
+      "lastName",
+      "email"
+  ],
+  "optional" : [
+      "city",
+      "province",
+      "phone",
+      "dob"
+  ],
+  "merge" : {
+      "delimiter" : ", ",
+      "fields" : {
+          "city" : ["city","province"],
+          "USER_NAME" : ["lastName","firstName"]
+      }
+  },
+  "passwords" : {
+      "minimum" : 4,
+      "maximum" : 125,
+      "passwordToPin" : false,
+      "regex" : "^[a-zA-Z0-9-!_\\s]{4,125}$"
+  }
+}
+```
+### Library
+Name of the library implementing Learning Pass.
+```json
+"library" : "Edmonton Public Library",
+```
+
+### Expiry
+Controls when accounts expire by default. The partner may also have an expiry dictionary which will supercede the library's. For example, if the library, by default, does not expire cards, the keyword 'NEVER' should be used.
+```json
+"expiry" : { 
+  "date" : "NEVER"
+},
+```
+
+Other values are allowed such as a specific date in the future, or "date" can be replaced with "days", which requires an integer of the number of days an account will have before expiry.
+```json
+"expiry" : { 
+  "days": 365
+},
+```
+
+
+## Partner organization settings
+Each partner has a configuration json file that can be named anything.json. In it are the partner organization's settings, each of which are explained below.
