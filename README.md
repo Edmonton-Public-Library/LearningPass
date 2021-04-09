@@ -78,12 +78,12 @@ Learning Pass expects registration data to conform to the following JSON schema.
 
 The example above include a complete set of fields, but the library can control which fields are required and those that are optional.
 
-## [Required fields](#library-required)
+## [Required fields](#required-fields)
 (Required)
 
 An account is created if the customer data contains all the fields the library and / or partner organization have decided are required.
 
-## [Optional fields](#library-optional) (optional but recommended)
+## [Optional fields](#optional-fields) (optional but recommended)
 If an optional field is present the data is included in the registration. If a field is not indicated as required or optional may be ignored.
 
 ## Hints for fields
@@ -284,7 +284,7 @@ In the above example, province would be appended to the end of the city value, s
 
 ### Required fields
 (Required)
- 
+
 A successful registration contains valid data in all the fields marked required. In the following example config, the library specifies that the minimum registration information is first name, last name, barcode, and email.
 ```json
 "required" : [
