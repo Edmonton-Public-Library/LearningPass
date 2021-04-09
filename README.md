@@ -14,7 +14,7 @@
     * Upload library card list if admin. *Pending*
     * New route to show available branches. *Pending*
 
-# License
+## License
 Copyright 2021 Andrew Nisbet and Edmonton Public Library
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,17 +29,17 @@ Copyright 2021 Andrew Nisbet and Edmonton Public Library
    See the License for the specific language governing permissions and
    limitations under the License.
 
-# Project Goals
+## Project Goals
 Learning Pass is a web service that creates customer accounts on a SirsiDynix Symphony ILS. It was originally designed to allow students to register their student ID as a library card at Edmonton Public Library. The project is re-written to meet the following objectives.
 * Allow organizations that partner with a library to create library accounts on behalf of that partner.
 * Scale to allow multiple organizations to use the same web service.
 * Allow different business rules for different organizations. For example, age restrictions, or expiry dates can be managed independently. 
 
-# Project History
+## Project History
 The Learning Pass is a re-write of the University of Albert's L-Pass. The move to Learning Pass was prompted by Edmonton Public Library moving off of University servers, offering an opportunity to modernize this business system.
 
-# Overview
-The Learning Pass is an application that is written in pure node.js. There are no npm dependencies to install.
+## Overview
+The Learning Pass is an application that is written in [NodeJS](https://nodejs.org/en/).
 
 ## HTTP and HTTPS
 The server can run with either http or https. If https is desired, ensure SSL key and certificate are installed correctly, and up-to-date.
