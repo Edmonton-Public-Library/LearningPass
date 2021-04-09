@@ -78,19 +78,6 @@ Learning Pass expects registration data to conform to the following JSON schema.
 
 The example above include a complete set of fields, but the library can control which fields are required and those that are optional.
 
-## [Required fields](#required-fields)
-(Required)
-
-An account is created if the customer data contains all the fields the library and / or partner organization have decided are required.
-
-## [Optional fields](#optional-fields) (optional but recommended)
-If an optional field is present the data is included in the registration. If a field is not indicated as required or optional may be ignored.
-
-## Hints for fields
-[x] The few the fields that are marked as required, the less chance the account will be rejected.
-[x] The library should decide what their minimal requirement is and set that in their ```config.json```.
-[x] Further refinement can be controlled in the ```partner.json``` file, depending on their ability to provide information. For example, if a partner can, and agrees to supply gender information, the server can treat it as required or optional without impacting other organizations.
-
 ---
 
 # Setup
@@ -309,6 +296,14 @@ Optional fields are fields that may or may not be present in the customer data. 
   "dob"
 ],
 ```
+
+## Hints for fields
+[x] The few the fields that are marked as required, the less chance the account will be rejected.
+[x] The library should decide what their minimal requirement is and set that in their ```config.json```.
+[x] Further refinement can be controlled in the ```partner.json``` file, depending on their ability to provide information. For example, if a partner can, and agrees to supply gender information, the server can treat it as required or optional without impacting other organizations.
+
+
+
 ---
 # Partner organization settings
 Each partner has a configuration json file that can be named anything.json. In it are the partner organization's settings, each of which define the agreement of expectations between the library and partner organization.
