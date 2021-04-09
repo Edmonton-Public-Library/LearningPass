@@ -1,18 +1,11 @@
 
 # Learning Pass
+The Learning Pass is an application that is written in [NodeJS](https://nodejs.org/en/). It is a re-write of the University of Albert's L-Pass. The move to Learning Pass was prompted by Edmonton Public Library moving off of University servers, offering an opportunity to modernize this business system.
 
-### TODO list
-* Handle customer status. *Done*
-* Complete PIN helpers. *Done*
-* Complete password checking for customer. *Done*
-* Manage expiry.*Done*
-* Manage customer's preferred branch.*Done*
-* Stub notes.js for future dev if required.*Done*
-* Implement issuing library cards in barcodes section. *Pending*
-* Create flat file of customer data.*Done*
-* Server
-    * Upload library card list if admin. *Pending*
-    * New route to show available branches. *Pending*
+Learning Pass is a web service that creates customer accounts on a SirsiDynix Symphony ILS. It was originally designed to allow students to register their student ID as a library card at Edmonton Public Library. The project is re-written to meet the following objectives.
+* Allow organizations that partner with a library to create library accounts on behalf of that partner.
+* Scale to allow multiple organizations to use the same web service.
+* Allow different business rules for different organizations. For example, age restrictions, or expiry dates can be managed independently.
 
 ## License
 Copyright 2021 Andrew Nisbet and Edmonton Public Library
@@ -28,28 +21,6 @@ Copyright 2021 Andrew Nisbet and Edmonton Public Library
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
-## Project Goals
-Learning Pass is a web service that creates customer accounts on a SirsiDynix Symphony ILS. It was originally designed to allow students to register their student ID as a library card at Edmonton Public Library. The project is re-written to meet the following objectives.
-* Allow organizations that partner with a library to create library accounts on behalf of that partner.
-* Scale to allow multiple organizations to use the same web service.
-* Allow different business rules for different organizations. For example, age restrictions, or expiry dates can be managed independently. 
-
-## Project History
-The Learning Pass is a re-write of the University of Albert's L-Pass. The move to Learning Pass was prompted by Edmonton Public Library moving off of University servers, offering an opportunity to modernize this business system.
-
-## Overview
-The Learning Pass is an application that is written in [NodeJS](https://nodejs.org/en/).
-
-## HTTP and HTTPS
-The server can run with either http or https. If https is desired, ensure SSL key and certificate are installed correctly, and up-to-date.
-
-### Certificates
-Set the following variables to the values for your server. Note that you will have to 
-LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/eplwild.key
-LPASS_SSL_CERTIFICATE=/etc/ssl/certs/eplwild.crt
-
-* The https directory is where Learning Pass looks for the certificate and key to run Learning Pass with SSL and HTTPS.
 
 # Customer Schema
 Learning Pass expects registration data to conform to the following JSON schema.
@@ -79,10 +50,59 @@ Learning Pass expects registration data to conform to the following JSON schema.
 The example above include a complete set of fields, but the library can control which fields are required and those that are optional.
 
 ---
+# Installation
+There is a plan to Docker-ize Learning Pass but that work is out of scope for the current version of the project. That being said, here are the instructions for installing Learning Pass.
+1. Ensure a recent version of [NodeJS is installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+1. Create a directory where the server will live (```$home``` from here on).
+1. Clone the [Learning Pass repo](https://github.com/Edmonton-Public-Library/LearningPass) in ```$home```.
+1. Create a [```config.json```](#library-settings-and-dictionaries) of the base library settings. See [setup section](#setup).
+1. Create a [```[partner_name_here].json```](#partners) of the partner organization's settings.
+1. Create a [```.env```](#dot-env) file as in this [example](#dot-env).
+1. On Linux, [create a service to run Learning Pass](#linux-service-setup).
+1. [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
 
+## Linux Service Setup
+1. Create a [```lpass.service```](#example-service-file) file, as per this [example](#example-service-file).
+1. Copy the ```lpass.service``` file to ```/etc/systemd/system/```. You will need to do this with ```sudo```.
+1. Setup and start the service.
+  1. ```sudo systemctl daemon-reload```
+  1. ```sudo systemctl enable lpass```
+  1. ```sudo systemctl start lpass```
+  1. ```sudo systemctl status lpass```. Fix any reported issues and repeat as necessary.
+1. Set up a service like [watcher.sh](https://github.com/anisbet/watcher) to do something useful with the flat files produced.
+1. Test Learning Pass with ```http://server:port/status```
+
+## Example Service File
+```
+[Unit]
+Description=Runs Learning Pass (LPass) as a service
+
+[Service]
+ExecStart=/usr/bin/node /home/ils/LPass/server/index
+Restart=always
+User=ils
+Group=ils
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=staging
+WorkingDirectory=/home/ils/LPass/server
+
+[Install]
+WantedBy=multi-user.target
+```
 # Setup
-Learning Pass has a main ```config.json``` file for the library and server settings, including a dictionary of partners and where to find their configuration file.
-# Library settings and dictionaries (config.json)
+Learning Pass has a main [```config.json```](#library-settings-and-dictionaries) file for the library and server settings, including a dictionary of partners and where to find their configuration file. Each partner organization has a [```[partner_name_here].json```](#partners) that has settings that ensure registrations conform to an agreed SLA. Both the [```config.json```](#library-settings-and-dictionaries) and [```partner.json```](#partners) configurations are explained below.
+
+## HTTP and HTTPS
+The server can run with either http or https. If https is desired, ensure SSL key and certificate are installed correctly, and up-to-date.
+
+### Certificates
+Set the following variables to the values for your server. Note that you will have to 
+LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/eplwild.key
+LPASS_SSL_CERTIFICATE=/etc/ssl/certs/eplwild.crt
+
+* The https directory is where Learning Pass looks for the certificate and key to run Learning Pass with SSL and HTTPS.
+
+# Library settings and dictionaries
 ```json
 {
     "application" : "Learning Pass",
@@ -438,3 +458,16 @@ The notes field in a customer registration can be used for two purposes.
 "notes" : { "require" : "../path/to/partner.js" }
 ```
 A template of how to set up this functionality can be found in the project's ```plugin/notes.js``` file.
+
+## TODO list
+[x] Handle customer status.
+[x] Complete PIN helpers.
+[x] Complete password checking for customer.
+[x] Manage expiry.
+[x] Manage customer's preferred branch.
+[x] Stub notes.js for future dev if required.
+[ ] Implement issuing library cards in barcodes section.
+[x] Create flat file of customer data.
+[x] Server
+    [ ] Upload library card list if admin.
+    [ ] New route to show available branches.
