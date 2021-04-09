@@ -478,6 +478,17 @@ LPASS_SSL_PRIVATE_KEY=/foo/bar/key.pem
 LPASS_SSL_CERTIFICATE=/foo/bar/cert.pem
 ```
 
+## Errors During Registration
+The following http status values can be returned in the response header.
+200. "SUCCESS" - Success.
+202. "ACCEPTED" - Valid accounts created, but not not loaded if the ILS was put into loopback or test mode.
+204. "NO_CONTENT" - rejected because there was no customer data.
+206. "PARTIAL_CONTENT" - rejected account missing required fields. 
+401. "NOT_AUTHORIZED" - invalid or no API key. 
+404. "NOT_FOUND" - function not supported by Learning Pass API.
+405. "NOT_ALLOWED" - attempt to use the service to register someone that is underage or otherwise not allowed to have an account created by Learning Pass. 
+500. "INTERNAL_ERROR" - ILS unavailable or Learning Pass server configuration issue. Check ```sudo systemctl status lpass``` or log files for diagnostic information.
+
 ## TODO list
 [x] Handle customer status.
 
@@ -500,4 +511,3 @@ LPASS_SSL_CERTIFICATE=/foo/bar/cert.pem
     [ ] Upload library card list if admin.
 
     [ ] New route to show available branches.
-    
