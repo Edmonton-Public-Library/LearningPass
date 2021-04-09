@@ -1,5 +1,5 @@
 
-# Learning Pass
+% Learning Pass
 
 ### TODO list
 * Handle customer status. *Done*
