@@ -15,7 +15,8 @@
     "eslint": "^7.22.0"
   },
   "scripts": {
-    "test": "clear;node tests/test.js ./*-tests.js; NODE_ENV=production node ./tests/test.js ./test-prod.js"
+    "oldTest" : "clear;node tests/test.js ./*-tests.js; NODE_ENV=production node ./tests/test.js ./test-prod.js",
+    "test": "clear;node tests/test.js ./customer-tests.js"
   },
   "repository": {
     "type": "git",

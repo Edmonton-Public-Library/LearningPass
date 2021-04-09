@@ -20,7 +20,7 @@
  'use strict';
  const assert = require('assert');
  const bcHelpers = require('../lib/barcodes.js');
- 
+
 // Test getBarcode strict.
 test("getBarcode(11,14,'21221012345678') should return '21221012345678'", () => {
   let str = '21221012345678';
@@ -105,11 +105,24 @@ test('getBarcodeRelaxed(m5z6CvpDi_65436a0b-74dc-4ec1-a08a-028ac78752c6) should r
   assert.strictEqual(bcHelpers.getBarcodeRelaxed(str), result);
 });
 
-
-
-// test('getLibraryBarcode() should return a barcode.', () => {
-//   let err;
-//   let data = {};
-//   assert.deepStrictEqual(bcHelpers.getLibraryBarcode(err,data),
-//   "21221800000001");
-// });
+test("Should return a padded barcode of 14 characters.", () => {
+  let employeeNumber = '12345';
+  let prefix = '21221';
+  let barcode = bcHelpers.getBarcode(11,14,employeeNumber,prefix);
+  let result = '21221000012345'
+  assert.strictEqual(barcode, result);
+});
+test("Should return a padded barcode of 14 characters.", () => {
+  let employeeNumber = '000012345';
+  let prefix = '21221';
+  let barcode = bcHelpers.getBarcode(11,14,employeeNumber,prefix);
+  let result = '21221000012345'
+  assert.strictEqual(barcode, result);
+});
+test("Should return a barcode with upper case word characters.", () => {
+  let employeeNumber = 'wizzle';
+  let prefix = '21221';
+  let barcode = bcHelpers.getBarcode(11,14,employeeNumber,prefix);
+  let result = '21221000WIZZLE'
+  assert.strictEqual(barcode, result);
+});
