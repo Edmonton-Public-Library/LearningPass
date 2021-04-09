@@ -70,8 +70,8 @@ There is a plan to Docker-ize Learning Pass but that work is out of scope for th
   1. ```sudo systemctl enable lpass```
   1. ```sudo systemctl start lpass```
   1. ```sudo systemctl status lpass```. Fix any reported issues and repeat as necessary.
-1. Set up a service like [watcher.sh](https://github.com/anisbet/watcher) to do something useful with the flat files produced.
 1. Test Learning Pass with ```http://server:port/status```
+1. Set up a service like [watcher.sh](https://github.com/anisbet/watcher) to do something useful with the flat files produced.
 
 
 
@@ -82,11 +82,12 @@ Learning Pass has a main [```config.json```](#library-settings-and-dictionaries)
 The server can run with either http or https. If https is desired, ensure SSL key and certificate are installed correctly, and up-to-date.
 
 ### Certificates
-Set the following variables to the values for your server. Note that you will have to 
+Set the following variables to the values for your server.
+```javascript
 LPASS_SSL_PRIVATE_KEY=/etc/ssl/private/eplwild.key
 LPASS_SSL_CERTIFICATE=/etc/ssl/certs/eplwild.crt
-
-* The https directory is where Learning Pass looks for the certificate and key to run Learning Pass with SSL and HTTPS.
+```
+See [here](#dot-env) for more information.
 
 # Library settings and dictionaries
 ```json
@@ -451,7 +452,7 @@ A template of how to set up this functionality can be found in the project's ```
 At this time there are only two Learning Pass dependencies; [Winston](https://www.npmjs.com/package/winston) and [dotenv](https://www.npmjs.com/package/dotenv). This may change, but the documentation may not, so always reference the ```package.json``` for more information.
 
 ## Example Service File
-```
+```bash
 [Unit]
 Description=Runs Learning Pass (LPass) as a service
 
@@ -479,13 +480,24 @@ LPASS_SSL_CERTIFICATE=/foo/bar/cert.pem
 
 ## TODO list
 [x] Handle customer status.
+
 [x] Complete PIN helpers.
+
 [x] Complete password checking for customer.
+
 [x] Manage expiry.
+
 [x] Manage customer's preferred branch.
+
 [x] Stub notes.js for future dev if required.
+
 [ ] Implement issuing library cards in barcodes section.
+
 [x] Create flat file of customer data.
+
 [x] Server
+
     [ ] Upload library card list if admin.
+
     [ ] New route to show available branches.
+    
