@@ -89,6 +89,8 @@ If an optional field is present the data is included in the registration. If a f
 [x] The library should decide what their minimal requirement is and set that in their ```config.json```.
 [x] Further refinement can be controlled in the ```partner.json``` file, depending on their ability to provide information. For example, if a partner can, and agrees to supply gender information, the server can treat it as required or optional without impacting other organizations.
 
+---
+
 # Setup
 Learning Pass has a main ```config.json``` file for the library and server settings, including a dictionary of partners and where to find their configuration file.
 # Library settings and dictionaries (config.json)
@@ -205,7 +207,7 @@ Describes choices of branches customers can choose as their 'home' branch. The '
           "EPLIDY","EPLMLW","EPLABB"
       ]},
 ```
-### Flat default values {#library-flat-defaults} (optional) 
+### Flat default values (optional) 
 Flat defaults are values used during customer creation that are standard for all regular library patrons.
 ```json
 "flatDefaults" : {
@@ -218,7 +220,7 @@ Flat defaults are values used during customer creation that are standard for all
   },
 ```
 
-### Defaults dictionary {#library-defaults} (optional) 
+### Defaults dictionary (optional) 
 Accounts that are missing required data can be rejected. To help improve registration success rates, reasonable default values can be substituted for missing or malformed data fields.
 ```json
 "defaults" : {
@@ -256,7 +258,7 @@ It may be necessary to merge two or more fields in customer data to make a new v
 ```
 In the above example, province would be appended to the end of the city value, separated by a comma and space, and replaces the city field. Note in the second example, the last name and first name are appended with a comma and space, then used as the flat field 'USER_NAME' in the final flat file.
 
-### Required fields {#library-required} (required) 
+### Required fields (required) 
 A successful registration contains valid data in all the fields marked required. In the following example config, the library specifies that the minimum registration information is first name, last name, barcode, and email.
 ```json
 "required" : [
@@ -268,7 +270,7 @@ A successful registration contains valid data in all the fields marked required.
 ```
 Missing or malformed data in these fields will cause the account to be rejected with an explanation sent back in the response to the caller.
 
-### Optional fields {#library-optional} (optional) 
+### Optional fields (optional) 
 Optional fields are fields that may or may not be present in the customer data. If they are they are filtered and cleaned like required fields, but unlike required fields missing optional fields do not cause the registration to be rejected.
 ```json
 "optional" : [
@@ -279,7 +281,7 @@ Optional fields are fields that may or may not be present in the customer data. 
   "dob"
 ],
 ```
-
+---
 # Partner organization settings
 Each partner has a configuration json file that can be named anything.json. In it are the partner organization's settings, each of which define the agreement of expectations between the library and partner organization.
 
@@ -368,16 +370,16 @@ Use this dictionary if the partner stipulates an age restriction for registratio
 },
 ```
 
-## [Required fields](#library-required) (optional)
+## [Required fields](#required-fields) (optional)
 Functions exactly like the library's settings, but supersede those values.
 
-## [Optional fields](#library-optional) (optional)
+## [Optional fields](#optional-fields) (optional)
 Functions exactly like the library's settings, but supersede those values.
 
-## [Defaults](#library-defaults) (optional)
+## [Defaults](#defaults-dictionary) (optional)
 Functions exactly like the library's settings, but supersede those values.
 
-## [Flat defaults](#library-flat-defaults) (optional)
+## [Flat defaults](#flat-default-values) (optional)
 Functions exactly like the library's settings, but supersede those values.
 
 ## Notes (optional)
