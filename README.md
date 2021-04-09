@@ -53,10 +53,11 @@ The example above include a complete set of fields, but the library can control 
 # Installation
 There is a plan to Docker-ize Learning Pass but that work is out of scope for the current version of the project. That being said, here are the instructions for installing Learning Pass.
 1. Ensure a recent version of [NodeJS is installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
-1. Create a directory where the server will live (```$home``` from here on).
-1. Clone the [Learning Pass repo](https://github.com/Edmonton-Public-Library/LearningPass) in ```$home```.
+1. Create a directory where the server will live (```$LPASS_HOME``` from here on).
+1. Clone the [Learning Pass repo](https://github.com/Edmonton-Public-Library/LearningPass) in ```$LPASS_HOME```.
+1. Install [dependencies](#learning-pass-dependencies) ```cd $LPASS_HOME; npm install```
 1. Create a [```config.json```](#library-settings-and-dictionaries) of the base library settings. See [setup section](#setup).
-1. Create a [```[partner_name_here].json```](#partners) of the partner organization's settings.
+1. Create a [```[partner_name_here].json```](#partners) of the partner organization's settings. See [setup section](#setup).
 1. Create a [```.env```](#dot-env) file as in this [example](#dot-env).
 1. On Linux, [create a service to run Learning Pass](#linux-service-setup).
 1. [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
@@ -72,23 +73,8 @@ There is a plan to Docker-ize Learning Pass but that work is out of scope for th
 1. Set up a service like [watcher.sh](https://github.com/anisbet/watcher) to do something useful with the flat files produced.
 1. Test Learning Pass with ```http://server:port/status```
 
-## Example Service File
-```
-[Unit]
-Description=Runs Learning Pass (LPass) as a service
 
-[Service]
-ExecStart=/usr/bin/node /home/ils/LPass/server/index
-Restart=always
-User=ils
-Group=ils
-Environment=PATH=/usr/bin:/usr/local/bin
-Environment=NODE_ENV=staging
-WorkingDirectory=/home/ils/LPass/server
 
-[Install]
-WantedBy=multi-user.target
-```
 # Setup
 Learning Pass has a main [```config.json```](#library-settings-and-dictionaries) file for the library and server settings, including a dictionary of partners and where to find their configuration file. Each partner organization has a [```[partner_name_here].json```](#partners) that has settings that ensure registrations conform to an agreed SLA. Both the [```config.json```](#library-settings-and-dictionaries) and [```partner.json```](#partners) configurations are explained below.
 
@@ -458,6 +444,38 @@ The notes field in a customer registration can be used for two purposes.
 "notes" : { "require" : "../path/to/partner.js" }
 ```
 A template of how to set up this functionality can be found in the project's ```plugin/notes.js``` file.
+
+---
+
+## Learning Pass Dependencies
+At this time there are only two Learning Pass dependencies; [Winston](https://www.npmjs.com/package/winston) and [dotenv](https://www.npmjs.com/package/dotenv). This may change, but the documentation may not, so always reference the ```package.json``` for more information.
+
+## Example Service File
+```
+[Unit]
+Description=Runs Learning Pass (LPass) as a service
+
+[Service]
+ExecStart=/usr/bin/node /home/ils/LPass/server/index
+Restart=always
+User=ils
+Group=ils
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=staging
+WorkingDirectory=/home/ils/LPass/server
+
+[Install]
+WantedBy=multi-user.target
+```
+
+## Dot env
+Example of a ```.env``` file that lives in the ```$LPASS_HOME``` directory.
+```javascript
+TEST_API_KEY=test_api_key_also_secret
+NEOS_API_KEY=NEOS_partner_secret_api_key
+LPASS_SSL_PRIVATE_KEY=/foo/bar/key.pem
+LPASS_SSL_CERTIFICATE=/foo/bar/cert.pem
+```
 
 ## TODO list
 [x] Handle customer status.
