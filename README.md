@@ -98,10 +98,10 @@ Learning Pass has a main ```config.json``` file for the library and server setti
     "version" : "1.0",
     "loopbackMode" : false,
     "testMode" : false,
-    "customerSettings" : { ... },
-    "production" : { ... },
-    "staging" : { ... },
-    "partners" : { ... }
+    "customerSettings" : { },
+    "production" : { },
+    "staging" : { },
+    "partners" : { }
 }
 ```
 ## Application (optional)
@@ -151,7 +151,6 @@ An array of partner dictionaries that list which organizations that are allowed 
   "key" : "partners_api_key",
   "config" : "./path/to/partner.json"
 },
-...
 ]
 ```
 The API key can be any string you want but should be shared with only that organization. Learning Pass uses that API key to identify which organization is sending a registration request and will parse, and modify registration information to meet the SLA of the library and partner.
@@ -165,14 +164,14 @@ A dictionary of settings used by Learning Pass to correctly configure customer d
 ```json
 "customerSettings" : {
   "library" : "EPL",
-  "expiry" : { ... },
-  "branch" : { ... },
-  "flatDefaults" : { ... },
-  "defaults" : { ... },
-  "required" : [ ... ],
-  "optional" : [ ... ],
-  "merge" : { ... },
-  "passwords" : { ... }
+  "expiry" : { },
+  "branch" : { },
+  "flatDefaults" : { },
+  "defaults" : { },
+  "required" : [ ],
+  "optional" : [ ],
+  "merge" : { },
+  "passwords" : { }
 }
 ```
 ### Library (required)
@@ -206,7 +205,7 @@ Describes choices of branches customers can choose as their 'home' branch. The '
           "EPLIDY","EPLMLW","EPLABB"
       ]},
 ```
-### Flat default values (optional) {#library-flat-defaults}
+### Flat default values {#library-flat-defaults} (optional) 
 Flat defaults are values used during customer creation that are standard for all regular library patrons.
 ```json
 "flatDefaults" : {
@@ -219,7 +218,7 @@ Flat defaults are values used during customer creation that are standard for all
   },
 ```
 
-### Defaults dictionary (optional) {#library-defaults}
+### Defaults dictionary {#library-defaults} (optional) 
 Accounts that are missing required data can be rejected. To help improve registration success rates, reasonable default values can be substituted for missing or malformed data fields.
 ```json
 "defaults" : {
@@ -257,7 +256,7 @@ It may be necessary to merge two or more fields in customer data to make a new v
 ```
 In the above example, province would be appended to the end of the city value, separated by a comma and space, and replaces the city field. Note in the second example, the last name and first name are appended with a comma and space, then used as the flat field 'USER_NAME' in the final flat file.
 
-### Required fields (required) {#library-required}
+### Required fields {#library-required} (required) 
 A successful registration contains valid data in all the fields marked required. In the following example config, the library specifies that the minimum registration information is first name, last name, barcode, and email.
 ```json
 "required" : [
@@ -269,7 +268,7 @@ A successful registration contains valid data in all the fields marked required.
 ```
 Missing or malformed data in these fields will cause the account to be rejected with an explanation sent back in the response to the caller.
 
-### Optional fields (optional) {#library-optional}
+### Optional fields {#library-optional} (optional) 
 Optional fields are fields that may or may not be present in the customer data. If they are they are filtered and cleaned like required fields, but unlike required fields missing optional fields do not cause the registration to be rejected.
 ```json
 "optional" : [
@@ -291,17 +290,17 @@ In other cases some settings are only available in the partner.json file. These 
 ```json
 {
     "name" : "default",
-    "barcodes" : { ... },
-    "expiry" : { ... },
-    "typeProfiles" : { ... },
-    "genderMap": { ... },
-    "statusMap" : { ... },
-    "age" : { ... },
-    "required" : [ ... ],
-    "optional" : [ ... ],
-    "defaults" : { ... },
-    "flatDefaults" : { ... },
-    "notes" : { ... }
+    "barcodes" : { },
+    "expiry" : { },
+    "typeProfiles" : { },
+    "genderMap": { },
+    "statusMap" : { },
+    "age" : { },
+    "required" : [ ],
+    "optional" : [ ],
+    "defaults" : { },
+    "flatDefaults" : { },
+    "notes" : { }
 }
 ```
 
