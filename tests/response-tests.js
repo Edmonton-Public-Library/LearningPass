@@ -19,52 +19,53 @@
  'use strict';
 // We use the assert standard library to make assertions
 const assert = require('assert');
-const response = require('../lib/response');
+const registrationStatus = require('../lib/response');
 
 test("Should send back 200 if nothing else happens.", () => {
     let expected = 200;
+    let response = registrationStatus();
     response.headerCode = 200;
     let actual = response.getStatus();
     assert.deepStrictEqual(actual,expected);
 });
 test("Should getStatus() of 500 for unrecognized error type.", () => {
     let expected = 500;
-    response.headerCode = 200;
+    let response = registrationStatus();
     response.setStatus('andrew',"some message");
     let actual = response.getStatus();
     assert.deepStrictEqual(actual,expected);
 });
 test("Should getStatus() of 204 for empty content.", () => {
     let expected = 204;
-    response.headerCode = 200;
+    let response = registrationStatus();
     response.setStatus('noContent',"");
     let actual = response.getStatus();
     assert.deepStrictEqual(actual,expected);
 });
 test("Should getStatus() of 405 for not allowed.", () => {
     let expected = 405;
-    response.headerCode = 200;
+    let response = registrationStatus();
     response.setStatus('notAllowed','too young.');
     let actual = response.getStatus();
     assert.deepStrictEqual(actual,expected);
 });
 test("Should pass getMessage() for 405 'too young'.", () => {
-    let expected = response.baseMessage[405] + ', too young.';
-    response.messages = [];
+    let response = registrationStatus();
+    let expected = "Sorry, this customer isn't allowed to use this service" + ', too young.';
     response.setStatus('notAllowed','too young.');
     let actual = response.getMessages();
     assert.deepStrictEqual(actual,expected);
 });
 test("Should hasErrors() returns true for 204.", () => {
     let expected = true;
-    response.headerCode = 200;
+    let response = registrationStatus();
     response.setStatus('noContent',"");
     let actual = response.hasErrors();
     assert.strictEqual(actual,expected);
 });
 test("Should hasErrors() returns false for 202.", () => {
     let expected = true;
-    response.headerCode = 200;
+    let response = registrationStatus();
     response.setStatus('accepted',"");
     let actual = response.hasErrors();
     assert.strictEqual(actual,expected);
@@ -76,6 +77,7 @@ test("Should hasErrors() returns false for 202.", () => {
 test("Should reset the response object.", () => {
     let expected = 401;
     let expectedMessage = "Sorry, your API key is missing, or invalid., x-api-key problem";
+    let response = registrationStatus();
     response.getMessages(true);
     response.setStatus('apiKeyProblem','x-api-key problem');
     assert.deepStrictEqual(response.getStatus(),expected);
@@ -83,5 +85,5 @@ test("Should reset the response object.", () => {
     assert.deepStrictEqual(response.getStatus(),expected);
     assert.deepStrictEqual(response.getMessages(true),expectedMessage);
     assert.strictEqual(response.getStatus(),200);
-    assert.strictEqual(response.getMessages(),response.baseMessage[200]);
+    assert.strictEqual(response.getMessages(),"Thank you for registering!");
 });

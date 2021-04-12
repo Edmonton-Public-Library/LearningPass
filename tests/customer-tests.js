@@ -22,6 +22,7 @@ const assert = require('assert');
 const dotenv = require('dotenv');
 dotenv.config();
 const customerHelper = require('../lib/customer');
+const registrationStatus = require('../lib/response');
   /**
    * {   
    *  "firstName": "Mike",
@@ -385,9 +386,9 @@ test('getExpiry() Should replace past expiry with default.', () => {
 /**
  * Get branch testing.
  */
- const libEnv = require('../config');
+const libEnv = require('../config');
 const environment = require('../config');
- const libCS = libEnv.getDefaultCustomerSettings();
+const libCS = libEnv.getDefaultCustomerSettings();
 
 test('Should return empty with no library "branch" object.', () => {
   // Get Default from config.json
@@ -760,7 +761,7 @@ test("Should not change anything if 'fields' is empty.", () => {
 // Test 
 test('validate() should run multiple tests on modifying customer data.', () => {
   // console.log('888>',environment.getVersion());
-  let error = require('../lib/response');
+  // let error = require('../lib/response');
   let pConfig = {};
   pConfig.barcodes = {
     // prefix:"8888888",
@@ -794,7 +795,7 @@ test('validate() should run multiple tests on modifying customer data.', () => {
     "status": "OK",
     "notes": ""
   };
-  customerHelper.validate(error,customer,pConfig);
+  customerHelper.validate(customer,pConfig);
   // console.log("888>",error);
   // console.log("999>",customer);
   // assert.strictEqual(error.messages.length,0);
@@ -878,7 +879,7 @@ test('validate() should run multiple tests on modifying customer data.', () => {
 // }); 
 
 test('Create account should create user with street in initial caps.', () => {
-  let response = require('../lib/response');
+  let response = registrationStatus();
   let customer = {
     "firstName": "Raman Preet",
     "lastName": "Khosa",
@@ -897,10 +898,10 @@ test('Create account should create user with street in initial caps.', () => {
   };
 
   if (environment.useTestMode()) {
-    customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
+    customerHelper.createAccount(process.env.TEST_API_KEY,customer);
     assert.strictEqual(response.getStatus(),202);
   } else {
-    customerHelper.createAccount(response,process.env.NEOS_API_KEY,customer);
+    customerHelper.createAccount(process.env.NEOS_API_KEY,customer);
     assert.strictEqual(response.getStatus(),200);
   }
 }); 
