@@ -39,7 +39,7 @@ response:
 
 customer:
 	clear
-	node ./tests/test.js ./customer-tests.js
+	node --trace-warnings ./tests/test.js ./customer-tests.js
 
 prod:
 	clear

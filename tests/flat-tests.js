@@ -18,117 +18,88 @@
  */
  'use strict';
 
-const {flatCustomer, flat} = require('../lib/flat');
+const flat = require('../lib/flat');
+const flatTools = flat();
 const assert = require('assert');
-const fs = require('fs');
 
 // Bogus customer data.
 const custJson = {   
-    "firstName": "Lewis",
-    "lastName": "Hamilton", 
-    "dob": "1974-08-22", 
-    "gender": "", 
-    "email": "example@gmail.com", 
-    "phone": "780-555-1212", 
-    "street": "11535 74 Ave.", 
-    "city": "Edmonton", 
-    "province": "AB", 
-    "country": "", 
-    "postalCode": "T6G0G9",
-    "barcode": "1101223334444",    	
-    "pin": "IlikeBread",    	
-    "type": "MAC-DSSTUD",    	
-    "expiry": "2021-08-22",    	
-    "branch": "",    	
-    "status": "OK",    	
-    "notes": "Hi" 
-  };
+"firstName": "Lewis",
+"lastName": "Hamilton", 
+"dob": "1974-08-22", 
+"gender": "", 
+"email": "example@gmail.com", 
+"phone": "780-555-1212", 
+"street": "11535 74 Ave.", 
+"city": "Edmonton", 
+"province": "AB", 
+"country": "", 
+"postalCode": "T6G0G9",
+"barcode": "1101223334444",    	
+"pin": "IlikeBread",    	
+"type": "MAC-DSSTUD",    	
+"expiry": "2021-08-22",    	
+"branch": "",    	
+"status": "OK",    	
+"notes": "Hi" 
+};
 
-// returns a promise which resolves true if file exists:
-const checkFileExists = (filepath) => new Promise((resolve,reject) => {
-    fs.access(filepath, fs.constants.F_OK, error => {
-        if (error) {
-            console.log(error);
-            reject(false);
-        }
-        return resolve(true);
-    });
-});
 
 
 test("Should write flat to file.",() => {
     // const filePath = '/home/anisbet/Dev/EPL/LearningPass/.data/test/test.flat';
     const filePath = '../.data/test/test.flat';
-    let customer = flatCustomer;
     let flatDefaults = {
         "NOTIFY_VIA" : "PHONE",
         "RETRNMAIL" : "YES"
     };
-    flat.toFlat(custJson,customer,flatDefaults)
-        .catch(console.log);
-
-    flat.write(customer,filePath)
-        .then((filePath) => {
-            checkFileExists(filePath)
-            .then((result) => {
-                assert.strictEqual(result,true);
-            })
-            .catch(console.log);
-        })
-        .catch(console.log);
+    let fCustomer = flatTools.toFlatCustomer(custJson,flatDefaults);
+    if (flatTools.writeFlat(fCustomer,filePath)) {
+        console.log("Wrote to file.");
+    } else {
+        console.log("**Problem writing to file.");
+    }
 });
 
 test("Should print a well formed flat file.",() => {
-    let flatCustomer = {
-        errors: [],
-        data: []
-    };
-    let result = {
-        errors: [],
-        data: [
-            '*** DOCUMENT BOUNDARY ***',
-            'FORM=LDUSER',
-            '.USER_FIRST_NAME.   |aLewis',
-            '.USER_LAST_NAME.   |aHamilton',
-            '.USER_BIRTH_DATE.   |a19740822',
-            '.USER_ID.   |a1101223334444',
-            '.USER_PIN.   |aIlikeBread',
-            '.USER_PROFILE.   |aMAC-DSSTUD',
-            '.USER_PRIV_EXPIRES.   |a20210822',
-            '.USER_STATUS.   |aOK',
-            '.USER_NAME_DSP_PREF.   |a0',
-            '.USER_PREF_LANG.   |aENGLISH',
-            '.USER_ROUTING_FLAG.   |aY',
-            '.USER_CHG_HIST_RULE.   |aALLCHARGES',
-            '.USER_ACCESS.   |aPUBLIC',
-            '.USER_ENVIRONMENT.   |aPUBLIC',
-            '.USER_MAILINGADDR.   |a1',
-            '.USER_ADDR1_BEGIN.',
-            '.EMAIL.   |aexample@gmail.com',
-            '.PHONE.   |a780-555-1212',
-            '.STREET.   |a11535 74 Ave.',
-            '.CITY/STATE.   |aEdmonton',
-            '.POSTALCODE.   |aT6G0G9',
-            '.USER_ADDR1_END.',
-            '.USER_XINFO_BEGIN.',
-            '.NOTE.   |aHi',
-            '.NOTIFY_VIA.   |aPHONE',
-            '.RETRNMAIL.   |aYES',
-            '.USER_XINFO_END.'
-          ]
-      };
-    result.json = custJson;
+    let result = 
+        '*** DOCUMENT BOUNDARY ***' + '\n' +
+        'FORM=LDUSER' + '\n' +
+        '.USER_FIRST_NAME.   |aLewis' + '\n' +
+        '.USER_LAST_NAME.   |aHamilton' + '\n' +
+        '.USER_BIRTH_DATE.   |a19740822' + '\n' +
+        '.USER_ID.   |a1101223334444' + '\n' +
+        '.USER_PIN.   |aIlikeBread' + '\n' +
+        '.USER_PROFILE.   |aMAC-DSSTUD' + '\n' +
+        '.USER_PRIV_EXPIRES.   |a20210822' + '\n' +
+        '.USER_STATUS.   |aOK' + '\n' +
+        '.USER_NAME_DSP_PREF.   |a0' + '\n' +
+        '.USER_PREF_LANG.   |aENGLISH' + '\n' +
+        '.USER_ROUTING_FLAG.   |aY' + '\n' +
+        '.USER_CHG_HIST_RULE.   |aALLCHARGES' + '\n' +
+        '.USER_ACCESS.   |aPUBLIC' + '\n' +
+        '.USER_ENVIRONMENT.   |aPUBLIC' + '\n' +
+        '.USER_MAILINGADDR.   |a1' + '\n' +
+        '.USER_ADDR1_BEGIN.' + '\n' +
+        '.EMAIL.   |aexample@gmail.com' + '\n' +
+        '.PHONE.   |a780-555-1212' + '\n' +
+        '.STREET.   |a11535 74 Ave.' + '\n' +
+        '.CITY/STATE.   |aEdmonton' + '\n' +
+        '.POSTALCODE.   |aT6G0G9' + '\n' +
+        '.USER_ADDR1_END.' + '\n' +
+        '.USER_XINFO_BEGIN.' + '\n' +
+        '.NOTE.   |aHi' + '\n' +
+        '.NOTIFY_VIA.   |aPHONE' + '\n' +
+        '.RETRNMAIL.   |aYES' + '\n' +
+        '.USER_XINFO_END.' + '\n';
+    
     let flatDefaults = {
         "NOTIFY_VIA" : "PHONE",
         "RETRNMAIL" : "YES"
     };
-    flat.toFlat(custJson,flatCustomer,flatDefaults)
-        // .then(console.log)
-        .catch(console.log);
-    flat.write(flatCustomer)
-        // .then(console.log)
-        .catch(console.log);
-    assert.deepStrictEqual(flatCustomer,result);
+    let fCustomer = flatTools.toFlatCustomer(custJson,flatDefaults);
+    flatTools.writeFlat(fCustomer);
+    assert.strictEqual(fCustomer.stringify(),result);
 });
 
 
@@ -137,89 +108,59 @@ test('Should reject missing customer data', () => {
     let cJson = {
 
     };
-    const customer = {
-        errors: [],
-        data: []
-    };
-    let result = [flat._msg.noJson];
-    try{
-        flat.toFlat(cJson,customer)
-        .then(console.log)
-        .catch((err) => {
-            return err;
-        });
-    } catch(e) {
-        console.log(`${e} is expected.`);
-    }
-    assert.deepStrictEqual(customer.errors,result);
-});
-
-
-test('Should create flat customer data.', () => {
-    const customer = {
-        errors: [],
-        data: []
-    };
-    let cJson = custJson;
-    let flatDefaults = {
-        "NOTIFY_VIA" : "PHONE",
-        "RETRNMAIL" : "YES"
-    };
-    flat.toFlat(cJson,customer,flatDefaults)
-        .then(console.log)
-        .catch((err) => {
-            return err;
-        });
-    console.log(customer);
+    let result = ['Customer json data empty or missing.'];
+    let fCustomer = flatTools.toFlatCustomer(cJson);
+    // console.log(fCustomer.getErrors());
+    assert.deepStrictEqual(fCustomer.getErrors(),result);
 });
 
 test('Should return postalCode false', () => {
     let result = false;
     let key = "postalCode";
     let value = "T6G 0G4"
-    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
+    assert.strictEqual(flatTools._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return street false', () => {
     let result = false;
     let key = "street";
     let value = "123 45 Street"
-    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
+    assert.strictEqual(flatTools._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return email false', () => {
     let result = false;
     let key = "email";
     let value = "name@example.com"
-    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
+    assert.strictEqual(flatTools._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return city false', () => {
     let result = false;
     let key = "city";
     let value = "Edmonton, AB"
-    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
+    assert.strictEqual(flatTools._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return phone false', () => {
     let result = false;
     let key = "phone";
     let value = "780-555-1212"
-    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
+    assert.strictEqual(flatTools._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return note false', () => {
     let result = false;
     let key = "note";
     let value = "Customer is awesome!"
-    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
+    assert.strictEqual(flatTools._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return firstName', () => {
     let result = ".USER_FIRST_NAME.   |aDoug";
     let key = "firstName";
     let value = "Doug";
-    assert.strictEqual(flat._getDataSortNStoreBlockData(key,value), result);
+    assert.strictEqual(flatTools._getDataSortNStoreBlockData(key,value), result);
 });
 
 test('Should return error message', () => {
@@ -227,38 +168,6 @@ test('Should return error message', () => {
     flatDefaults.set("USER_FIRST_NAME","Doug");
     let result = undefined;
     let defaults = {"FOO":"bar"};
-    flat._updateDefaults(flatDefaults,defaults);
+    flatTools._updateDefaults(flatDefaults,defaults);
     assert.deepStrictEqual(flatDefaults.get("FOO"), result);
-});
-
-/** Convert date fields. */
-test('Should convert all legit dates string to ANSI date', () => {
-    let cJson = new Map(Object.entries(custJson));
-    let result = '19740822';
-    let expiry = '20210822';
-    let err = [];
-    flat._convertDates(err,cJson);
-    assert.deepStrictEqual(cJson.get('dob'), result);
-    assert.deepStrictEqual(cJson.get('expiry'), expiry);
-    // console.log(cJson);
-});
-test('Should remove invalid dates and report them', () => {
-    let dob = "bad date";
-    let cJson = new Map(Object.entries(custJson));
-    cJson.set("dob",dob);
-    let result = `"dob" ${flat._msg.invalidDate}`;
-    let err = [];
-    flat._convertDates(err,cJson);
-    assert.deepStrictEqual(err, [result]);
-    // console.log(cJson,err);
-});
-test('Should convert date object', () => {
-    let dob = new Date("1974-08-22");
-    let cJson = new Map(Object.entries(custJson));
-    cJson.set("dob",dob);
-    let result = '19740822';
-    let err = [];
-    flat._convertDates(err,cJson);
-    assert.deepStrictEqual(cJson.get('dob'), result);
-    // console.log(cJson,err);
 });

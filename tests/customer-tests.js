@@ -22,7 +22,7 @@ const assert = require('assert');
 const dotenv = require('dotenv');
 dotenv.config();
 const customerHelper = require('../lib/customer');
-const registrationStatus = require('../lib/response');
+// const registrationStatus = require('../lib/response');
   /**
    * {   
    *  "firstName": "Mike",
@@ -761,7 +761,6 @@ test("Should not change anything if 'fields' is empty.", () => {
 // Test 
 test('validate() should run multiple tests on modifying customer data.', () => {
   // console.log('888>',environment.getVersion());
-  // let error = require('../lib/response');
   let pConfig = {};
   pConfig.barcodes = {
     // prefix:"8888888",
@@ -796,10 +795,6 @@ test('validate() should run multiple tests on modifying customer data.', () => {
     "notes": ""
   };
   customerHelper.validate(customer,pConfig);
-  // console.log("888>",error);
-  // console.log("999>",customer);
-  // assert.strictEqual(error.messages.length,0);
-  // console.log('888>',error);
   assert.strictEqual(customer.firstName,"Lewis");
   assert.strictEqual(customer.lastName,"Hamilton");
 });
@@ -811,75 +806,34 @@ test('validate() should run multiple tests on modifying customer data.', () => {
 
 
 
+test('Should create a "Lewis Hamilton" account.', () => {
+  let customer = {   
+    "firstName": "Lewis",
+    "lastName": "Hamilton", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345677",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  };
 
 
-
-
-
-// // Actual customer test on validate.
-
-// test('validate() should fail with message.', () => {
-//   let response = require('../lib/response');
-//   let customer = {   
-//     "firstName": "Lewis nicebit",
-//     // "lastName": "Hamilton", 
-//     "dob": "19740822", 
-//     // "gender": "", 
-//     "email": "example@gmail.com", 
-//     "phone": "780-555-1212", 
-//     "street": "11535 74 Ave.", 
-//     "city": "Edmonton", 
-//     "province": "AB", 
-//     "country": "", 
-//     "postalCode": "T6G0G9",
-//     "barcode": "21221012345677",
-//     "pin": "IlikeBread",
-//     "type": "MAC-DSSTUD",
-//     "expiry": "20210822",
-//     "branch": "",
-//     "status": "OK",
-//     "notes": ""
-//   };
-
-
-//   customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
-  
-//   let expected = 'Some required fields are incorrect or missing, lastName';
-//   assert.strictEqual(response.getStatus(),206);
-//   assert.deepStrictEqual(response.getMessages(),expected);
-
-// });
-// test('Create account should create USER_NAME "Hamilton, Lewis".', () => {
-//   let response = require('../lib/response');
-//   let customer = {   
-//     "firstName": "Lewis",
-//     "lastName": "Hamilton", 
-//     "dob": "19740822", 
-//     // "gender": "", 
-//     "email": "example@gmail.com", 
-//     "phone": "780-555-1212", 
-//     "street": "11535 74 Ave.", 
-//     "city": "Edmonton", 
-//     "province": "AB", 
-//     "country": "", 
-//     "postalCode": "T6G0G9",
-//     "barcode": "21221012345678",
-//     "pin": "IlikeBread",
-//     "type": "MAC-DSSTUD",
-//     "expiry": "20210822",
-//     "branch": "",
-//     "status": "OK",
-//     "notes": ""
-//   };
-
-
-//   customerHelper.createAccount(response,process.env.TEST_API_KEY,customer);
-//   // You are ment to go to file 21221012345678.flat and check for USER_NAME
-//   assert.strictEqual(response.getStatus(),200);
-// }); 
+  let response = customerHelper.createAccount(process.env.TEST_API_KEY,customer);
+  assert.strictEqual(response.getStatus(),200);
+});
 
 test('Create account should create user with street in initial caps.', () => {
-  let response = registrationStatus();
   let customer = {
     "firstName": "Raman Preet",
     "lastName": "Khosa",
@@ -898,10 +852,140 @@ test('Create account should create user with street in initial caps.', () => {
   };
 
   if (environment.useTestMode()) {
-    customerHelper.createAccount(process.env.TEST_API_KEY,customer);
+    let response = customerHelper.createAccount(process.env.TEST_API_KEY,customer);
     assert.strictEqual(response.getStatus(),202);
   } else {
-    customerHelper.createAccount(process.env.NEOS_API_KEY,customer);
+    let response = customerHelper.createAccount(process.env.NEOS_API_KEY,customer);
     assert.strictEqual(response.getStatus(),200);
   }
 }); 
+
+// Test multiple accounts created.
+test('Should create multiple accounts.', () => {
+  let customers = [{
+    "firstName": "Kimi",
+    "lastName": "Räikkönen",
+    "dob": "1988-06-01",
+    "email": "kimi.r@mynorquest.ca",
+    "phone": "780/555-1742", 
+    "street": "414 Gerbils wAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030605555",
+    "pin": "1234",
+    "type": "MAC-DSSTUD",
+    "expiry": "2022-05-04",
+    "branch": "EPLMNA"
+  }, {
+    "firstName": "Lewis",
+    "lastName": "Hamilton", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "1380030606666",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK"
+  }, {
+    "firstName": "Daniel",
+    "lastName": "Ricardo", 
+    "dob": "19750822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "1380030607777",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK"
+  }
+  ];
+  const cHelper = require('../lib/customer');
+  customers.forEach(customer => {
+    if (environment.useTestMode()) {
+      let response = cHelper.createAccount(process.env.TEST_API_KEY,customer);
+      assert.strictEqual(response.getStatus(),202);
+    } else {
+      let response = cHelper.createAccount(process.env.NEOS_API_KEY,customer);
+      assert.strictEqual(response.getStatus(),200);
+    }
+  });
+});
+
+// Test multiple accounts created.
+test('Should create multiple accounts.', () => {
+  let customers = [{
+    "firstName": "Max",
+    "lastName": "Verstappen",
+    "dob": "1988-06-01",
+    "email": "max.verstappen@mynorquest.ca",
+    "phone": "780/555-1742", 
+    "street": "414 My wAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030601111",
+    "pin": "1234",
+    "type": "MAC-DSSTUD",
+    "expiry": "2022-05-04",
+    "branch": "EPLMNA"
+  }, {
+    "firstName": "Lando",
+    "lastName": "Norris", 
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "1380030602222",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK"
+  }, {
+    "firstName": "Charles",
+    "lastName": "LeClerc", 
+    "dob": "19750822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "1380030603333",
+    "pin": "IlikeBreadToo",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK"
+  }
+  ];
+  const cHelper = require('../lib/customer');
+  if (environment.useTestMode()) {
+    let response = cHelper.createAccounts(process.env.TEST_API_KEY,customers);
+    assert.strictEqual(response.getStatus(),202);
+  } else {
+    let response = cHelper.createAccounts(process.env.NEOS_API_KEY,customers);
+    assert.strictEqual(response.getStatus(),200);
+  }
+});

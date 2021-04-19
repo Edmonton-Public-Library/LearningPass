@@ -206,6 +206,21 @@ Other values are allowed such as a specific date in the future, or "date" can be
   "days": 365
 },
 ```
+
+```json 
+"expiry" : { 
+  "days": 365
+```
+or
+```json  
+  "date" : "2021-08-22" 
+```
+or
+```json
+  "date" : "NEVER"
+}
+```
+
 ### Branch (default required)
 Describes choices of branches customers can choose as their 'home' branch. The 'valid' list is all the possible branches of the library.
 ```json
@@ -439,6 +454,7 @@ Functions exactly like the library's settings, but supersede those values.
 
 The notes field in a customer registration can be used for two purposes. 
 [x] If the ```"notes"``` dictionary is not included in the partner's configuration settings, any note is added as-is to the account.
+
 [x] If the ```"notes"``` dictionary is used, the ```"require"``` path indicates the location of the plugin that Learning Pass uses to further process the customer account. For example, the plugin could compute a user category, access a street address validation service, or check for a duplicate account. Its only limit is your imagination.
 
 ```json

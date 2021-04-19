@@ -23,8 +23,8 @@
  const dotenv = require('dotenv');
  dotenv.config();
  const customerHelper = require('../lib/customer');
- const {flatCustomer, flat} = require('../lib/flat');
- const fs = require('fs');
+ const flat = require('../lib/flat');
+
  const neosCustomer = {   
     "firstName": "Mike",
     "lastName": "Mizer", 
@@ -45,16 +45,6 @@
     "status": "OK",    	
     "notes": "" 
 }
-// returns a promise which resolves true if file exists:
-const checkFileExists = (filepath) => new Promise((resolve,reject) => {
-    fs.access(filepath, fs.constants.F_OK, error => {
-        if (error) {
-            console.log(error);
-            reject(false);
-        }
-        return resolve(true);
-    });
-});
 
 test('Should add USER_CATEGORY1 based on type.', () => {
     // Get Default from config.json
@@ -94,22 +84,17 @@ test('Should add USER_CATEGORY1 for GMU Student.', () => {
     let partnerConfig = {"notes" : {
       "require" : "../plugin/neos.js"
     }};
+    let f = flat();
     const filePath = '../.data/test/neos-test.flat';
     let customer = neosCustomer;
     customerHelper.checkNoteTokens(customer,partnerConfig);
     let result = "GMUDSTU";
     assert.strictEqual(customer.USER_CATEGORY1, result);
-    let flatCust = flatCustomer;
-    flat.toFlat(customer,flatCust)
-        .catch(console.log);
-
-    flat.write(flatCust,filePath)
-        .then((filePath) => {
-            checkFileExists(filePath)
-            .then((result) => {
-                assert.strictEqual(result,true);
-            })
-            .catch(console.log);
-        })
-        .catch(console.log);
+    
+    let flatCust = f.toFlatCustomer(customer);
+    if (f.writeFlat(flatCust,filePath)) {
+        console.log(`successfully wrote ${filePath}`);
+    } else {
+        console.log("**problem writing to file.");
+    }
 });
