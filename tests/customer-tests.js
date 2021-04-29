@@ -981,11 +981,11 @@ test('Should create multiple accounts.', () => {
   }
   ];
   const cHelper = require('../lib/customer');
+  let response = [];
   if (environment.useTestMode()) {
-    let response = cHelper.createAccounts(process.env.TEST_API_KEY,customers);
-    assert.strictEqual(response.getStatus(),202);
+    response = cHelper.createAccounts(process.env.TEST_API_KEY,customers);
   } else {
-    let response = cHelper.createAccounts(process.env.NEOS_API_KEY,customers);
-    assert.strictEqual(response.getStatus(),200);
+    response = cHelper.createAccounts(process.env.NEOS_API_KEY,customers);
   }
+  console.log(response);
 });

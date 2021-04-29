@@ -87,3 +87,32 @@ test("Should reset the response object.", () => {
     assert.strictEqual(response.getStatus(),200);
     assert.strictEqual(response.getMessages(),"Thank you for registering!");
 });
+
+// Test getMessageObject tests.
+test("Should send back successful message object.", () => {
+    let expected = {
+        barcode: '',
+        error: false,
+        messages: []
+    };
+    let response = registrationStatus();
+    response.headerCode = 200;
+    let actual = response.getMessageObject();
+    assert.deepStrictEqual(actual,expected);
+});
+
+test("Should send back successful message object.", () => {
+    let expected = {
+        barcode: '12345678',
+        error: true,
+        messages: [
+            'too young.'
+        ]
+    };
+    let response = registrationStatus();
+    response.headerCode = 200;
+    response.setCustomerId('12345678');
+    response.setStatus('notAllowed','too young.');
+    let actual = response.getMessageObject();
+    assert.deepStrictEqual(actual,expected);
+});
