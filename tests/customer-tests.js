@@ -388,6 +388,7 @@ test('getExpiry() Should replace past expiry with default.', () => {
  */
 const libEnv = require('../config');
 const environment = require('../config');
+const registrationStatus = require('../lib/response');
 const libCS = libEnv.getDefaultCustomerSettings();
 
 test('Should return empty with no library "branch" object.', () => {
@@ -915,15 +916,35 @@ test('Should create multiple accounts.', () => {
   }
   ];
   const cHelper = require('../lib/customer');
+  let expected = [
+    {
+        "messages": [],
+        "error": false,
+        "barcode": "1380030605555"
+    },
+    {
+        "messages": [],
+        "error": false,
+        "barcode": "1380030606666"
+    },
+    {
+        "messages": [],
+        "error": false,
+        "barcode": "1380030607777"
+    }];
+  let allResponses = [];
+  let regStatus = registrationStatus();
   customers.forEach(customer => {
+    let rs = registrationStatus();
     if (environment.useTestMode()) {
-      let response = cHelper.createAccount(process.env.TEST_API_KEY,customer);
-      assert.strictEqual(response.getStatus(),202);
+      rs = cHelper.createAccount(process.env.TEST_API_KEY,customer);
     } else {
-      let response = cHelper.createAccount(process.env.NEOS_API_KEY,customer);
-      assert.strictEqual(response.getStatus(),200);
+      rs = cHelper.createAccount(process.env.NEOS_API_KEY,customer);
     }
+    allResponses.push(rs.getMessageObject());
   });
+  regStatus.setStatus('success',allResponses);
+  assert.deepStrictEqual(regStatus.getMessageObject(), expected);
 });
 
 // Test multiple accounts created.
@@ -981,11 +1002,33 @@ test('Should create multiple accounts.', () => {
   }
   ];
   const cHelper = require('../lib/customer');
-  let response = [];
-  if (environment.useTestMode()) {
-    response = cHelper.createAccounts(process.env.TEST_API_KEY,customers);
-  } else {
-    response = cHelper.createAccounts(process.env.NEOS_API_KEY,customers);
-  }
-  console.log(response);
+  let expected = [
+    {
+        "messages": [],
+        "error": false,
+        "barcode": "1380030601111"
+    },
+    {
+        "messages": [],
+        "error": false,
+        "barcode": "1380030602222"
+    },
+    {
+        "messages": [],
+        "error": false,
+        "barcode": "1380030603333"
+    }];
+  let allResponses = [];
+  let regStatus = registrationStatus();
+  customers.forEach(customer => {
+    let rs = registrationStatus();
+    if (environment.useTestMode()) {
+      rs = cHelper.createAccount(process.env.TEST_API_KEY,customer);
+    } else {
+      rs = cHelper.createAccount(process.env.NEOS_API_KEY,customer);
+    }
+    allResponses.push(rs.getMessageObject());
+  });
+  regStatus.setStatus('success',allResponses);
+  assert.deepStrictEqual(regStatus.getMessageObject(), expected);
 });
