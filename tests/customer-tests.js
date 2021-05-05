@@ -1032,3 +1032,30 @@ test('Should create multiple accounts.', () => {
   regStatus.setStatus('success',allResponses);
   assert.deepStrictEqual(regStatus.getMessageObject(), expected);
 });
+
+test('Should report error for customer with invalid PIN.', () => {
+  let customer = {
+    "firstName": "Sebastian",
+    "lastName": "Vettel",
+    "dob": "1984-11-01",
+    "email": "sebvettel@mynorquest.ca",
+    "phone": "780/236-1742", 
+    "street": "414 JENNINGS BAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030161616",
+    "pin": "$$$$",
+    "type": "NQ-STUDOC",
+    "expiry": "2021-05-04",
+    "branch": "EPLMEA",
+    "notes": ""
+  };
+
+  if (environment.useTestMode()) {
+    let response = customerHelper.createAccount(process.env.TEST_API_KEY,customer);
+    assert.strictEqual(response.getStatus(),206);
+  } else {
+    let response = customerHelper.createAccount(process.env.NEOS_API_KEY,customer);
+    assert.strictEqual(response.getStatus(),206);
+  }
+}); 

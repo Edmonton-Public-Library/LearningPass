@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /**
  * This file helpers-test.js contains utility functions for testing 
- * Learning Pass's cutstomer registration functions.
+ * Learning Pass's customer registration functions.
  * 
  * Copyright 2021 Andrew Nisbet, Edmonton Public Library
  *

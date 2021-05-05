@@ -37,7 +37,7 @@ test('Should NOT allow password', () => {
     let result = helpers.getPassword(password, regex);
     assert.deepStrictEqual(result, expected);
 });
-test('Should turn pasword into PIN', () => {
+test('Should turn password into PIN', () => {
     let password = "mikeMoz3r";
     let expected = '2239';
     let libConfig = {"passwords" : {
@@ -140,4 +140,23 @@ test('getPassword() Should return "" if regex password does not match regex', ()
     let result = '';
     assert.strictEqual(
       customerHelper.getPassword(password,libConfig), result);
+});
+test('Should NOT allow password', () => {
+  let password = "$$$$";
+  let expected = "";
+  let regex = "^[a-zA-Z0-9-!_\\s]{4,125}$";
+  let result = helpers.getPassword(password, regex);
+  assert.deepStrictEqual(result, expected);
+});
+test('getPassword() Should return "" if regex password does not match regex', () => {
+  let libConfig = {"passwords" : {
+    "minimum" : 4,
+    "maximum" : 100,
+    "passwordToPin" : false,
+    "regex" : "^[a-zA-Z0-9-!_\\s]{4,125}$"
+  }};
+  let password  = "$$$$";
+  let result = '';
+  assert.strictEqual(
+    customerHelper.getPassword(password,libConfig), result);
 });
