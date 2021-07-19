@@ -77,6 +77,7 @@ flat:
 note:
 	clear
 	node ./tests/test.js ../plugin/neos-tests.js
+	node ./tests/test.js ../plugin/kic-tests.js
 run:
 	clear
 	NODE_ENV=staging node index

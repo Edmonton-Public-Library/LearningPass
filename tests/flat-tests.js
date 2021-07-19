@@ -38,13 +38,12 @@ const custJson = {
 "barcode": "1101223334444",    	
 "pin": "IlikeBread",    	
 "type": "MAC-DSSTUD",    	
-"expiry": "2021-08-22",    	
+"expiry": "2021-08-22",
+"careOf": "Doe, John",
 "branch": "",    	
 "status": "OK",    	
 "notes": "Hi" 
 };
-
-
 
 test("Should write flat to file.",() => {
     // const filePath = '/home/anisbet/Dev/EPL/LearningPass/.data/test/test.flat';
@@ -86,6 +85,7 @@ test("Should print a well formed flat file.",() => {
         '.STREET.   |a11535 74 Ave.' + '\n' +
         '.CITY/STATE.   |aEdmonton' + '\n' +
         '.POSTALCODE.   |aT6G0G9' + '\n' +
+        '.CARE/OF.   |aDoe, John' + '\n' +
         '.USER_ADDR1_END.' + '\n' +
         '.USER_XINFO_BEGIN.' + '\n' +
         '.NOTE.   |aHi' + '\n' +
@@ -170,4 +170,46 @@ test('Should return error message', () => {
     let defaults = {"FOO":"bar"};
     flatTools._updateDefaults(flatDefaults,defaults);
     assert.deepStrictEqual(flatDefaults.get("FOO"), result);
+});
+
+test("Should write out the 'care/of' field file.",() => {
+    let result = 
+        '*** DOCUMENT BOUNDARY ***' + '\n' +
+        'FORM=LDUSER' + '\n' +
+        '.USER_FIRST_NAME.   |aLewis' + '\n' +
+        '.USER_LAST_NAME.   |aHamilton' + '\n' +
+        '.USER_BIRTH_DATE.   |a19740822' + '\n' +
+        '.USER_ID.   |a1101223334444' + '\n' +
+        '.USER_PIN.   |aIlikeBread' + '\n' +
+        '.USER_PROFILE.   |aMAC-DSSTUD' + '\n' +
+        '.USER_PRIV_EXPIRES.   |a20210822' + '\n' +
+        '.USER_STATUS.   |aOK' + '\n' +
+        '.USER_NAME_DSP_PREF.   |a0' + '\n' +
+        '.USER_PREF_LANG.   |aENGLISH' + '\n' +
+        '.USER_ROUTING_FLAG.   |aY' + '\n' +
+        '.USER_CHG_HIST_RULE.   |aALLCHARGES' + '\n' +
+        '.USER_ACCESS.   |aPUBLIC' + '\n' +
+        '.USER_ENVIRONMENT.   |aPUBLIC' + '\n' +
+        '.USER_MAILINGADDR.   |a1' + '\n' +
+        '.USER_ADDR1_BEGIN.' + '\n' +
+        '.EMAIL.   |aexample@gmail.com' + '\n' +
+        '.PHONE.   |a780-555-1212' + '\n' +
+        '.STREET.   |a11535 74 Ave.' + '\n' +
+        '.CITY/STATE.   |aEdmonton' + '\n' +
+        '.POSTALCODE.   |aT6G0G9' + '\n' +
+        '.CARE/OF.   |aDoe, John' + '\n' +
+        '.USER_ADDR1_END.' + '\n' +
+        '.USER_XINFO_BEGIN.' + '\n' +
+        '.NOTE.   |aHi' + '\n' +
+        '.NOTIFY_VIA.   |aPHONE' + '\n' +
+        '.RETRNMAIL.   |aYES' + '\n' +
+        '.USER_XINFO_END.' + '\n';
+    
+    let flatDefaults = {
+        "NOTIFY_VIA" : "PHONE",
+        "RETRNMAIL" : "YES"
+    };
+    let fCustomer = flatTools.toFlatCustomer(custJson,flatDefaults);
+    flatTools.writeFlat(fCustomer);
+    assert.strictEqual(fCustomer.stringify(),result);
 });
