@@ -72,7 +72,7 @@ const unifiedServer = function(req, res) {
     // Use search with new URL()
     let queryStringObject = parsedUrl.searchParams;
 
-    // Make sure you are consistent using either uppperCase or lowerCase 'GET' or 'get'.
+    // Make sure you are consistent using either upperCase or lowerCase 'GET' or 'get'.
     // This is part of the HEADER not part of the request itself.
     let method = req.method.toLowerCase();
 
@@ -118,7 +118,7 @@ const unifiedServer = function(req, res) {
     });
 };
 
-// defininition of a request router.
+// definition of a request router.
 const router = {
     'register' : handlers.register,
     'status' : handlers.status,
