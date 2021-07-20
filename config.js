@@ -54,7 +54,7 @@ const testPartners = [{
  * 
  */
 environment._fields = [
-    "firstName","lastName","dob","gender","email",
+    "firstName","lastName","dob","gender","email", "careOf",
     "phone","street","city","province","country","postalCode",
     "barcode","pin","type","expiry","branch","status","notes"
 ];
