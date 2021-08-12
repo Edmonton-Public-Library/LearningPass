@@ -120,7 +120,7 @@ const validatePartnerConfigs = function(partnerConfigs){
 
         // Load the server settings.
         // Read in the server configuration object, and have a default standing by if there isn't one.
-        let envName = utils.hasStringData(process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() : "staging";
+        let envName =  utils.hasStringData(process.env.NODE_ENV) ? process.env.NODE_ENV.toLowerCase() : "staging";
         environment.serverConfig = utils.hasDictData(config[envName]) ? config[envName] : defaultServerSettings;
         logger.info(`Server starting as '${environment.serverConfig.envName}'.`);
 

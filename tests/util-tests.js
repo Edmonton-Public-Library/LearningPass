@@ -145,3 +145,91 @@ test('hasPosIntData() should return false for {}.".', () => {
     let possibleInt = {};
     assert.strictEqual(util.hasPosIntData(possibleInt), false);
 });
+// Test that the 
+test('getDataByKey() should return "bar".', () => {
+    let testDict = {'foo':'bar'};
+    let result   = 'bar';
+    assert.strictEqual(util.getDataByKey(testDict,'foo'), result);
+});
+test('getDataByKey() should return empty string.', () => {
+    let testDict = {};
+    let result   = '';
+    assert.strictEqual(util.getDataByKey(testDict,'foo'), result);
+});
+test('getDataByKey() should return empty string.', () => {
+    let testArray = [];
+    let result   = '';
+    assert.strictEqual(util.getDataByKey(testArray,'foo'), result);
+});
+test('getDataByKey() should return empty string.', () => {
+    let testDict = {};
+    let result   = '';
+    assert.strictEqual(util.getDataByKey(testDict), result);
+});
+test('getDataByKey() should return empty string.', () => {
+    let result   = '';
+    assert.strictEqual(util.getDataByKey(), result);
+});
+test('getDataByKey() should return empty string.', () => {
+    let testDict = {};
+    let result   = '';
+    assert.strictEqual(util.getDataByKey(testDict,undefined), result);
+});
+
+// Test filtering of empty strings from array.
+test('Should return an empty array.', () => {
+    let myArray = [];
+    let expected= [];
+    assert.deepStrictEqual(util.filterEmptyStrings(myArray), expected);
+});
+test('Should return original string.', () => {
+    let data = 'some string';
+    let expected= 'some string';
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});
+test('Should return original string.', () => {
+    let data = 'some string';
+    let expected= 'some string';
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});
+test('Should return array without empty strings.', () => {
+    // eslint-disable-next-line no-sparse-arrays
+    let data = [0, 1, null, 2, "string", 3, undefined, 3,,,,,, 4,, 4,, 5,, 6,,,,];
+    let expected= [0, 1, 2, "string", 3, 3, 4, 4, 5, 6];
+    // console.log("expected: ",expected);
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});
+test('Should return array without empty strings.', () => {
+    // eslint-disable-next-line no-sparse-arrays
+    let data = ['',,,' '];
+    let expected= [' '];
+    // console.log("expected: ",expected);
+    assert.deepStrictEqual(util.filterEmptyStrings(data), expected);
+});
+test('Should test OS command.', () => {
+    let cmd = 'false';
+    let data = [];
+    let expected= {
+        stderr: [],
+        stdout: []
+    };
+    assert.deepStrictEqual(util.systemCmd(cmd,data,true), expected);
+});
+test('Should not permit the use of an fake commands.', () => {
+    let cmd = 'bogusCommand'; 
+    let data = [];
+    let expected= {
+        stderr: [],
+        stdout: []
+    };
+    assert.deepStrictEqual(util.systemCmd(cmd,data), expected);
+});
+test('Should not permit the use of an valid os command outside of allowed commands.', () => {
+    let cmd = 'ls'; 
+    let data = [];
+    let expected= {
+        stderr: [],
+        stdout: []
+    };
+    assert.deepStrictEqual(util.systemCmd(cmd,data), expected);
+});

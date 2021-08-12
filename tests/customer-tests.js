@@ -1058,4 +1058,110 @@ test('Should report error for customer with invalid PIN.', () => {
     let response = customerHelper.createAccount(process.env.NEOS_API_KEY,customer);
     assert.strictEqual(response.getStatus(),206);
   }
+});
+
+test('Should report error for customer with invalid PIN.', () => {
+  let customer = {
+    "firstName": "Sebastian",
+    "lastName": "Vettel",
+    "dob": "1984-11-01",
+    "email": "sebvettel@mynorquest.ca",
+    "phone": "780/236-1742", 
+    "street": "414 JENNINGS BAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030161616",
+    "pin": "$$$$",
+    "type": "NQ-STUDOC",
+    "expiry": "2021-05-04",
+    "branch": "EPLMEA",
+    "notes": ""
+  };
+
+  if (environment.useTestMode()) {
+    let response = customerHelper.createAccount(process.env.TEST_API_KEY,customer);
+    assert.strictEqual(response.getStatus(),206);
+  } else {
+    let response = customerHelper.createAccount(process.env.NEOS_API_KEY,customer);
+    assert.strictEqual(response.getStatus(),206);
+  }
+}); 
+
+test('Should return success status.', () => {
+  let customer = {
+    "firstName": "Sebastian",
+    "lastName": "Vettel",
+    "dob": "1984-11-01",
+    "email": "sebvettel@mynorquest.ca",
+    "phone": "780/236-1742", 
+    "street": "414 JENNINGS BAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030161616",
+    "pin": "$$$$",
+    "type": "NQ-STUDOC",
+    "expiry": "2021-05-04",
+    "branch": "EPLMEA",
+    "notes": ""
+  };
+  let response = customerHelper.checkDuplicate(process.env.TEST_API_KEY,customer);
+  // If this is the dev environment it will return a 500 error because the database and application used to check duplicates doesn't
+  // exist outside of test and production.
+  assert.strictEqual(response.getStatus(),200);
+});
+test('Should return 1 duplicate (on the dev system).', () => {
+  let customer = {
+    "firstName": "Sebastian",
+    "lastName": "Vettel",
+    "dob": "1984-11-01",
+    "email": "sebvettel@mynorquest.ca",
+    "phone": "780/236-1742", 
+    "street": "414 JENNINGS BAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030161616",
+    "pin": "$$$$",
+    "type": "NQ-STUDOC",
+    "expiry": "2021-05-04",
+    "branch": "EPLMEA",
+    "notes": ""
+  };
+  let response = customerHelper.checkDuplicate(process.env.TEST_API_KEY,customer);
+  let expected = ['1'];
+  // If this is the dev environment it will return a 500 error because the database and application used to check duplicates doesn't
+  // exist outside of test and production.
+  if (process.env.TEST_ENV === 'dev') {
+    assert.strictEqual(response.getStatus(),200);
+    assert.deepStrictEqual(response.getMessageObject(), expected);
+  } else {
+    assert.strictEqual(response.getStatus(),500);
+  }
+}); 
+test('Should return 0 duplicate (on the dev system).', () => {
+  let customer = {
+    "firstName": "Stephen",
+    "lastName": "Vettel",
+    "dob": "1984-12-01",
+    "email": "sebvettel@mynorquest.ca",
+    "phone": "780/236-1742", 
+    "street": "414 JENNINGS BAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030161616",
+    "pin": "$$$$",
+    "type": "NQ-STUDOC",
+    "expiry": "2021-05-04",
+    "branch": "EPLMEA",
+    "notes": ""
+  };
+  let response = customerHelper.checkDuplicate(process.env.TEST_API_KEY,customer);
+  let expected = ['0'];
+  // If this is the dev environment it will return a 500 error because the database and application used to check duplicates doesn't
+  // exist outside of test and production.
+  if (process.env.TEST_ENV === 'dev') {
+    assert.strictEqual(response.getStatus(),200);
+    assert.deepStrictEqual(response.getMessageObject(), expected);
+  } else {
+    assert.strictEqual(response.getStatus(),500);
+  }
 }); 
