@@ -184,6 +184,15 @@ const validatePartnerConfigs = function(partnerConfigs){
     }
 })();
 
+/**
+ * Checks to see if the library uses an over-arching rule for checking duplicates.
+ * @returns boolean true if the library always checks for duplicates, false if it
+ * let's partners choose to check duplicates, and undefined if the value is not set
+ * in config.json
+ */
+environment.checkForDuplicates = function() {
+    return environment.customerSettings.checkDuplicates;
+}
 
 /**
  * Returns the version number of the json config file

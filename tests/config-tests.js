@@ -25,7 +25,7 @@ dotenv.config();
 // Test that we get the right version by default.
 test('should return config version number', () => {
     // console.log('888>',environment.getVersion());
-    assert.strictEqual(environment.getVersion(), '1.0');
+    assert.strictEqual(environment.getVersion(), '1.1');
 });
 
 // Test that default settings are available from config.js.
@@ -118,4 +118,18 @@ test('Should return environment name "staging".', () => {
     let correctName = "staging";
     let actualName = environment.getEnvName();
     assert.strictEqual(actualName, correctName);
+});
+
+test('Should test if check for duplicates is set or not.', () => {
+    let checksDuplicates = environment.checkForDuplicates();
+    console.log('checkDuplicates config: ',checksDuplicates);
+    if (typeof(checksDuplicates) === 'undefined') {
+        assert.deepStrictEqual(checksDuplicates, undefined);
+        return;
+    }
+    if (checksDuplicates) {
+        assert.strictEqual(checksDuplicates, true);
+    } else {
+        assert.strictEqual(checksDuplicates, false);
+    }
 });

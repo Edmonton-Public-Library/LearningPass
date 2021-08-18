@@ -1165,3 +1165,22 @@ test('Should return 0 duplicate (on the dev system).', () => {
     assert.strictEqual(response.getStatus(),500);
   }
 }); 
+
+
+test('Should test if check the partner config setting is set to true.', () => {
+  let expected = true;
+  let partnerConfig = {"checkDuplicates" : expected};
+  let checksDuplicates = customerHelper.partnerUsesDuplicateChecking(partnerConfig);
+  console.log('checksDuplicates ',checksDuplicates);
+  assert.strictEqual(typeof(checksDuplicates) === 'boolean', true);
+  assert.strictEqual(checksDuplicates, expected);
+});
+
+test('Should test if check if the partner uses duplicate checking in their, or the library\'s config.', () => {
+  let expected = false;
+  let partnerConfig = {};
+  let checksDuplicates = customerHelper.partnerUsesDuplicateChecking(partnerConfig);
+  console.log('checksDuplicates ',checksDuplicates);
+  assert.strictEqual(typeof(checksDuplicates) === 'boolean', true);
+  assert.strictEqual(checksDuplicates, expected);
+});
