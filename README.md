@@ -53,25 +53,25 @@ The example above include a complete set of fields, but the library can control 
 # Installation
 There is a plan to Docker-ize Learning Pass but that work is out of scope for the current version of the project. That being said, here are the instructions for installing Learning Pass.
 1. Ensure a recent version of [NodeJS is installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
-1. Create a directory where the server will live (```$LPASS_HOME``` from here on).
-1. Clone the [Learning Pass repo](https://github.com/Edmonton-Public-Library/LearningPass) in ```$LPASS_HOME```.
-1. Install [dependencies](#learning-pass-dependencies) ```cd $LPASS_HOME; npm install```
-1. Create a [```config.json```](#library-settings-and-dictionaries) of the base library settings. See [setup section](#setup).
-1. Create a [```[partner_name_here].json```](#partners) of the partner organization's settings. See [setup section](#setup).
-1. Create a [```.env```](#dot-env) file as in this [example](#dot-env).
-1. On Linux, [create a service to run Learning Pass](#linux-service-setup).
-1. [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
+2. Create a directory where the server will live (```$LPASS_HOME``` from here on).
+3. Clone the [Learning Pass repo](https://github.com/Edmonton-Public-Library/LearningPass) in ```$LPASS_HOME```.
+4. Install [dependencies](#learning-pass-dependencies) ```cd $LPASS_HOME; npm install```
+5. Create a [```config.json```](#library-settings-and-dictionaries) of the base library settings. See [setup section](#setup).
+6. Create a [```[partner_name_here].json```](#partners) of the partner organization's settings. See [setup section](#setup).
+7. Create a [```.env```](#dot-env) file as in this [example](#dot-env).
+8. On Linux, [create a service to run Learning Pass](#linux-service-setup).
+9. [Start service](#linux-service-setup), diagnose issues, fix, repeat as required.
 
 ## Linux Service Setup
 1. Create a [```lpass.service```](#example-service-file) file, as per this [example](#example-service-file).
-1. Copy the ```lpass.service``` file to ```/etc/systemd/system/```. You will need to do this with ```sudo```.
-1. Setup and start the service.
+2. Copy the ```lpass.service``` file to ```/etc/systemd/system/```. You will need to do this with ```sudo```.
+3. Setup and start the service.
   1. ```sudo systemctl daemon-reload```
   1. ```sudo systemctl enable lpass```
   1. ```sudo systemctl start lpass```
   1. ```sudo systemctl status lpass```. Fix any reported issues and repeat as necessary.
-1. Test Learning Pass with ```http://server:port/status```
-1. Set up a service like [watcher.sh](https://github.com/anisbet/watcher) to do something useful with the flat files produced.
+4. Test Learning Pass with ```http://server:port/status```
+5. Set up a service like [watcher.sh](https://github.com/anisbet/watcher) to do something useful with the flat files produced.
 
 
 
@@ -93,6 +93,7 @@ See [here](#dot-env) for more information.
 ```json
 {
     "application" : "Learning Pass",
+    "checkDuplicates" : false,
     "version" : "1.0",
     "loopbackMode" : false,
     "testMode" : false,
@@ -108,6 +109,25 @@ See [here](#dot-env) for more information.
 The name of the application, which can be anything you wish. It can be used in welcome messaging.
 ```json
 "application" : "Learning Pass",
+```
+
+## Check Duplicates
+(Optional)
+
+If this option is set ```true``` for the library, then all partners can check if the customer already has a library card. If ```false``` the default action will defer to any setting in the partner's configuration file. If neither the library, nor the partner have this flag set ```true``` the service is not available. This stops war-drive checking for existing customers if the partner's API key has been compromised.
+```json
+"checkDuplicates" : true,
+```
+```html
+GET https://registration.service/check_duplicate
+```
+The request requires a valid API key supplied in the HTTP header. The body of the GET request is the customer data JSON object.
+
+The response will contain an array with one string of the number of duplicates that match the customer's information.
+```json
+[
+  "0"  // No match
+]
 ```
 
 ## Version
