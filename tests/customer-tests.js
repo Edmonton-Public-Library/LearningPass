@@ -183,6 +183,15 @@ test('getCountry() should return Scotland.', () => {
 
 
 // Test the customer types.
+test('getType() should return EPL_JUV.', () => {
+  let result = "EPL_JUV";
+  let partnerConfig = { 
+    typeProfiles : {"1_item" : result}
+  };
+  assert.deepStrictEqual(
+    customerHelper.getType("1_item",partnerConfig), result);
+});
+
 test('getType() should return EPL_NEOS.', () => {
   let partnerConfig = { 
     typeProfiles : {"GMU-STAFF" : "EPL_NEOS"}
@@ -1183,4 +1192,33 @@ test('Should test if check if the partner uses duplicate checking in their, or t
   console.log('checksDuplicates ',checksDuplicates);
   assert.strictEqual(typeof(checksDuplicates) === 'boolean', true);
   assert.strictEqual(checksDuplicates, expected);
+});
+
+// Test issue with types
+test('Should create a user with a mapped type of JUV.', () => {
+  let customer = {
+    "firstName": "Kimi",
+    "lastName": "Räikkönen",
+    "dob": "1988-06-01",
+    "email": "kimi.r@mynorquest.ca",
+    "phone": "780/555-1742", 
+    "street": "414 Gerbils wAY NW", 
+    "city": "EDMONTON,AB", 
+    "postalCode": "T6L 6R8",
+    "barcode": "1380030609999",
+    "pin": "1234",
+    "type": "1_item",
+    "expiry": "2022-05-04",
+    "branch": "EPLMNA"
+  };
+
+  if (environment.useTestMode()) {
+    let response = customerHelper.createAccount(process.env.TEST_API_KEY,customer);
+    console.log("-=>",customer);
+    assert.strictEqual(response.getStatus(),200);
+  } else {
+    let response = customerHelper.createAccount(process.env.NEOS_API_KEY,customer);
+    console.log("-=>",customer);
+    assert.strictEqual(response.getStatus(),200);
+  }
 });

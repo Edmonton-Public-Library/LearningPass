@@ -16,7 +16,7 @@
   },
   "scripts": {
     "oldTest" : "clear;node tests/test.js ./*-tests.js; NODE_ENV=production node ./tests/test.js ./test-prod.js",
-    "test": "clear;node tests/test.js ./response-tests.js"
+    "test": "clear;node tests/test.js ./customer-tests.js"
   },
   "repository": {
     "type": "git",
