@@ -121,7 +121,7 @@ If this option is set ```true``` for the library, then all partners can check if
 ```html
 GET https://registration.service/check_duplicate
 ```
-The request requires a valid API key supplied in the HTTP header. The body of the GET request is the customer data JSON object.
+The request requires a valid API key supplied in the HTTP header ```x-api-key```. The body of the GET request is the customer data JSON object.
 
 The response will contain an array with one string of the number of duplicates that match the customer's information.
 ```json
