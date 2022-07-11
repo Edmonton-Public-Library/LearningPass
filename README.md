@@ -467,6 +467,9 @@ A template of how to set up this functionality can be found in the project's ```
 ## Learning Pass Dependencies
 At this time there are only two Learning Pass dependencies; [Winston](https://www.npmjs.com/package/winston) and [dotenv](https://www.npmjs.com/package/dotenv). This may change, but the documentation may not, so always reference the ```package.json``` for more information.
 
+## Learning Pass Testing
+There is a `Makefile` which has all the rules for running either individual or all unit tests.
+
 ## Example Service File
 ```bash
 [Unit]
