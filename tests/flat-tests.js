@@ -25,6 +25,7 @@ const assert = require('assert');
 // Bogus customer data.
 const custJson = {   
 "firstName": "Lewis",
+"middleName": "Fastest",
 "lastName": "Hamilton", 
 "dob": "1974-08-22", 
 "gender": "", 
@@ -65,6 +66,7 @@ test("Should print a well formed flat file.",() => {
         '*** DOCUMENT BOUNDARY ***' + '\n' +
         'FORM=LDUSER' + '\n' +
         '.USER_FIRST_NAME.   |aLewis' + '\n' +
+        '.USER_MIDDLE_NAME.   |aFastest' + '\n' +
         '.USER_LAST_NAME.   |aHamilton' + '\n' +
         '.USER_BIRTH_DATE.   |a19740822' + '\n' +
         '.USER_ID.   |a1101223334444' + '\n' +
@@ -177,6 +179,7 @@ test("Should write out the 'care/of' field file.",() => {
         '*** DOCUMENT BOUNDARY ***' + '\n' +
         'FORM=LDUSER' + '\n' +
         '.USER_FIRST_NAME.   |aLewis' + '\n' +
+        '.USER_MIDDLE_NAME.   |aFastest' + '\n' +
         '.USER_LAST_NAME.   |aHamilton' + '\n' +
         '.USER_BIRTH_DATE.   |a19740822' + '\n' +
         '.USER_ID.   |a1101223334444' + '\n' +
