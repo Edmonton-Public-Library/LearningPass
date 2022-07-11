@@ -599,6 +599,41 @@ test("Should return string new 'preferredName'='A+B'", () => {
 });
 
 // Test merge fields.
+test("Should return string new 'firstName'='a, c'", () => {
+  let result = 'a, c';
+  let pc = {"merge" : {
+    "delimiter" : ", ",
+    "fields" : {"firstName" : ["firstName","middleName"]}
+  }};
+  let customer = {   
+    "firstName": "a",
+    "lastName": "b", 
+    "middleName": "c",
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "11535 74 Ave.", 
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "MAC-DSSTUD",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  }; 
+
+  customerHelper.mergeFields(customer,pc);
+
+  assert.strictEqual(customer['firstName'], result);
+
+});
+
+// Test merge fields.
 test("Should return merged string without delimiter", () => {
   let result = 'AB';
   let pc = {"merge" : {
