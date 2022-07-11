@@ -287,15 +287,15 @@ test('getFirstName(Mufi-Zacharia, Kensley) should return "Kensley"', () => {
 });
 
 // Tests for getMiddleName()
-test('getMiddleName(Hakeem) should return "HAKEEM"', () => {
-    let str = 'Hakeem';
-    let result = 'HAKEEM';
+test('getMiddleName(HAKEEM) should return "Hakeem"', () => {
+    let str = 'HAKEEM';
+    let result = 'Hakeem';
     assert.strictEqual(helpers.getMiddleName(str), result);
 });
 
-test('getMiddleName(a, b c) should return "C"', () => {
-    let str = 'a, b c';
-    let result = 'C';
+test('getMiddleName(big city) should return "Big City"', () => {
+    let str = 'big city';
+    let result = 'Big City';
     assert.strictEqual(helpers.getMiddleName(str), result);
 });
 
