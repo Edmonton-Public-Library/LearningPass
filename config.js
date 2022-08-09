@@ -1,7 +1,7 @@
 /**
  * This file config.js, loads the Learning Pass's configuration.
  * 
- * Copyright 2021 Andrew Nisbet, Edmonton Public Library
+ * Copyright 2022 Andrew Nisbet, Edmonton Public Library
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ const testPartners = [{
  * 
  */
 environment._fields = [
-    "firstName","lastName","dob","gender","email", "careOf",
+    "firstName","lastName", "middleName", "dob","gender","email", "careOf",
     "phone","street","city","province","country","postalCode",
     "barcode","pin","type","expiry","branch","status","notes"
 ];
