@@ -55,7 +55,7 @@ test('Should add note to account.', () => {
     const filePath = '../.data/test/kic-test.flat';
     let customer = kicCustomer;
     customerHelper.checkNoteTokens(customer,partnerConfig);
-    let result = "Do not alter any information on this account and refer any inquiries for account changes to the Branch Manager or Community Librarian";
+    let result = "Do not alter any information on this account and refer any inquiries for account changes to the Branch Manager or Community Librarian (ABB MK 2022)";
     assert.strictEqual(customer.notes, result);
     
     let flatCust = f.toFlatCustomer(customer);

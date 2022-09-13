@@ -26,7 +26,7 @@ noteCompiler.compile = function(customer) {
     // Standard note content no matter what notes were sent. This was requested by Library staff July 19, 2021. If 
     // you need to parse out more data from the note fields, make changes modify this to parse info and then add
     // whatever message they want on the account.
-    customer.notes = "Do not alter any information on this account and refer any inquiries for account changes to the Branch Manager or Community Librarian";
+    customer.notes = "Do not alter any information on this account and refer any inquiries for account changes to the Branch Manager or Community Librarian (ABB MK 2022)";
 };
 
 module.exports = noteCompiler;
