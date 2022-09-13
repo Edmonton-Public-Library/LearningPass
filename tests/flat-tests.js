@@ -194,6 +194,7 @@ test("Should write out the 'care/of' field file.",() => {
         '.USER_ACCESS.   |aPUBLIC' + '\n' +
         '.USER_ENVIRONMENT.   |aPUBLIC' + '\n' +
         '.USER_MAILINGADDR.   |a1' + '\n' +
+        '.USER_CATEGORY5.   |aECONSENT\n' +
         '.USER_ADDR1_BEGIN.' + '\n' +
         '.EMAIL.   |aexample@gmail.com' + '\n' +
         '.PHONE.   |a780-555-1212' + '\n' +
@@ -205,12 +206,13 @@ test("Should write out the 'care/of' field file.",() => {
         '.USER_XINFO_BEGIN.' + '\n' +
         '.NOTE.   |aHi' + '\n' +
         '.NOTIFY_VIA.   |aPHONE' + '\n' +
-        '.RETRNMAIL.   |aYES' + '\n' +
+        '.RETRNMAIL.   |aNO' + '\n' +
         '.USER_XINFO_END.' + '\n';
     
     let flatDefaults = {
+        "USER_CATEGORY5": "ECONSENT",
         "NOTIFY_VIA" : "PHONE",
-        "RETRNMAIL" : "YES"
+        "RETRNMAIL" : "NO"
     };
     let fCustomer = flatTools.toFlatCustomer(custJson,flatDefaults);
     flatTools.writeFlat(fCustomer);
