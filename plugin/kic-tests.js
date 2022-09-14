@@ -26,13 +26,14 @@
  const flat = require('../lib/flat');
 
  const kicCustomer = {   
-    "firstName": "Mike",
-    "lastName": "Mizer", 
+    "firstName": "MIKE",
+    "lastName": "MIZER",
+    "middleName" : "Got that",
     "dob": "1974-08-22", 
     "gender": "", 
     "email": "example@gmail.com", 
     "phone": "780-555-1212", 
-    "street": "11535 74 Ave.", 
+    "street": "Oxbridge Place 6th Floor-9820 106 Street NW", 
     "city": "Edmonton", 
     "province": "AB", 
     "country": "", 
