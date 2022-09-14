@@ -1099,9 +1099,9 @@ test('Should report error for customer with invalid PIN.', () => {
   }
 }); 
 
-// Actual customer test on validate.
-// Test 
-test('validate() should run multiple tests on modifying customer data.', () => {
+
+// Test strictCheck switch.
+test('Tests that some customer data IS NOT filtered or cleaned when strict checks are turned off.', () => {
   
   let pConfig = {};
   pConfig.barcodes = {
