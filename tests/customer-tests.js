@@ -831,8 +831,12 @@ test('validate() should run multiple tests on modifying customer data.', () => {
     "notes": ""
   };
   customerHelper.validate(customer,pConfig);
-  assert.strictEqual(customer.firstName,"Lewis");
-  assert.strictEqual(customer.lastName,"Hamilton");
+  if (pConfig.strictChecks == true) {
+    assert.strictEqual(customer.firstName,"Lewis");
+    assert.strictEqual(customer.lastName,"Hamilton");
+  } else {
+    console.log(`*WARNING: strictChecks turned off by another test!`);
+  }
 });
 
 
@@ -1094,3 +1098,57 @@ test('Should report error for customer with invalid PIN.', () => {
     assert.strictEqual(response.getStatus(),206);
   }
 }); 
+
+// Actual customer test on validate.
+// Test 
+test('validate() should run multiple tests on modifying customer data.', () => {
+  
+  let pConfig = {};
+  pConfig.barcodes = {
+    // prefix:"8888888",
+    minimum:"11",
+    maximum:"14"
+  };
+  pConfig.required = ["firstName","lastName","barcode","street","middleName","careOf"];
+  pConfig.optional = ["gender"];
+  pConfig.defaults = {"gender" : "not-saying"}
+  pConfig.strictChecks = false
+  pConfig.flatDefaults = {
+    "USER_CATEGORY2" : "GODDESS",
+    "USER_CATEGORY3" : "EMAILCONV"
+  };
+  let customer = {   
+    "firstName": "lewis nicebit",
+    "lastName": "hamilton",
+    "middleName" : "sOMENAMe",
+    "dob": "19740822", 
+    // "gender": "", 
+    "email": "example@gmail.com", 
+    "phone": "780-555-1212", 
+    "street": "completely bogus address!!",
+    "careOf": "SOME GOOD FOLKS",
+    "city": "Edmonton", 
+    "province": "AB", 
+    "country": "", 
+    "postalCode": "T6G0G9",
+    "barcode": "21221012345678",
+    "pin": "IlikeBread",
+    "type": "NQ-STUDOC",
+    "expiry": "20210822",
+    "branch": "",
+    "status": "OK",
+    "notes": ""
+  };
+  customerHelper.validate(customer,pConfig);
+  assert.strictEqual(customer.firstName,"lewis nicebit");
+  assert.strictEqual(customer.lastName,"hamilton");
+  assert.strictEqual(customer.middleName,"sOMENAMe");
+  assert.strictEqual(customer.street,"completely bogus address!!");
+  assert.strictEqual(customer.careOf,"SOME GOOD FOLKS");
+  pConfig.strictChecks = true;
+  customerHelper.validate(customer,pConfig);
+  assert.strictEqual(customer.firstName,"Lewis");
+  assert.strictEqual(customer.lastName,"Hamilton");
+  assert.strictEqual(customer.middleName,"Somename");
+  assert.strictEqual(customer.careOf,"Some Good Folks");
+});

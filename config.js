@@ -41,6 +41,7 @@ const defaultServerSettings = {
 const testPartners = [{
     "name" : "default",
     "key" : "QJnc2JQLICWASpVj6eIR",
+    "strictChecks" : false,
     "config" : "./config/default.json"
 }];
 
@@ -163,14 +164,19 @@ const validatePartnerConfigs = function(partnerConfigs){
             try {
                 let partnerConfigs = require(partner.config);
                 // check the required fields definition.
-                /** @TODO test the other objects in the partnerConfig object. */
                 let anyErrors = validatePartnerConfigs(partnerConfigs);
                 if (anyErrors.length > 0){
-                    logger.error(`**Error: ${partner.config} has errors: "${anyErrors}".`);
+                    logger.error(`**Error: '${partner.config}' has errors: "${anyErrors}".`);
                 } else {
+                    // Check and add the 'strictChecks' flag is set for the partner and if so
+                    // set the flag, but by default it should be true.
+                    partnerConfigs.strictChecks = partner.strictChecks == false ? false : true;
+                    if (! partnerConfigs.strictChecks) {
+                        logger.info(` - *WARNING: '${partner.name}' is not using strict data checking!`);
+                    }
                     // Save the partner's config.json data as their api key, value pair.
                     environment[partner.key] = partnerConfigs;
-                    logger.info(` - ${partner.name} configs loaded successfully.`);
+                    logger.info(` - '${partner.name}' configs loaded successfully.`);
                 }
             } catch (err) {
                 logger.error(`Error in ${configFile}.`,err);

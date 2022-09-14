@@ -152,15 +152,27 @@ Dictionaries for controlling what ports Learning Pass will listen on for inbound
 ```
 
 ## Partners
-An array of partner dictionaries that list which organizations that are allowed to use Learning Pass. Each dictionary has three entries, all required.
+An array of partner dictionaries that list which organizations that are allowed to use Learning Pass. Each dictionary has three required entries of **name** of the partner, **key** API key, and **config** which contains the partners configurations.
 ```json
 [{
   "name" : "Partner Name",
   "key" : "partners_api_key",
-  "config" : "./path/to/partner.json"
+  "config" : "./path/to/partner.json",
+  "strictChecks" : false
 },
 ]
 ```
+____
+The optional field is **strictChecks** a boolean that is `true` by default or if not defined, but when `false` tells LPass to not alter the following data from the partner.
+* First name
+* Last name
+* Middle name
+* Street
+* Care of name
+
+**It is *NOT* recommended that this option be used because it allows the partners to pollute the ILS with inconsistent data that may contravene library policies and break search indexes.**
+___
+
 The API key can be any string you want but should be shared with only that organization. Learning Pass uses that API key to identify which organization is sending a registration request and will parse, and modify registration information to meet the SLA of the library and partner.
 
 You can add as many partner dictionaries as are needed to differentiate customer registrations. Think; for every class of customer, have a different partner configuration file. For example, if a school wanted student accounts to expire on August 31, but staff registration to never expire, the partner could have 2 different configuration files though, in this case it is highly likely students and staff could be differentiated in a more efficient way.
@@ -536,6 +548,8 @@ The following http status values can be returned in the response header.
 
 [x] Server
 
-    [ ] Upload library card list if admin.
+[ ] Upload library card list if admin.
 
-    [ ] New route to show available branches.
+[ ] New route to show available branches.
+
+[ ] Allow custom settings by partner. This would allow a partner to turn off strict checking of address formats or string capitalization.
