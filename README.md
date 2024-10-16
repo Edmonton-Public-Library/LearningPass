@@ -213,22 +213,21 @@ Controls when accounts expire by default. The partner may also have an expiry di
 ```
 
 Other values are allowed such as a specific date in the future, or "date" can be replaced with "days", which requires an integer of the number of days an account will have before expiry.
-```json
-"expiry" : { 
-  "days": 365
-},
-```
 
 ```json 
 "expiry" : { 
   "days": 365
-```
-or
-```json  
-  "date" : "2021-08-22" 
+}
 ```
 or
 ```json
+"expiry" : {
+  "date" : "2021-08-22"
+}
+```
+or
+```json
+"expiry" : {
   "date" : "NEVER"
 }
 ```
@@ -283,7 +282,7 @@ Learning Pass uses javascript regular expression syntax consistent with Google's
   "regex" : "^[a-zA-Z0-9-!_\\s]{4,125}$"
 }
 ```
-In the above example passwords must be a minimum of four characters, maximum of 125, and consist of upper and lower-case letters, numbers, dashes, underscores, exclamation marks, and / or spaces in any combination. Note the use of double-escaped 's' for spaces in JSON. 
+In the above example passwords must be a minimum of four characters and a maximum of 125, consist of upper and lower-case letters, numbers, dashes, underscores, exclamation marks, and / or spaces in any combination. Note the use of double-escaped 's' for spaces in JSON. 
 
 The default regex restricts passwords using the following regular expression.
 ```^[a-zA-Z0-9-!#$@&^,.:;()[\]~^%@*_+=\s]{4,125}$```
@@ -296,12 +295,12 @@ It may be necessary to merge two or more fields in customer data to make a new v
 "merge" : {
   "delimiter" : ", ",
   "fields" : {
-    "city" : ["city","province"],
+    "CITY_STATE" : ["city","province"],
     "USER_NAME" : ["lastName","firstName"]
   }
 }
 ```
-In the above example, province would be appended to the end of the city value, separated by a comma and space, and replaces the city field. Note in the second example, the last name and first name are appended with a comma and space, then used as the flat field 'USER_NAME' in the final flat file.
+In the above example, province would be appended to the end of the city value, separated by a comma and space, and replaces the `CITY/STATE` field. Note in the second example, the last name and first name are appended with a comma and space, then used as the flat field 'USER_NAME' in the final flat file.
 
 ### Required fields
 (Required)
@@ -413,8 +412,8 @@ Gender is a tricky and complicated metric. Some libraries don't bother collectin
   "male" : "M",
   "dude" : "M",
   "female" : "F",
-  "dude-et" : "F",
-  "none of your business" : "NA",
+  "zirs" : "NA",
+  "zi" : "NA",
   "prefers not to say" : "X"
 },
 ```
@@ -464,10 +463,9 @@ Functions exactly like the library's settings, but supersede those values.
 ## Notes
 (Optional)
 
-The notes field in a customer registration can be used for two purposes. 
-[x] If the ```"notes"``` dictionary is not included in the partner's configuration settings, any note is added as-is to the account.
-
-[x] If the ```"notes"``` dictionary is used, the ```"require"``` path indicates the location of the plugin that Learning Pass uses to further process the customer account. For example, the plugin could compute a user category, access a street address validation service, or check for a duplicate account. Its only limit is your imagination.
+The notes field in a customer registration can be used for two purposes.
+* If the ```"notes"``` dictionary is not included in the partner's configuration settings, any note is added as-is to the account.
+* If the ```"notes"``` dictionary is used, the ```"require"``` path indicates the location of the plugin that Learning Pass uses to further process the customer account. For example, the plugin could compute a user category, access a street address validation service, or check for a duplicate account. Its only limit is your imagination.
 
 ```json
 "notes" : { "require" : "../path/to/partner.js" }
